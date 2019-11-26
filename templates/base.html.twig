@@ -1,12 +1,129 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}Cédric-Blog Application{% endblock %}</title>
+    <link rel="alternate" type="application/rss+xml" title="{{ 'rss.title'|trans }}" href="{{ path('blog_rss') }}">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body id="{% block body_id %}{% endblock %}">
+    {% block header %}
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                <a class="navbar-brand" href="{{ path('homepage') }}">
+                    <img src="{{ asset('build/images/brand.png') }}" aria-details="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#BlogMainMenu" aria-controls="BlogMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="BlogMainMenu">
+                    <ul class="navbar-nav">
+                        {% block header_navigation_links %}
+                            <li class="nav-item mr-auto">
+                                <a class="nav-link" href="{{ path('blog_index') }}">
+                                    <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
+                                </a>
+                            </li>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item mr-auto">
+                                    <a class="nav-link" href="{{ path('admin_post_index') }}">
+                                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'menu.admin'|trans }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endblock %}
+
+                        <li class="nav-intem mr-auto">
+                            <a class="nav-link" href="{{ path('blog_search') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans }}</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                        {% if app.user %}
+                        <li class="nav-item dropdown d-flex justify-content-end">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
+                                <i class="fa fa-user" aria-hidden="true"></i>{{ app.user.fullname }}</a>
+                            <div class="dropdown-menu user" role="menu" aria-labelledby="user">
+                                <a class="nav-link" href="{{ path('user_edit') }}"> {{ 'menu.user'|trans }}</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" href="{{ path('security_logout') }}">{{ 'menu.logout'|trans }}</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item dropdown d-flex justify-content-end">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="locales">
+                                <i class="fa fa-globe" aria-hidden="true"></i>{{ 'menu.choose_language'|trans }}</a>
+                            <div class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+                                {% for locale in locales() %}
+                                    {# <li class="nav-item" {% if app.request.locale == locale.code %} aria-checked="true" class="active" {% else %} aria-checked="false" {% endif %}> #}
+                                    <a {% if app.request.locale == locale.code %} aria-checked="true" class="nav-link active" {% else %} aria-checked="false" class="nav-link"{% endif %}
+                                       href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small></a>
+                                    {#</li>#}
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+    <div class="container body-container">
+        {% block body %}
+        <div class="row">
+            <div id="main" class="col-sm-9">
+                {{ include('default/_flash_messages.html.twig') }}
+
+                {% block main %}{% endblock %}
+            </div>
+
+            <div id="sidebar" class="col-sm-3">
+                {% block sidebar %}
+                    {{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {
+                        'template': 'blog/about.html.twig',
+                        'sharedAge': 600,
+                        '_locale': app.request.locale
+                    })) }}
+                {% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+
+    {% block footer %}
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div id="footer-copyright" class="col-md-6">
+                        <p>&copy; {{ 'now'|date('Y') }} - Cédric Blog</p>
+                        <p>{{ 'mit_license'|trans }}</p>
+                    </div>
+                    <div id="footer-resources" class="col-md-6">
+                        <p>
+                            <a href="https://twitter.com/Plaire Cédric" title="Symfony Twitter">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://www.facebook.com/Cedric Plaire" title="SensioLabs Facebook">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://symfony.com/blog/" title="Symfony Blog">
+                                <i class="fa fa-rss" aria-hidden="true"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <!-- Page rendered on {{ 'now'|localizeddate('long', 'long', null, 'UTC') }} -->
+</body>
 </html>
