@@ -6,12 +6,12 @@ html_sanitizer:
             # to learn more about which extensions you would like to enable.
             extensions:
                 - 'basic'
-                # - 'list'
-                # - 'table'
-                # - 'image'
-                # - 'code'
-                # - 'iframe'
-                # - 'extra'
+                - 'list'
+                - 'table'
+                - 'image'
+                - 'code'
+                - 'iframe'
+                - 'extra'
 
             # Read https://github.com/tgalopin/html-sanitizer/blob/master/docs/3-configuration-reference.md
             # to discover all the available options for each extension.

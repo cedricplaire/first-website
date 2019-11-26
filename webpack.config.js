@@ -54,7 +54,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -65,6 +65,11 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+    .autoProvideVariables({
+        "window.Bloodhound": require.resolve('bloodhound-js'),
+        "jQuery.tagsinput": "bootstrap-tagsinput"
+    })
+
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
