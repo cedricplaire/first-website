@@ -94,7 +94,9 @@ header .locales a small {
 }
 header .locales .active small,
 header .locales a:hover small {
-  color: inherit;
+  border: 2px solid #91dd95;
+  color: #485353;
+  font-weight: bold;
 }
 
 .body-container {
