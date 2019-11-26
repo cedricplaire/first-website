@@ -30,7 +30,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/{_locale}", name="homepage")
      */
     public function index()
     {
