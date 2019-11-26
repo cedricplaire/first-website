@@ -23,7 +23,8 @@ import './doclinks.js';
 
 const $ = require('jquery');
 
-require('bootstrap/dist/js/bootstrap');
+//require('bootstrap/dist/js/bootstrap-bundle');
+require('bootstrap');
 
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
