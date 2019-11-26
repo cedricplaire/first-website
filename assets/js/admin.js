@@ -1,7 +1,7 @@
 import '../scss/admin.scss';
 import 'tempusdominus-bootstrap-4/src/js/tempusdominus-bootstrap-4.js';
 import 'typeahead.js';
-import Bloodhound from "bloodhound-js";
+import Bloodhound from "~bloodhound-js";
 import 'bootstrap-tagsinput';
 
 $(function() {
