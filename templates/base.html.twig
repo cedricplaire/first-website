@@ -50,10 +50,20 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
                                 <i class="fa fa-user" aria-hidden="true"></i>{{ app.user.fullname }}</a>
                             <div class="dropdown-menu user" role="menu" aria-labelledby="user">
-                                <a class="nav-link" href="{{ path('user_edit') }}"> {{ 'menu.user'|trans }}</a>
+                                <a class="nav-link" href="{{ path('user_edit') }}"> 
+                                    <i class="fa fa-user-edit"></i> {{ 'menu.user'|trans }}
+                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="nav-link" href="{{ path('security_logout') }}">{{ 'menu.logout'|trans }}</a>
+                                <a class="nav-link" href="{{ path('security_logout') }}">
+                                    <i class="fa fa-sign-out"></i> {{ 'menu.logout'|trans }}
+                                </a>
                             </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-intem d-flex justify-content-end">
+                            <a class="nav-link" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}"> 
+                                <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
+                            </a>
                         </li>
                         {% endif %}
                         <li class="nav-item dropdown d-flex justify-content-end">
