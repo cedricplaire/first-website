@@ -64,6 +64,9 @@
                             <a class="nav-link" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}"> 
                                 <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
                             </a>
+                            <a class="nav-link" href="{{ path('app_register', {'redirect_to': app.request.pathInfo}) }}"> 
+                                <i class="fa fa-register"></i> S'enregistrer {# {{ 'action.sign_in'|trans }} #}
+                            </a>
                         </li>
                         {% endif %}
                         <li class="nav-item dropdown d-flex justify-content-end">
