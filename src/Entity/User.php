@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use phpDocumentor\Reflection\Types\Boolean;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,6 +50,9 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
+     * @var Boolean
+     * @property boolean|small_int $isActive
+     * 
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
@@ -86,9 +90,11 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
+     * @var string $apiToken
+     * 
      * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
-    private $apiToken;
+    private $apiToken;    
 
     public function __construct()
     {
@@ -155,12 +161,12 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    function getIsActive(): ?Boolean
+    public function getIsActive()
     {
         return $this->isActive;
     }
 
-    function setIsActive($isActive): void
+    public function setIsActive($isActive): void
     {
         $this->isActive = $isActive;
     }
@@ -258,6 +264,18 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(?string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -273,17 +291,5 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
-    }
-
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(?string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
     }
 }
