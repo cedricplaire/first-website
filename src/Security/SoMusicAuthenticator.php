@@ -39,7 +39,7 @@ class SoMusicAuthenticator extends AbstractFormLoginAuthenticator implements Pas
 
     public function supports(Request $request)
     {
-        return 'app_login' === $request->attributes->get('_route')
+        return 'security_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
@@ -100,6 +100,6 @@ class SoMusicAuthenticator extends AbstractFormLoginAuthenticator implements Pas
 
     protected function getLoginUrl()
     {
-        return $this->urlGenerator->generate('app_login');
+        return $this->urlGenerator->generate('security_login');
     }
 }

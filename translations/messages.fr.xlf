@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="uu2CtDr" resname="reg_new_user">
+        <source>reg_new_user</source>
+        <target>Enregistrement d'un nouvel utilisateur</target>
+      </trans-unit>
+      <trans-unit id="78Fbzvu" resname="reg_user">
+        <source>reg_user</source>
+        <target>Enregistrer l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="bG2cJA8" resname="register">
+        <source>register</source>
+        <target>S'enregistrer</target>
+      </trans-unit>
+      <trans-unit id="j6XjcVq" resname="agree_terms">
+        <source>You should agree to our terms</source>
+        <target>Accepter les conditions</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>Vous êtes connecté en tant que </target>
+      </trans-unit>
+      <trans-unit id="1KIPE1t" resname="help.login">
+        <source>help.login</source>
+        <target><![CDATA[Entrez l'identifiant et le mot de passe que vous avez utilisé lors de votre inscription. Il s'agit de <strong>Username</strong> et de <strong>Password</strong>. Si vous avez oublié votre mot de passe cliquez sur <strong>Changer le mot de passe.</strong>.]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

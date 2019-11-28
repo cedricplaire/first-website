@@ -1,8 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}SoMusic - {{ 'action.sign_in'|trans }}{% endblock %}
 
-{% block body %}
+{% block body_id 'login' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('login') }}
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            {{ 'You are logged in as'|trans }} {{ app.user.username }}, <a class="btn btn-primary" href="{{ path('security_logout') }}">{{'menu.logout'|trans}}</a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="well">
+                <form action="{{ path('security_login') }}" method="post">
+                    <fieldset>
+                        <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</legend>
+                        <div class="form-group">
+                            <label for="username">{{ 'label.username'|trans }}</label>
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">{{ 'label.password'|trans }}</label>
+                            <input type="password" id="password" name="_password" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+                            <label for="remember_me">se souvenir de moi</label>
+                        </div>
+                        <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'action.sign_in'|trans }}
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div id="login-help" class="col-sm-5">
+            <div class="well">
+                {{ 'help.login'|trans|md2html }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#{% block main %}
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -10,7 +66,7 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">{{'menu.logout'|trans}}</a>
         </div>
     {% endif %}
 
@@ -34,4 +90,4 @@
         Sign in
     </button>
 </form>
-{% endblock %}
+{% endblock %}#}
