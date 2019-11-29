@@ -25,6 +25,10 @@
         <source>mit_license</source>
         <target>Licence MIT</target>
       </trans-unit>
+      <trans-unit id="ccZ9zCA" resname="page.prev">
+        <source>page.prev</source>
+        <target>Suivant</target>
+      </trans-unit>
       <trans-unit id="DF34uM2" resname="http_error.name">
         <source>http_error.name</source>
         <target>Erreur {status_code, number}</target>

@@ -87,12 +87,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $age;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $apiToken;    
+    private $age;   
 
     public function __construct()
     {
@@ -277,17 +272,5 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
-    }
-
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
     }
 }

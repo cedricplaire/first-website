@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +11,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
- * Controller used to manage the application security.
- * See https://symfony.com/doc/current/cookbook/security/form_login_setup.html.
- *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Plaire Cédric <plaire.cedric@somusicshare.com>
  */
+
 class SecurityController extends AbstractController
 {
     use TargetPathTrait;
@@ -39,7 +27,6 @@ class SecurityController extends AbstractController
         if ($security->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('blog_index');
         }
-
         // this statement solves an edge-case: if you change the locale in the login
         // page, after a successful login you are redirected to a page in the previous
         // locale. This code regenerates the referrer URL whenever the login page is

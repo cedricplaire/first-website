@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="h3gPpd5" resname="register">
+        <source>register</source>
+        <target>register</target>
+      </trans-unit>
+      <trans-unit id="5bBVgBw" resname="page.previous">
+        <source>page.previous</source>
+        <target>Previous</target>
+      </trans-unit>
+      <trans-unit id="bTZPzvK" resname="page.next">
+        <source>page.next</source>
+        <target>Next</target>
+      </trans-unit>
+      <trans-unit id="uu2CtDr" resname="reg_new_user">
+        <source>reg_new_user</source>
+        <target>Registering new user</target>
+      </trans-unit>
+      <trans-unit id="78Fbzvu" resname="reg_user">
+        <source>reg_user</source>
+        <target>register user</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>You are logged in as</target>
+      </trans-unit>
+      <trans-unit id="1KIPE1t" resname="help.login">
+        <source>help.login</source>
+        <target>__help.login</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

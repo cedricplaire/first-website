@@ -72,6 +72,10 @@ header ul.nav li {
   margin-bottom: 0
 }
 
+header a.navbar-brand img {
+  margin-top:  -10px;
+}
+
 header .locales {
   min-width: 190px;
 }
@@ -86,15 +90,20 @@ header .locales a small {
   float: left;
   font-size: 12px;
   line-height: 1.1;
-  margin: 2px 10px 0 0;
-  min-width: 26px;
-  padding: 0px 3px;
+  margin: 4px 10px 0 0;
+  min-width: 30px;
+  padding: 0px 5px;
   text-align: center;
   text-transform: uppercase;
 }
+
+header .locales .active {
+  font-weight: bold;
+}
+
 header .locales .active small,
 header .locales a:hover small {
-  border: 2px solid #91dd95;
+  border: 2px solid #007bff;
   color: #485353;
   font-weight: bold;
 }
@@ -120,6 +129,10 @@ header .locales a:hover small {
 
 #sidebar p + p {
   margin: 1.5em 0 0
+}
+
+#sidebar .rss {
+  align-content: center;
 }
 
 footer {
@@ -171,7 +184,7 @@ footer #footer-resources i {
 /* Misc. elements
    ------------------------------------------------------------------------- */
 .section.rss a {
-  color: #f39c12;
+  color: #fff;
   font-size: 21px;
 }
 

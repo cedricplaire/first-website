@@ -13,12 +13,12 @@
         <source>reg_user</source>
         <target>Enregistrer l'utilisateur</target>
       </trans-unit>
-      <trans-unit id="bG2cJA8" resname="register">
+      <trans-unit id="h3gPpd5" resname="register">
         <source>register</source>
         <target>S'enregistrer</target>
       </trans-unit>
-      <trans-unit id="j6XjcVq" resname="agree_terms">
-        <source>You should agree to our terms</source>
+      <trans-unit id="sSJ75Q9" resname="agree_terms">
+        <source>agree_terms</source>
         <target>Accepter les conditions</target>
       </trans-unit>
       <trans-unit id="acVpEs4" resname="You are logged in as">
@@ -28,6 +28,14 @@
       <trans-unit id="1KIPE1t" resname="help.login">
         <source>help.login</source>
         <target><![CDATA[Entrez l'identifiant et le mot de passe que vous avez utilisé lors de votre inscription. Il s'agit de <strong>Username</strong> et de <strong>Password</strong>. Si vous avez oublié votre mot de passe cliquez sur <strong>Changer le mot de passe.</strong>.]]></target>
+      </trans-unit>
+      <trans-unit id="5bBVgBw" resname="page.previous">
+        <source>page.previous</source>
+        <target>Précédent</target>
+      </trans-unit>
+      <trans-unit id="bTZPzvK" resname="page.next">
+        <source>page.next</source>
+        <target>Suivant</target>
       </trans-unit>
     </body>
   </file>
