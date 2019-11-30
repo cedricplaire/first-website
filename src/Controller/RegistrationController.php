@@ -22,7 +22,6 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        $user->setApiToken(bin2hex(random_bytes(60)));
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
