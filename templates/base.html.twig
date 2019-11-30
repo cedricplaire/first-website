@@ -67,9 +67,11 @@
                                 <a class="nav-link" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}"> 
                                     <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
                                 </a>
+                                {#
                                 <a class="nav-link" href="{{ path('app_register', {'redirect_to': app.request.pathInfo}) }}"> 
                                     <i class="fa fa-user-plus"></i> {{ 'register'|trans }}
                                 </a>
+                                #}
                             </div>
                         </li>
                         {% endif %}
