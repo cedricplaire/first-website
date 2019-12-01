@@ -33,6 +33,14 @@
         <source>help.login</source>
         <target>__help.login</target>
       </trans-unit>
+      <trans-unit id="Remember_me" resname="remember_me">
+        <source>Remember me</source>
+        <target>Remember me</target>
+      </trans-unit>
+      <trans-unit id="Help_username" resname="help.identifiant">
+        <source>Username entered at registration</source>
+        <target>Username entered at registration</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

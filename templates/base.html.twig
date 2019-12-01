@@ -67,11 +67,11 @@
                                 <a class="nav-link" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}"> 
                                     <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
                                 </a>
-                                {#
-                                <a class="nav-link" href="{{ path('app_register', {'redirect_to': app.request.pathInfo}) }}"> 
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" href="{{ path('security_register', {'redirect_to': app.request.pathInfo}) }}"> 
                                     <i class="fa fa-user-plus"></i> {{ 'register'|trans }}
                                 </a>
-                                #}
+                                
                             </div>
                         </li>
                         {% endif %}
@@ -124,7 +124,7 @@
                     </div>
                     <div id="footer-resources" class="col-md-6">
                         <p>
-                            <a href="https://twitter.com/Plaire Cédric" title="Plaire-Cédric Twitter">
+                            <a href="https://twitter.com/TheBebshow" title="Plaire-Cédric Twitter">
                                 <i class="fa fa-twitter" aria-hidden="true"></i>
                             </a>
                             <a href="https://www.facebook.com/cedric.plaire.7" title="Plaire-Cédric Facebook">

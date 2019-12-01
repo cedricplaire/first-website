@@ -37,6 +37,14 @@
         <source>page.next</source>
         <target>Suivant</target>
       </trans-unit>
+      <trans-unit id="Remember_me" resname="remember_me">
+        <source>Remember me</source>
+        <target>Se souvenir de moi</target>
+      </trans-unit>
+      <trans-unit id="Help_username" resname="help.identifiant">
+        <source>Username entered at registration</source>
+        <target>Nom d'utilisateur entré lors de l'inscription</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
