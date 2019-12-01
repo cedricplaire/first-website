@@ -94,13 +94,12 @@
     {% endblock %}
     <div class="container body-container">
         {% block body %}
-        <div class="row">
+        <div class="row">        
             <div id="main" class="col-sm-9">
                 {{ include('default/_flash_messages.html.twig') }}
 
                 {% block main %}{% endblock %}
             </div>
-
             <div id="sidebar" class="col-sm-3">
                 {% block sidebar %}
                     {{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {
