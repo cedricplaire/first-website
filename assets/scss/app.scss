@@ -52,6 +52,16 @@ i {
     color: inherit
 }
 
+/* 
+* jumbotron
+*/
+.jt-fluid {
+  background-image: url('/build/images-site/jumbotron-somusic.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+}
+
 /* Utilities
    ------------------------------------------------------------------------- */
 .m-b-0 { margin-bottom: 0 }
@@ -112,7 +122,7 @@ header .locales a:hover small {
   flex: 1;
   /* needed to prevent pages with a very small height and browsers not supporting flex */
   min-height: 600px;
-  margin-top: 40px;
+  margin-top: -30px;
 }
 
 .body-container #main h1, .body-container #main h2 {

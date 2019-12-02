@@ -36,6 +36,8 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            
+
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

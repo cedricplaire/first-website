@@ -92,23 +92,14 @@
             </nav>
         </header>
     {% endblock %}
-    <div class="container body-container">
+    <div class="container-fluid body-container">
         {% block body %}
         <div class="row">        
-            <div id="main" class="col-sm-9">
+            <div id="main" class="col-sm-12">
                 {{ include('default/_flash_messages.html.twig') }}
 
                 {% block main %}{% endblock %}
-            </div>
-            <div id="sidebar" class="col-sm-3">
-                {% block sidebar %}
-                    {{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {
-                        'template': 'blog/about.html.twig',
-                        'sharedAge': 600,
-                        '_locale': app.request.locale
-                    })) }}
-                {% endblock %}
-            </div>
+            </div>  
         </div>
         {% endblock %}
     </div>
@@ -118,7 +109,7 @@
             <div class="container">
                 <div class="row">
                     <div id="footer-copyright" class="col-md-6">
-                        <p>&copy; {{ 'now'|date('Y') }} - Cédric Blog</p>
+                        <p>&copy; {{ 'now'|date('Y') }} SoMusicShare - Plaire Cédric Blog</p>
                         <p>{{ 'mit_license'|trans }}</p>
                     </div>
                     <div id="footer-resources" class="col-md-6">

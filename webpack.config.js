@@ -19,7 +19,7 @@ Encore
      * 
      */
     .copyFiles ({
-        from: './assets/images',
+        from: './assets/images-site',
 
         to: 'images-site/[path][name].[ext]',
 
