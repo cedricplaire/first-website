@@ -10,15 +10,21 @@
     {#<div class="row">
         <div class="col-sm-12">#}
             <div class="jumbotron-fluid jt-fluid">
-                
+                <div class="jt-text">
+                    <h1>Envie de partager sur le thème de la musique ?</h1>
+                    <h2>Inscrivez vous !</h2>
+                    <a href="{{ path('security_register') }}" class="btn btn-lg btn-light">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> S'enregistrer
+                    </a>
+                </div>
                 {#<p>
                     {{ 'help.browse_app'|trans|raw }}
-                </p>#}
+                </p>
                 <p>
                     <a class="btn btn-primary btn-lg" href="{{ path('blog_index') }}">
                         <i class="fa fa-users" aria-hidden="true"></i> {{ 'action.browse_app'|trans }}
                     </a>
-                </p>
+                </p>#}
             </div>
         {#</div>
         
@@ -34,6 +40,6 @@
                 </p>
             </div>
         </div>
-        #}
-    </div>
+        
+    </div>#}
 {% endblock %}

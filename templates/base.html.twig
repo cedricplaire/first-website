@@ -13,8 +13,8 @@
 </head>
 <body id="{% block body_id %}{% endblock %}">
     {% block header %}
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <header class="container">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{ path('homepage') }}">
                     <img src="{{ asset('build/images-site/brand.png') }}" aria-details="Logo">
                 </a>
@@ -44,12 +44,12 @@
                             <a class="nav-link" href="{{ path('blog_search') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans }}</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
                         {% if app.user %}
                         <li class="nav-item dropdown d-flex justify-content-end">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
                                 <i class="fa fa-user" aria-hidden="true"></i>{{ app.user.fullname }}</a>
-                            <div class="dropdown-menu user" role="menu" aria-labelledby="user">
+                            <div class="dropdown-menu bg-dark user" role="menu" aria-labelledby="user">
                                 <a class="nav-link" href="{{ path('user_edit') }}"> 
                                     <i class="fa fa-user-edit"></i> {{ 'menu.user'|trans }}
                                 </a>
@@ -63,7 +63,7 @@
                         <li class="nav-intem dropdown d-flex justify-content-end">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
                                 <i class="fa fa-user" aria-hidden="true"></i> {{ 'action.sign_in'|trans }} </a>
-                            <div class="dropdown-menu user" role="menu" aria-labelledby="user">
+                            <div class="dropdown-menu bg-dark user" role="menu" aria-labelledby="user">
                                 <a class="nav-link" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}"> 
                                     <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
                                 </a>
@@ -78,7 +78,7 @@
                         <li class="nav-item dropdown d-flex justify-content-end">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="locales">
                                 <i class="fa fa-globe" aria-hidden="true"></i>{{ 'menu.choose_language'|trans }}</a>
-                            <div class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+                            <div class="dropdown-menu bg-dark locales" role="menu" aria-labelledby="locales">
                                 {% for locale in locales() %}
                                     {# <li class="nav-item" {% if app.request.locale == locale.code %} aria-checked="true" class="active" {% else %} aria-checked="false" {% endif %}> #}
                                     <a {% if app.request.locale == locale.code %} aria-checked="true" class="nav-link active" {% else %} aria-checked="false" class="nav-link"{% endif %}
@@ -92,7 +92,8 @@
             </nav>
         </header>
     {% endblock %}
-    <div class="container-fluid body-container">
+    
+    <div class="container body-container">
         {% block body %}
         <div class="row">        
             <div id="main" class="col-sm-12">
@@ -102,7 +103,7 @@
             </div>  
         </div>
         {% endblock %}
-    </div>
+    </div> 
 
     {% block footer %}
         <footer>
