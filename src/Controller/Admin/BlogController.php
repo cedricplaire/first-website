@@ -79,6 +79,12 @@ class BlogController extends AbstractController
         // See https://symfony.com/doc/current/best_practices/forms.html#handling-form-submits
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(Slugger::slugify($post->getTitle()));
+            
+            $imgFile = $form['image']->getData();
+            if ($imgFile) {
+                $imgFileName = $fileUploader->upload($imgFile);
+                $post->setImage($imgFileName);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
@@ -132,6 +138,10 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(Slugger::slugify($post->getTitle()));
+            $post->setImage(
+                new File($this->getParameter('upload_dir').'/'.$post->getImage())
+            );
+            
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'post.updated_successfully');

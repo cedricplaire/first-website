@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -21,7 +23,7 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
+            throw FileException('Erreur in file process');
         }
 
         return $fileName;
