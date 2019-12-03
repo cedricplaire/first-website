@@ -419,11 +419,11 @@
       </trans-unit>
       <trans-unit id="DkZtOOL" resname="rss.title">
         <source>rss.title</source>
-        <target>Symfony Demo blog</target>
+        <target>SoMusicShare blog</target>
       </trans-unit>
       <trans-unit id="ZFPsu41" resname="rss.description">
         <source>rss.description</source>
-        <target>Most recent posts published on the Symfony Demo blog</target>
+        <target>Most recent posts published on the SoMusicShare blog</target>
       </trans-unit>
     </body>
   </file>

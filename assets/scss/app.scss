@@ -60,6 +60,7 @@ i {
   background-size: cover;
   background-position: center;
   height: 300px;
+  margin-top: -2px;
 }
 
 .jt-text {
@@ -87,6 +88,10 @@ i {
 /* Utilities
    ------------------------------------------------------------------------- */
 .m-b-0 { margin-bottom: 0 }
+
+.last-tweet {
+  margin-top: -2px;
+}
 
 /* Page elements
    ------------------------------------------------------------------------- */
@@ -117,8 +122,8 @@ header .locales a {
 }
 header .locales a small {
   border-radius: 4px;
-  border: 2px solid #dee2e6;
-  color: #7b8a8b;
+  border: 2px solid #999999;
+  color: #ffffff;
   float: left;
   font-size: 12px;
   line-height: 1.1;
@@ -136,7 +141,7 @@ header .locales .active {
 header .locales .active small,
 header .locales a:hover small {
   border: 2px solid #007bff;
-  color: #485353;
+  color: #007bff;
   font-weight: bold;
 }
 

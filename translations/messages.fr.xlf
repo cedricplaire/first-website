@@ -45,6 +45,14 @@
         <source>Username entered at registration</source>
         <target>Nom d'utilisateur entré lors de l'inscription</target>
       </trans-unit>
+      <trans-unit id="agree_term" resname="agree_term">
+        <source>Agree Terms</source>
+        <target>Accepter les conditions</target>
+      </trans-unit>
+      <trans-unit id="gnu_license" resname="gnu_license">
+        <source>gnu_license</source>
+        <target>License GNU</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

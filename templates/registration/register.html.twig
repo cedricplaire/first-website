@@ -14,7 +14,7 @@
                         {{ form_row(registrationForm.fullname) }}
                         {{ form_row(registrationForm.email) }}
                         {{ form_row(registrationForm.agreeTerms) }}
-
+                        {{ form_rest(registrationForm) }}
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>{{ 'reg_user'|trans }}
                         </button>

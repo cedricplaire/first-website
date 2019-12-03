@@ -2,35 +2,29 @@
 
 {% block body %}
 <div class="row">        
-    <div id="main" class="col-sm-9">
-        {{ include('default/_flash_messages.html.twig') }}
-
-        {% block main %}{% endblock %}
-    </div>
+    
     <div id="sidebar" class="col-sm-3">
     {% block sidebar %}
-        <h4>
+        {#<h4 class="text-center">
             <span class="badge badge-primary"> Twitter
                 <i class="fa fa-twitter"></i> 
             </span> : Symfony
-        </h4>
-        <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Working on Open-Source is hard: you spend your FREE time adding features, improving code, documenting it, fixing it, supporting it... and you have to justify yourself... exhausting 
-            <a href="https://t.co/LamTMD7wft">https://t.co/LamTMD7wft</a> Keep going 
-            <a href="https://twitter.com/wouterjnl?ref_src=twsrc%5Etfw">@wouterjnl</a></p>&mdash; Fabien Potencier (@fabpot) 
-            <a href="https://twitter.com/fabpot/status/1201059299520393216?ref_src=twsrc%5Etfw">December 1, 2019</a>
-        </blockquote> 
+        </h4>#}
+        <div class="last-tweet"> 
+            <a class="twitter-timeline" data-height="600" data-theme="dark" href="https://twitter.com/symfony?ref_src=twsrc%5Etfw">Tweets by symfony</a> 
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        <blockquote class="twitter-tweet"><p lang="und" dir="ltr">Symfony 5.0.1 released 
-            <a href="https://t.co/m07jAbP1YC">https://t.co/m07jAbP1YC</a> 
-            <a href="https://twitter.com/hashtag/symfony?src=hash&amp;ref_src=twsrc%5Etfw">#symfony</a></p>&mdash; Symfony (@symfony) 
-            <a href="https://twitter.com/symfony/status/1201143997349138440?ref_src=twsrc%5Etfw">December 1, 2019</a>
-        </blockquote>
+        </div>
         {{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {
             'template': 'blog/about.html.twig',
             'sharedAge': 600,
             '_locale': app.request.locale
         })) }}
     {% endblock %}
-    </div>            
+    </div> 
+    <div id="main" class="col-sm-9">
+        {{ include('default/_flash_messages.html.twig') }}
+
+        {% block main %}{% endblock %}
+    </div>           
 </div>
 {% endblock %}
