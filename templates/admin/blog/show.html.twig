@@ -3,15 +3,16 @@
 {% block body_id 'admin_post_show' %}
 
 {% block main %}
+<div class="post">
     <h1>{{ post.title }}</h1>
 
     <p class="post-metadata">
         <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
         <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
     </p>
-    
+    {% if post.image %}
     <img src="{{ asset('uploads/images/' ~ product.image) }}" class="img-fluid" alt="Responsive image">
-
+    {% endif %}
     <div class="well">
         <p class="m-b-0"><strong>{{ 'label.summary'|trans }}</strong>: {{ post.summary }}</p>
     </div>
@@ -21,6 +22,7 @@
     </div>
 
     {{ include('blog/_post_tags.html.twig') }}
+</div>
 {% endblock %}
 
 {% block sidebar %}

@@ -42,4 +42,4 @@ services:
     # service for upload files
     App\Service\FileUploader:
         arguments:
-            $targetDirectory: '%upload_dir%'
+            $uploadDirectory: '%upload_dir%'

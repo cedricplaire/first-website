@@ -14,6 +14,7 @@ namespace App\Form;
 use App\Entity\Post;
 use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

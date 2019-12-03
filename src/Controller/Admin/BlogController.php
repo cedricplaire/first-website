@@ -15,22 +15,19 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Security\PostVoter;
+use App\Service\FileUploader;
 use App\Utils\Slugger;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Controller used to manage blog contents in the backend.
- *
- * Please note that the application backend is developed manually for learning
- * purposes. However, in your real Symfony application you should use any of the
- * existing bundles that let you generate ready-to-use backends without effort.
- *
- * See http://knpbundles.com/keyword/admin
  *
  * @Route("/admin/post")
  * @IsGranted("ROLE_ADMIN")
@@ -57,10 +54,6 @@ class BlogController extends AbstractController
      * Creates a new Post entity.
      *
      * @Route("/new", methods={"GET", "POST"}, name="admin_post_new")
-     *
-     * NOTE: the Method annotation is optional, but it's a recommended practice
-     * to constraint the HTTP methods each controller responds to (by default
-     * it responds to all methods).
      */
     public function new(Request $request): Response
     {
