@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'blog/layout.html.twig' %}
 
 {% block body_id 'blog_post_show' %}
 
@@ -10,7 +10,7 @@
         <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
     </p>
 
-    <img src="{{ asset('uploads/images/' ~ product.image) }}" class="img-fluid" alt="Responsive image">
+    <img src="{{ asset('uploads/article-image/' ~ post.image) }}" class="img-fluid" alt="Responsive image">
 
     <div class="well">
         <p class="m-b-0"><strong>{{ 'label.summary'|trans }}</strong>: {{ post.summary }}</p>
@@ -69,9 +69,6 @@
         </div>
     {% endif %}
 
-    {# the parent() function includes the contents defined by the parent template
-      ('base.html.twig') for this block ('sidebar'). This is a very convenient way
-      to share common contents in different templates #}
     {{ parent() }}
 
     {{ show_source_code(_self) }}
