@@ -67,6 +67,9 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(Slugger::slugify($post->getTitle()));
             
+            /**
+             * @var UploadedFile $imgFile
+             */
             $imgFile = $form['image']->getData();
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, 'article-image');
@@ -122,6 +125,9 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(Slugger::slugify($post->getTitle()));
 
+            /**
+             * @var UploadedFile $imgFile
+             */
             $imgFile = $form['image']->getData();
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, 'article-image');
