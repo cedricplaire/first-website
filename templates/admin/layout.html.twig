@@ -24,14 +24,13 @@
 {% endblock %}
 {% block body %}
 <div class="row">        
-    
+    <div id="main" class="col-sm-9">
+        {{ include('default/_flash_messages.html.twig') }}
+
+        {% block main %}{% endblock %}
+    </div> 
     <div id="sidebar" class="col-sm-3">
     {% block sidebar %}
-        {#<h4 class="text-center">
-            <span class="badge badge-primary"> Twitter
-                <i class="fa fa-twitter"></i> 
-            </span> : Symfony
-        </h4>#}
         <div class="last-tweet"> 
             <a class="twitter-timeline" tweer-limit="6" data-height="500" href="https://twitter.com/symfony?ref_src=twsrc%5Etfw">Tweets by symfony</a> 
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -42,11 +41,6 @@
             '_locale': app.request.locale
         })) }}
     {% endblock %}
-    </div> 
-    <div id="main" class="col-sm-9">
-        {{ include('default/_flash_messages.html.twig') }}
-
-        {% block main %}{% endblock %}
     </div>           
 </div>
 {% endblock %}
