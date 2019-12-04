@@ -59,7 +59,7 @@ class PostType extends AbstractType
                 'required' => false,
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image (jpg, gif, png file)',
+                'label' => 'Image (jpg, jpeg, gif, png file)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -67,6 +67,7 @@ class PostType extends AbstractType
                         'maxSize' => '4096k',
                         'mimeTypes' => [
                             'image/jpeg',
+                            'image/jpg',
                             'image/gif',
                             'image/png',
                             'image/svg-xml'

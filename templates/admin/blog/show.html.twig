@@ -11,7 +11,7 @@
         <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
     </p>
     {% if post.image %}
-    <img src="{{ asset('uploads/images/' ~ product.image) }}" class="img-fluid" alt="Responsive image">
+    <img src="{{ asset('uploads/' ~ post.image) }}" class="img-fluid" alt="Responsive image">
     {% endif %}
     <div class="well">
         <p class="m-b-0"><strong>{{ 'label.summary'|trans }}</strong>: {{ post.summary }}</p>

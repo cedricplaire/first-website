@@ -2,16 +2,10 @@
 
 {% block body %}
 <div class="row">        
-    
     <div id="sidebar" class="col-sm-3">
     {% block sidebar %}
-        {#<h4 class="text-center">
-            <span class="badge badge-primary"> Twitter
-                <i class="fa fa-twitter"></i> 
-            </span> : Symfony
-        </h4>#}
         <div class="last-tweet"> 
-            <a class="twitter-timeline" data-height="600" data-theme="dark" href="https://twitter.com/symfony?ref_src=twsrc%5Etfw">Tweets by symfony</a> 
+            <a class="twitter-timeline" tweet-limit="6" data-height="600" data-theme="dark" href="https://twitter.com/symfony?ref_src=twsrc%5Etfw">Tweets by symfony</a> 
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         {{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {

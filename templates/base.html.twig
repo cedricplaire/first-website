@@ -13,7 +13,7 @@
 </head>
 <body id="{% block body_id %}{% endblock %}">
     {% block header %}
-        <header class="container">
+        <header class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{ path('homepage') }}">
                     <img src="{{ asset('build/images-site/brand.png') }}" aria-details="Logo">
@@ -93,7 +93,7 @@
         </header>
     {% endblock %}
     
-    <div class="container body-container">
+    <div class="container-fluid body-container">
         {% block body %}
         <div class="row">        
             <div id="main" class="col-sm-12">
@@ -107,7 +107,7 @@
 
     {% block footer %}
         <footer>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div id="footer-copyright" class="col-md-6">
                         <p>&copy; {{ 'now'|date('Y') }} SoMusicShare - Blog par Plaire Cédric</p>

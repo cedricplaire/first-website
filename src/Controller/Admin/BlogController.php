@@ -31,9 +31,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/admin/post")
  * @IsGranted("ROLE_ADMIN")
- *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * 
  */
 class BlogController extends AbstractController
 {
@@ -55,7 +53,7 @@ class BlogController extends AbstractController
      *
      * @Route("/new", methods={"GET", "POST"}, name="admin_post_new")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $post = new Post();
         $post->setAuthor($this->getUser());
@@ -71,7 +69,7 @@ class BlogController extends AbstractController
             
             $imgFile = $form['image']->getData();
             if ($imgFile) {
-                $imgFileName = $fileUploader->upload($imgFile);
+                $imgFileName = $fileUploader->upload($imgFile, 'article-image');
                 $post->setImage($imgFileName);
             }
 
@@ -79,10 +77,6 @@ class BlogController extends AbstractController
             $em->persist($post);
             $em->flush();
 
-            // Flash messages are used to notify the user about the result of the
-            // actions. They are deleted automatically from the session as soon
-            // as they are accessed.
-            // See https://symfony.com/doc/current/book/controller.html#flash-messages
             $this->addFlash('success', 'post.created_successfully');
 
             if ($form->get('saveAndCreateNew')->isClicked()) {
@@ -127,9 +121,12 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(Slugger::slugify($post->getTitle()));
-            $post->setImage(
-                new File($this->getParameter('upload_dir').'/'.$post->getImage())
-            );
+
+            $imgFile = $form['image']->getData();
+            if ($imgFile) {
+                $imgFileName = $fileUploader->upload($imgFile, 'article-image');
+                $post->setImage($imgFileName);
+            }
             
             $this->getDoctrine()->getManager()->flush();
 
