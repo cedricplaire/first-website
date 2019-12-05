@@ -1,7 +1,8 @@
+{% apply inline_css %}
 <html>
 <body>
 <div>
-    <img src="{{ email.image('$images/brand.png') }}">
+    <img src="{{ email.image('@images/brand.png') }}" alt="Logo">
     <p>Email envoyé par SoMusicShare, le Blog musical du sud-ouest</p>
 </div>
 <div>
@@ -9,3 +10,4 @@
 </div>
 </body>
 </html>
+{% endapply %}

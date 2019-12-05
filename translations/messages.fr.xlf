@@ -53,6 +53,10 @@
         <source>gnu_license</source>
         <target>License GNU</target>
       </trans-unit>
+      <trans-unit id="Nom utilisateur, servira a l'authentification :" resname="new_user_name">
+        <source>Nom utilisateur, servira a l'authentification :</source>
+        <target>Nom utilisateur, servira a l'authentification :</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

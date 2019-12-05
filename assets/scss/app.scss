@@ -60,11 +60,11 @@ i {
   background-size: cover;
   background-position: center;
   height: 300px;
-  margin-top: -2px;
+  margin-top: -22px;
 }
 
 .jt-text {
-  padding-top: 70px;
+  padding-top: 54px;
 }
 
 .jt-text h1 {
@@ -82,7 +82,7 @@ i {
 .jt-text a {
   font-weight: bold;
   box-shadow: 3px 3px 6px #212529;
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
 /* Utilities
@@ -149,7 +149,7 @@ header .locales a:hover small {
   flex: 1;
   /* needed to prevent pages with a very small height and browsers not supporting flex */
   min-height: 600px;
-  margin-top: -30px;
+  margin-top: -10px;
 }
 
 .body-container #main h1, .body-container #main h2 {

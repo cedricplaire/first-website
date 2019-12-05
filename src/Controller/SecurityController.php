@@ -15,6 +15,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use App\Form\RegistrationFormType;
 use App\Security\FormLoginAuthenticator;
 use App\Entity\User;
+use App\Service\Mailer;
 
 
 class SecurityController extends AbstractController
@@ -50,7 +51,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="security_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $formAuthenticator): Response
+    public function register(Mailer $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, FormLoginAuthenticator $formAuthenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -71,6 +72,7 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre compte à bien été enregistré.');
+            $mailer->sendWelcomeMessage($user);
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -78,7 +80,8 @@ class SecurityController extends AbstractController
                 $formAuthenticator,
                 'main'
             );
-            //sendEmail();
+            
+            //$this->addFlash('success', 'Un Email de confirmation vient de vous être envoyé');
             //return $this->redirectToRoute('blog_index');
         }
 
@@ -86,4 +89,21 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /*public function sendMessage(User $user) 
+    {
+        $message = (new \Swift_Message('Registration SoMusicShare!'))
+        ->setFrom(['cedricplaire30@gmail.com' => 'Administrateur'])
+        ->setTo($user->getEmail())
+        ->setBody(
+            $this->renderView(
+                // templates/emails/registration.html.twig
+                'emails/registration/confirm.html.twig',
+                ['name' => $user->getFullName()]
+            ),
+            'text/html'
+        );
+
+        $mailer->send($message);
+    }*/
 }

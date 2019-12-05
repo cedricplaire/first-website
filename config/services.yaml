@@ -43,3 +43,6 @@ services:
     App\Service\FileUploader:
         arguments:
             $uploadDirectory: '%upload_dir%'
+
+    App\Service\MailerSvc:
+        arguments: 
