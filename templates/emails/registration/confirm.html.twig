@@ -1,19 +1,18 @@
-{% extends layout.html.twig %}
+{% extends 'emails/layout.html.twig' %}
 
 {% block content %}
 
 <h3>Enregistrement sur le blog SoMusicShare !</h3>
 
-Bonjour {{ name }}! Vous êtes a présent inscrit sur le site SOMusicShare.
+<div>Bonjour {{ name }}! Vous êtes a présent inscrit sur le site SOMusicShare.</div>
 
-{# example, assuming you have a route named "login" #}
-Pour vous connecter, veuillez cliquer sur ce lien : <a href="{{ absolute_url('security_login') }}">...</a>.
+<p>Pour vous connecter, veuillez cliquer sur ce lien : <a href="{{ absolute_url('security_login') }}">...</a>.</p>
 
-Merci de rejoindre notre communauté, au plaisir d'échanger avec vous !
+<p>Merci de rejoindre notre communauté, au plaisir d'échanger avec vous !</p>
 
-PS: Noubliez pas de vous présenter en arrivant ;-)
+<p>PS: Noubliez pas de vous présenter en arrivant ;-)</p>
 
-Merci !
-Plaire cédric - Créateur de SoMusicShare.
+<p>Merci !
+Plaire cédric - Créateur de SoMusicShare.</p>
 
 {% endblock %}

@@ -6,7 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\NamedAddress;
+use Symfony\Component\Mime\Address;
 
 class Mailer
 {
@@ -18,16 +18,16 @@ class Mailer
     }
 
     public function sendWelcomeMessage(User $user) {
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('cedricplaire30@gmail.com')
-            ->to('againmusician@gmail.com')
+            ->to(new Address($user->getEmail(), $user->getFullName()))
             ->subject('Bienvenue sur SoMusicShare!')
-            ->text('Votre inscription sur SoMusicShare a bien été prise en compte !')
-            ->html('<p>Votre inscription sur SoMusicShare a bien été prise en compte !</p>');
-            /*->context([
+            //->text('Votre inscription sur SoMusicShare a bien été prise en compte !')
+            ->htmlTemplate('emails/registration/confirm.html.twig')
+            ->context([
                 // You can pass whatever data you want
-                'user' => $user,
-            ]);*/
+                'name' => $user->getFullName(),
+            ]);
         $this->mailer->send($email);
     }
 }
