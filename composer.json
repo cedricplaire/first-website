@@ -35,6 +35,7 @@
         "symfony/yaml": "4.4.*",
         "tgalopin/html-sanitizer-bundle": "^1.2",
         "twig/extensions": "^1.5",
+        "twig/inky-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
         "twig/twig": "2.12"
     },
@@ -43,8 +44,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
-        "twig/cssinliner-extra": "^3.0",
-        "twig/inky-extra": "^3.0"
+        "twig/cssinliner-extra": "^3.0"
     },
     "config": {
         "preferred-install": {

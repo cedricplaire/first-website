@@ -23,7 +23,7 @@ class Mailer
             ->to(new Address($user->getEmail(), $user->getFullName()))
             ->subject('Bienvenue sur SoMusicShare!')
             //->text('Votre inscription sur SoMusicShare a bien été prise en compte !')
-            ->htmlTemplate('emails/registration/confirm.html.twig')
+            ->htmlTemplate('emails/registration/welcome.html.twig')
             ->context([
                 // You can pass whatever data you want
                 'name' => $user->getFullName(),

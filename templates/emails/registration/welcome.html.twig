@@ -1,0 +1,52 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.css'), source('@css/base-email.css')) %}
+
+{# {% extends 'emails/layout.html.twig' %}
+
+{% block content %} #}
+
+<spacer size="16"></spacer>
+
+<container class="header">
+    <row>
+        <columns>
+            <h1 class="text-center">Welcome to SoMusicShare {{ name }} !</h1>
+            <center>
+                <menu class="text-center">
+                    <item href="#">Home</item>
+                    <item href="#">Blog</item>
+                    <item href="#">Contact</item>
+                </menu>
+            </center>
+        </columns>
+    </row>
+</container>
+
+<container class="body-border">
+    <row>
+        <columns>
+            <spacer size="32"></spacer>
+            <center>
+                <img src="{{ email.image('@images/brand.png') }}" alt="Logo">
+            </center>
+            <spacer size="16"></spacer>
+            <h4>Votre inscription sur le site SoMusicShare à bien été prise en compte !</h4>
+            <p>Pour effectuer les opérations courantes, tels que (connection, changement de mot de passe, etc.), veuillez vous reporter aux liens ci-dessous</p>
+            <p>Merci de rejoindre notre communauté, au plaisir d'échanger avec vous !</p>
+            <p>PS: Noubliez pas de vous présenter en arrivant ;-)</p>
+            <p>Merci {{ name }}!</p>
+            <p> Plaire cédric - Créateur de SoMusicShare.</p>
+            <center>
+                <menu>
+                    <item href="#">Sign In</item>
+                    <item href="#">Reset Password</item>
+                    <spacer size="16"></spacer>
+                    <item href="#">Facebook</item>
+                    <item href="#">Twitter</item>
+                </menu>
+            </center>
+        </columns>
+    </row>
+    <spacer size="16"></spacer>
+</container>
+{# {% endblock %} #}
+{% endapply %}
