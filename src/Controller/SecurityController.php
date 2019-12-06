@@ -89,21 +89,4 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
-    /*public function sendMessage(User $user) 
-    {
-        $message = (new \Swift_Message('Registration SoMusicShare!'))
-        ->setFrom(['cedricplaire30@gmail.com' => 'Administrateur'])
-        ->setTo($user->getEmail())
-        ->setBody(
-            $this->renderView(
-                // templates/emails/registration.html.twig
-                'emails/registration/confirm.html.twig',
-                ['name' => $user->getFullName()]
-            ),
-            'text/html'
-        );
-
-        $mailer->send($message);
-    }*/
 }

@@ -22,11 +22,13 @@ class UserMessage
 
     /**
      * @ORM\Column(type="string", length=128)
+     * * @ORM\JoinColumn(nullable=false)
      */
     private $sujet;
 
     /**
      * @ORM\Column(type="text")
+     * * @ORM\JoinColumn(nullable=false)
      */
     private $content;
 
@@ -36,6 +38,8 @@ class UserMessage
     private $createdAt;
 
     /**
+     * @var User
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessages")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -43,7 +47,7 @@ class UserMessage
 
     public function __construct()
     {
-        $this->createdAt = \DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

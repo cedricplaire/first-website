@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles, $img]) {
+        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
             $user = new User();
             $user->setFullName($fullname);
             $user->setUsername($username);

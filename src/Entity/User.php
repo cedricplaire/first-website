@@ -93,7 +93,13 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user")
+     * @var UserMessage[]|ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", 
+     *     mappedBy="user",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     * )
      */
     private $userMessages;   
 
@@ -150,7 +156,8 @@ class User implements UserInterface, \Serializable
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
+            $var = "ROLE_USER";
+            $roles[] = $var;
         }
 
         return array_unique($roles);

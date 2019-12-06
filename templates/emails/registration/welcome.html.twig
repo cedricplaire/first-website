@@ -1,6 +1,6 @@
 {% apply inky_to_html|inline_css(source('@css/foundation-emails.css'), source('@css/base-email.css')) %}
 
-{# {% extends 'emails/layout.html.twig' %}
+{% extends 'emails/layout.html.twig' %}
 
 {% block content %} #}
 
@@ -37,7 +37,7 @@
             <p> Plaire cédric - Créateur de SoMusicShare.</p>
             <center>
                 <menu>
-                    <item href="https://twitter.com/TheBebshow" title="Plaire-Cédric Twitter"</item>
+                    <item href="https://twitter.com/cedricplaire" title="Plaire-Cédric Twitter"</item>
                     <item href="https://www.facebook.com/cedric.plaire.7" title="Plaire-Cédric Facebook"</item>
                 </menu>
             </center>
@@ -45,5 +45,5 @@
     </row>
     <spacer size="16"></spacer>
 </container>
-{# {% endblock %} #}
+{% endblock %}
 {% endapply %}
