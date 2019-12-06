@@ -30,11 +30,6 @@
                                     <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
                                 </a>
                             </li>
-                            <li class="nav-item mr-auto">
-                                <a class="nav-link" href="{{ path('blog_contact') }}">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i> {{ 'Contact'|trans }}
-                                </a>
-                            </li>
 
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item mr-auto">
@@ -44,6 +39,11 @@
                                 </li>
                             {% endif %}
                         {% endblock %}
+                        <li class="nav-item mr-auto">
+                            <a class="nav-link" href="{{ path('blog_contact') }}">
+                                <i class="fa fa-envelope" aria-hidden="true"></i> {{ 'Contact'|trans }}
+                            </a>
+                        </li>
 
                         <li class="nav-intem mr-auto">
                             <a class="nav-link" href="{{ path('blog_search') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans }}</a>

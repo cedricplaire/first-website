@@ -3,9 +3,9 @@
 {% block title %}SoMusic - {{ 'contact'|trans }}{% endblock %}
 
 {% block main %}
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="well">
+    <div class="flex-row">
+        <div class="d-flex justify-content-center">
+            <div class="col-sm-8 well">
                 <form action="{{ path('blog_contact') }}" method="post">
                     <fieldset>
                         <legend><i class="fa fa-envelope" aria-hidden="true"></i> {{ 'Nouveau message'|trans }}</legend>

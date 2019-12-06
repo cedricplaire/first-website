@@ -37,25 +37,41 @@
         <source>page.next</source>
         <target>Suivant</target>
       </trans-unit>
-      <trans-unit id="Remember_me" resname="remember_me">
-        <source>Remember me</source>
+      <trans-unit id="uTT64Kc" resname="remember_me">
+        <source>remember_me</source>
         <target>Se souvenir de moi</target>
       </trans-unit>
-      <trans-unit id="Help_username" resname="help.identifiant">
-        <source>Username entered at registration</source>
+      <trans-unit id="YkR1G7G" resname="help.identifiant">
+        <source>help.identifiant</source>
         <target>Nom d'utilisateur entré lors de l'inscription</target>
       </trans-unit>
-      <trans-unit id="agree_term" resname="agree_term">
-        <source>Agree Terms</source>
+      <trans-unit id="tF8.CAP" resname="agree_term">
+        <source>agree_term</source>
         <target>Accepter les conditions</target>
       </trans-unit>
-      <trans-unit id="gnu_license" resname="gnu_license">
+      <trans-unit id="dA4rD8_" resname="gnu_license">
         <source>gnu_license</source>
         <target>License GNU</target>
       </trans-unit>
-      <trans-unit id="Nom utilisateur, servira a l'authentification :" resname="new_user_name">
-        <source>Nom utilisateur, servira a l'authentification :</source>
+      <trans-unit id="tYzKe0O" resname="new_user_name">
+        <source>new_user_name</source>
         <target>Nom utilisateur, servira a l'authentification :</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="CT59X9u" resname="contact">
+        <source>contact</source>
+        <target>contact</target>
+      </trans-unit>
+      <trans-unit id="WKckMkQ" resname="Nouveau message">
+        <source>Nouveau message</source>
+        <target>Nouveau message</target>
+      </trans-unit>
+      <trans-unit id="eQdSCfK" resname="Envoyer">
+        <source>Envoyer</source>
+        <target>Envoyer</target>
       </trans-unit>
     </body>
   </file>

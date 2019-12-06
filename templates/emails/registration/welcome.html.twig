@@ -1,8 +1,6 @@
-{% apply inky_to_html|inline_css(source('@css/foundation-emails.css'), source('@css/base-email.css')) %}
-
 {% extends 'emails/layout.html.twig' %}
 
-{% block content %} #}
+{% block content %}
 
 <spacer size="16"></spacer>
 
@@ -46,4 +44,3 @@
     <spacer size="16"></spacer>
 </container>
 {% endblock %}
-{% endapply %}

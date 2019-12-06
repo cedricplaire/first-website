@@ -101,7 +101,17 @@ class User implements UserInterface, \Serializable
      *     cascade={"persist"}
      * )
      */
-    private $userMessages;   
+    private $userMessages;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $birthday;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;   
 
     public function __construct()
     {
@@ -317,6 +327,30 @@ class User implements UserInterface, \Serializable
                 $userMessage->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(?\DateTimeInterface $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
