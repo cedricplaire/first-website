@@ -73,6 +73,22 @@
         <source>Envoyer</source>
         <target>Envoyer</target>
       </trans-unit>
+      <trans-unit id="user_message" resname="user.message">
+        <source>user.message</source>
+        <target>Message Utilisateur</target>
+      </trans-unit>
+      <trans-unit id="action_sign_up" resname="action.sign_up">
+        <source>action.sign_up</source>
+        <target>S'enregistrer</target>
+      </trans-unit>
+      <trans-unit id="label_id" resname="label.id">
+        <source>label.id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="back_to_list" resname="action.backTolist">
+        <source>back to list</source>
+        <target>Retour à la liste</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

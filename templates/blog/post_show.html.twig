@@ -44,9 +44,6 @@
             <a name="comment_{{ comment.id }}"></a>
             <h4 class="col-sm-3">
                 <strong>{{ comment.author.fullName }}</strong> {{ 'post.commented_on'|trans }}
-                {# it's not mandatory to set the timezone in localizeddate(). This is done to
-                   avoid errors when the 'intl' PHP extension is not available and the application
-                   is forced to use the limited "intl polyfill", which only supports UTC and GMT #}
                 <strong>{{ comment.publishedAt|localizeddate('medium', 'short', null, 'UTC') }}</strong>
             </h4>
             <div class="col-sm-9">
@@ -71,6 +68,5 @@
 
     {{ parent() }}
 
-    {{ show_source_code(_self) }}
     {{ include('blog/_rss.html.twig') }}
 {% endblock %}

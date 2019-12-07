@@ -1,0 +1,32 @@
+{% extends 'user_message/layout.html.twig' %}
+
+{% block title %}UserMessage{% endblock %}
+{% block body_id 'user_message_show' %}
+
+{% block main %}
+    <h1>Message Utilisateur {{ user_message.id }}</h1>
+
+    <article class="user-message">
+        <h3>{{ user_message.sujet }}</h3>
+        <span class="post-metadata">
+            <span class="metadata"><i class="fa fa-calendar"></i> {{ user_message.createdAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+            <span class="metadata"><i class="fa fa-user"></i> {{ user_message.user.fullName }}</span>
+        </span>
+        <p>{{ user_message.content }}</p>
+        {#<div class="flex-row">
+            <a class="btn btn-outline-primary" href="{{ path('user_message_show', {'id': user_message.id}) }}">{{'action.show'|trans}}</a>
+            <a class="btn btn-outline-primary" href="{{ path('user_message_edit', {'id': user_message.id}) }}">{{'action.edit'|trans}}</a>
+        </div>#}
+    </article>
+    <div class="form-inline">
+        <a class="btn btn-outline-primary mr-3" href="{{ path('user_message_index') }}">
+            <i class="fa fa-arrow-circle-left"></i>{{'action.backToList'|trans}}
+        </a>
+
+        <a class="btn btn-outline-warning" href="{{ path('user_message_edit', {'id': user_message.id}) }}">
+            <i class="fa fa-pen-fancy"></i>{{'action.edit'|trans}}
+        </a>
+
+        {{ include('user_message/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'user_message/layout.html.twig' %}
+
+{% block title %}UserMessage index{% endblock %}
+{% block body_id 'user_message_index' %}
+
+{% block main %}
+    <h1 class='text-secondary'><u>Messages que vous avez postés</u></h1>
+    {% for user_message in user_messages %}
+    <article class="user-message">
+        <h3>{{ user_message.sujet }}</h3>
+        <span class="post-metadata">
+            <span class="metadata"><i class="fa fa-calendar"></i> {{ user_message.createdAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+            <span class="metadata"><i class="fa fa-user"></i> {{ user_message.user.fullName }}</span>
+        </span>
+        <p clas="col-3 text-truncate">{{ user_message.content }}</p>
+        <div class="flex-row">
+            <a class="btn btn-outline-primary" href="{{ path('user_message_show', {'id': user_message.id}) }}">{{'action.show'|trans}}</a>
+            <a class="btn btn-outline-primary" href="{{ path('user_message_edit', {'id': user_message.id}) }}">{{'action.edit'|trans}}</a>
+        </div>
+    </article>
+    </br>
+    {% else %}
+        <p>{{'label.nomsg'}}</p>
+    {% endfor %}
+{% endblock %}
