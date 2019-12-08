@@ -67,7 +67,7 @@ class UserMessageController extends AbstractController
 
     /**
      * @Route("/{id<\d+>}/edit", name="user_message_edit", methods={"GET","POST"})
-     * @IsGranted("edit", subject="UserMessage", message="UserMessage can only be edited by their authors.")
+     * @IsGranted("edit", subject="userMessage", message="UserMessage can only be edited by their authors.")
      */
     public function edit(Request $request, UserMessage $userMessage): Response
     {
@@ -89,7 +89,7 @@ class UserMessageController extends AbstractController
 
     /**
      * @Route("/{id<\d+>}/delete", name="user_message_delete", methods={"DELETE"})
-     * @IsGranted("delete", subject="post")
+     * @IsGranted("delete", subject="userMessage")
      */
     public function delete(Request $request, UserMessage $userMessage): Response
     {

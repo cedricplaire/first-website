@@ -4,7 +4,7 @@
 {% block body_id 'user_message_index' %}
 
 {% block main %}
-    <h1 class='text-secondary'><u>Messages que vous avez postés</u></h1>
+    <h1 class='text-secondary'><u>{{'label.postedusermsg'|trans}}</u></h1>
     {% for user_message in user_messages %}
     <article class="user-message">
         <h3>{{ user_message.sujet }}</h3>

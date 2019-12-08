@@ -1,13 +1,15 @@
-{% extends 'default/layout.html.twig' %}
+{% extends 'user_message/layout.html.twig' %}
 
 {% block title %}New UserMessage{% endblock %}
 
 {% block body_id 'user_message_new' %}
 
 {% block main %}
-    <h1>Create new UserMessage</h1>
+    <h1 class="text-secondary">{{'action.newusermsg'|trans}}</h1>
 
     {{ include('user_message/_form.html.twig') }}
 
-    <a href="{{ path('user_message_index') }}">back to list</a>
+    <a class="btn btn-outline-primary mr-3" href="{{ path('user_message_index') }}">
+        <i class="fa fa-arrow-circle-left"></i>{{'action.backToList'|trans}}
+    </a>
 {% endblock %}

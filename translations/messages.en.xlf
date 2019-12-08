@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -53,17 +53,21 @@
         <source>contact</source>
         <target>contact</target>
       </trans-unit>
-      <trans-unit id="WKckMkQ" resname="Nouveau message">
-        <source>Nouveau message</source>
+      <trans-unit id="WKckMkQ" resname="new_message">
+        <source>new_message</source>
         <target>New message</target>
       </trans-unit>
-      <trans-unit id="eQdSCfK" resname="Envoyer">
-        <source>Envoyer</source>
+      <trans-unit id="eQdSCfK" resname="send">
+        <source>send</source>
         <target>Send</target>
       </trans-unit>
       <trans-unit id="user_message" resname="user.message">
         <source>user.message</source>
         <target>User message</target>
+      </trans-unit>
+      <trans-unit id="messages" resname="label.messages">
+        <source>label.messages</source>
+        <target>Messages</target>
       </trans-unit>
       <trans-unit id="action_sign_up" resname="action.sign_up">
         <source>action.sign_up</source>
@@ -73,9 +77,37 @@
         <source>label.id</source>
         <target>Id</target>
       </trans-unit>
-      <trans-unit id="back_to_list" resname="action.backTolist">
-        <source>back to list</source>
+      <trans-unit id="label.edit.message" resname="label.editusermsg">
+        <source>label.editusermsg</source>
+        <target>Edit the message</target>
+      </trans-unit>
+      <trans-unit id="action.edit.message" resname="action.editusermsg">
+        <source>action.editusermsg</source>
+        <target>Message edition</target>
+      </trans-unit>
+      <trans-unit id="label.posted.message" resname="label.postedusermsg">
+        <source>label.postedusermsg</source>
+        <target>Messages you posted</target>
+      </trans-unit>
+      <trans-unit id="back_to_list" resname="action.backToList">
+        <source>action.backToList</source>
         <target>back to list</target>
+      </trans-unit>
+      <trans-unit id="new.user.message" resname="action.newusermsg">
+        <source>action.newusermsg</source>
+        <target>New user message</target>
+      </trans-unit>
+      <trans-unit id="update" resname="action.update">
+        <source>action.update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="updates" resname="action.updates">
+        <source>action.updates</source>
+        <target>Updates</target>
+      </trans-unit>
+      <trans-unit id="action.delete" resname="action.delete">
+        <source>action.delete</source>
+        <target>Delete</target>
       </trans-unit>
     </body>
   </file>

@@ -1,19 +1,13 @@
 <div class="section about">
-    <div class="">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('user_message_index') }}">
-                    <i class="fa fa-comment-dots"></i> {{ 'Messages'|trans }}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ path('user_message_new') }}">
-                    <i class="fa fa-comment-medical"></i> {{ 'Nouveau message'|trans }}
-                </a>
-            </li>
-        </ul>
+    <div class="col">
+        <a class="nav-link" href="{{ path('user_message_index') }}">
+            <i class="fa fa-comment-dots"></i> {{ 'label.messages'|trans }}
+        </a>
+        <a class="nav-link active" href="{{ path('user_message_new') }}">
+            <i class="fa fa-comment-medical"></i> {{ 'new_message'|trans }}
+        </a>
     </div>
-    <div class="text-center">
+    <div class="col">
         <span> Il vous faut être enregistré et connecté pour utiliser le systeme de message.</span>
         <a class="btn btn-outline-primary" href="{{ path('security_login') }}">
             <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}

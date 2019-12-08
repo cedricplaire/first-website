@@ -1,18 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'user_message/layout.html.twig' %}
 
 {% block title %}Edit UserMessage{% endblock %}
 {% block body_id 'user_message_edit' %}
 
 {% block main %}
     <div class="flex-row">
-        <div class="d-flex justify-content-center">
-            <div class="col-sm-8 well">
-                <h1>Edit UserMessage</h1>
+        <div class="justify-content-center">
+            <h1 class="text-secondary">{{'action.editusermsg'}}</h1>
 
-                {{ include('user_message/_form.html.twig', {'button_label': 'Update'}) }}
-
-                <a href="{{ path('user_message_index') }}">back to list</a>
-
+            {{ include('user_message/_form.html.twig', {'button_label': 'action.update'|trans}) }}
+            <hr>
+            <div class="form-inline">
+                <a class="btn btn-outline-primary mr-3" href="{{ path('user_message_index') }}">
+                    <i class="fa fa-arrow-circle-left"></i>{{'action.backToList'|trans}}
+                </a>
                 {{ include('user_message/_delete_form.html.twig') }}
             </div>
         </div>

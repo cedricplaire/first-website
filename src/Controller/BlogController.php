@@ -18,6 +18,7 @@ use App\Form\CommentType;
 use App\Service\Mailer;
 use App\Entity\UserMessage;
 use App\Form\Type\UserMessageType;
+use App\Repository\UserMessageRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
