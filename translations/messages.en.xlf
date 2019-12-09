@@ -109,6 +109,18 @@
         <source>action.delete</source>
         <target>Delete</target>
       </trans-unit>
+      <trans-unit id="msg.oknew" resname="msg.oknew">
+        <source>msg.oknew</source>
+        <target>Your message has been saved !</target>
+      </trans-unit>
+      <trans-unit id="msg.okedit" resname="msg.okedit">
+        <source>msg.okedit</source>
+        <target>Your message has been edited !</target>
+      </trans-unit>
+      <trans-unit id="msg.okdelete" resname="msg.okdelete">
+        <source>msg.okdelete</source>
+        <target>Your message has been deleted !</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

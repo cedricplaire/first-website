@@ -121,6 +121,18 @@
         <source>action.delete</source>
         <target>Supprimer</target>
       </trans-unit>
+      <trans-unit id="msg.oknew" resname="msg.oknew">
+        <source>msg.oknew</source>
+        <target>Votre message a bien été enregistré !</target>
+      </trans-unit>
+      <trans-unit id="msg.okedit" resname="msg.okedit">
+        <source>msg.okedit</source>
+        <target>Votre message a bien été modifié !</target>
+      </trans-unit>
+      <trans-unit id="msg.okdelete" resname="msg.okdelete">
+        <source>msg.okdelete</source>
+        <target>Votre message a bien été supprimé !</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

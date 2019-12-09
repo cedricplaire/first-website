@@ -1,6 +1,6 @@
 {% extends 'user_message/layout.html.twig' %}
 
-{% block title %}UserMessage index{% endblock %}
+{% block title %}{{'UserMessage index'|trans}}{% endblock %}
 {% block body_id 'user_message_index' %}
 
 {% block main %}
@@ -12,7 +12,7 @@
             <span class="metadata"><i class="fa fa-calendar"></i> {{ user_message.createdAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
             <span class="metadata"><i class="fa fa-user"></i> {{ user_message.user.fullName }}</span>
         </span>
-        <p clas="col-3 text-truncate">{{ user_message.content }}</p>
+        <p clas="usermsg-content">{{ user_message.content }}</p>
         <div class="flex-row">
             <a class="btn btn-outline-primary" href="{{ path('user_message_show', {'id': user_message.id}) }}">{{'action.show'|trans}}</a>
             <a class="btn btn-outline-primary" href="{{ path('user_message_edit', {'id': user_message.id}) }}">{{'action.edit'|trans}}</a>

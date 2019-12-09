@@ -109,9 +109,14 @@ class User implements UserInterface, \Serializable
     private $birthday;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $avatar;   
+    private $useGravatar;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserAvatar", inversedBy="users")
+     */
+    private $userAvatarImg;   
 
     public function __construct()
     {
@@ -343,14 +348,26 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getUseGravatar(): ?bool
     {
-        return $this->avatar;
+        return $this->useGravatar;
     }
 
-    public function setAvatar(?string $avatar): self
+    public function setUseGravatar(bool $useGravatar): self
     {
-        $this->avatar = $avatar;
+        $this->useGravatar = $useGravatar;
+
+        return $this;
+    }
+
+    public function getUserAvatarImg(): ?UserAvatar
+    {
+        return $this->userAvatarImg;
+    }
+
+    public function setUserAvatarImg(?UserAvatar $userAvatarImg): self
+    {
+        $this->userAvatarImg = $userAvatarImg;
 
         return $this;
     }
