@@ -114,9 +114,17 @@ class User implements UserInterface, \Serializable
     private $useGravatar;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserAvatar", inversedBy="users")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $userAvatarImg;   
+    private $avatarPerso;
+
+    private $webPath;
+
+    public function getWebPath()
+    {
+        $webPath = 'uploads/avatars/' . $this->getAvatarPerso();
+        return $webPath;
+    }
 
     public function __construct()
     {
@@ -360,14 +368,14 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getUserAvatarImg(): ?UserAvatar
+    public function getAvatarPerso(): ?string
     {
-        return $this->userAvatarImg;
+        return $this->avatarPerso;
     }
 
-    public function setUserAvatarImg(?UserAvatar $userAvatarImg): self
+    public function setAvatarPerso(?string $avatarPerso): self
     {
-        $this->userAvatarImg = $userAvatarImg;
+        $this->avatarPerso = $avatarPerso;
 
         return $this;
     }

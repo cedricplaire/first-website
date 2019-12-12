@@ -121,6 +121,30 @@
         <source>msg.okdelete</source>
         <target>Your message has been deleted !</target>
       </trans-unit>
+      <trans-unit id="comment.oknew" resname="comment.oknew">
+        <source>comment.oknew</source>
+        <target>Your comment has been saved !</target>
+      </trans-unit>
+      <trans-unit id="comment.okedit" resname="comment.okedit">
+        <source>comment.okedit</source>
+        <target>Your comment has been edited !</target>
+      </trans-unit>
+      <trans-unit id="comment.okdelete" resname="comment.okdelete">
+        <source>comment.okdelete</source>
+        <target>Your comment has been deleted !</target>
+      </trans-unit>
+      <trans-unit id="post.oknew" resname="post.oknew">
+        <source>post.oknew</source>
+        <target>Your post has been saved !</target>
+      </trans-unit>
+      <trans-unit id="post.okedit" resname="post.okedit">
+        <source>post.okedit</source>
+        <target>Your post has been edited !</target>
+      </trans-unit>
+      <trans-unit id="post.okdelete" resname="post.okdelete">
+        <source>post.okdelete</source>
+        <target>Your post has been deleted !</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

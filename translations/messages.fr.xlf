@@ -133,6 +133,30 @@
         <source>msg.okdelete</source>
         <target>Votre message a bien été supprimé !</target>
       </trans-unit>
+      <trans-unit id="comment.oknew" resname="comment.oknew">
+        <source>comment.oknew</source>
+        <target>Votre commentaire a bien été créer !</target>
+      </trans-unit>
+      <trans-unit id="comment.okedit" resname="comment.okedit">
+        <source>comment.okedit</source>
+        <target>Votre commentaire a bien été edité !</target>
+      </trans-unit>
+      <trans-unit id="comment.okdelete" resname="comment.okdelete">
+        <source>comment.okdelete</source>
+        <target>Votre commentaire a bien été supprimé !</target>
+      </trans-unit>
+      <trans-unit id="post.oknew" resname="post.oknew">
+        <source>post.oknew</source>
+        <target>Votre article a bien été crée !</target>
+      </trans-unit>
+      <trans-unit id="post.okedit" resname="post.okedit">
+        <source>post.okedit</source>
+        <target>Votre article a bien été edité !</target>
+      </trans-unit>
+      <trans-unit id="post.okdelete" resname="post.okdelete">
+        <source>post.okdelete</source>
+        <target>Votre article a bien été supprimé !</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

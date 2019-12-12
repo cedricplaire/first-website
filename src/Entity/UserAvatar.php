@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserAvatarRepository")
@@ -24,7 +25,7 @@ class UserAvatar
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $path;
 
@@ -32,6 +33,18 @@ class UserAvatar
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="userAvatarImg")
      */
     private $users;
+
+    /**
+     * @var UploadedFile
+     */
+    protected $file;
+
+    public $webPath;
+
+    public function getWebPath() 
+    {
+        return ('/Uploads/Avatars/'. $this->getName());
+    }
 
     public function __construct()
     {
@@ -67,6 +80,18 @@ class UserAvatar
         return $this;
     }
 
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
     /**
      * @return Collection|User[]
      */
@@ -96,5 +121,10 @@ class UserAvatar
         }
 
         return $this;
+    }
+
+    public function _toString()
+    {
+        return $this->getName();
     }
 }

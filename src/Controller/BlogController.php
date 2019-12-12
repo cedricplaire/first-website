@@ -84,7 +84,7 @@ class BlogController extends AbstractController
             $em->flush();
 
             $eventDispatcher->dispatch(new CommentCreatedEvent($comment));
-
+            $this->addFlash('success', $translator->trans('comment.oknew'));
             return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
         }
 

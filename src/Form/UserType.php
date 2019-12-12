@@ -15,13 +15,16 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Form\EventListener\AvatarFieldListener;
 
 /**
- * Defines the form used to edit an user.
+ * Defines the form used to edit an user with fileupload or service for avatar.
  *
- * @author Romain Monteil <monteil.romain@gmail.com>
+ * @author Plaire Cédric <againmusician@gmail.com>
  */
 class UserType extends AbstractType
 {
@@ -41,6 +44,11 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'label.email',
             ])
+            ->add('useGravatar', CheckboxType::class, [
+                'required' => false
+            ])
+ 
+            ->addEventSubscriber(new AvatarFieldListener())
         ;
     }
 

@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  *
@@ -34,7 +33,7 @@ class UserMessageController extends AbstractController
      * @Route("/new", name="user_message_new", methods={"GET","POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function new(Request $request, TranslatorInterface $translator): Response
+    public function new(Request $request): Response
     {
         $userMessage = new UserMessage();
         $userMessage->setUser($this->getUser());
@@ -46,7 +45,7 @@ class UserMessageController extends AbstractController
             $entityManager->persist($userMessage);
             $entityManager->flush();
 
-            $this->addFlash('success', $translator->trans('msg.oknew'));
+            $this->addFlash('success', 'msg.oknew');
             return $this->redirectToRoute('user_message_index');
         }
 
@@ -70,7 +69,7 @@ class UserMessageController extends AbstractController
      * @Route("/{id<\d+>}/edit", name="user_message_edit", methods={"GET","POST"})
      * @IsGranted("edit", subject="userMessage", message="UserMessage can only be edited by their authors.")
      */
-    public function edit(Request $request, UserMessage $userMessage, TranslatorInterface $translator): Response
+    public function edit(Request $request, UserMessage $userMessage): Response
     {
         $form = $this->createForm(UserMessageType::class, $userMessage);
         $form->handleRequest($request);
@@ -79,7 +78,7 @@ class UserMessageController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_message_index');
-            $this->addFlash('success', $translator->trans('msg.okedit'));
+            $this->addFlash('success', 'msg.okedit');
         }
 
         return $this->render('user_message/edit.html.twig', [
@@ -92,7 +91,7 @@ class UserMessageController extends AbstractController
      * @Route("/{id<\d+>}/delete", name="user_message_delete", methods={"DELETE"})
      * @IsGranted("delete", subject="userMessage")
      */
-    public function delete(Request $request, UserMessage $userMessage, TranslatorInterface $translator): Response
+    public function delete(Request $request, UserMessage $userMessage): Response
     {
         if ($this->isCsrfTokenValid('delete'.$userMessage->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -100,7 +99,7 @@ class UserMessageController extends AbstractController
             $entityManager->flush();
         }
 
-        $this->addFlash('success', $translator->trans('msg.okdelete'));
+        $this->addFlash('success', 'msg.okdelete');
         return $this->redirectToRoute('user_message_index');
     }
 }

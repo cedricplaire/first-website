@@ -6,6 +6,18 @@
 
    See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html#creating-a-template-for-the-field
 #}
+{% extends 'form/layout.html.twig' %}
+
+{% block file_widget %}
+    {% spaceless %}
+
+    {{ block('form_widget') }}
+    {% if image_url is not null %}
+        <img class="img-fluid img-thumbnail" src="{{ asset(image_url) }}"/>
+    {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
 
 {% block date_time_picker_widget %}
     <div class="input-group date" data-toggle="datetimepicker">
