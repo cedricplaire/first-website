@@ -39,6 +39,11 @@
                                 </li>
                             {% endif %}
                         {% endblock %}
+                        <li class="nav-item mr-auto">
+                            <a class="nav-link" href="{{ path('blog_contact') }}">
+                                <i class="fa fa-envelope" aria-hidden="true"></i> {{ 'Contact'|trans }}
+                            </a>
+                        </li>
 
                         <li class="nav-intem mr-auto">
                             <a class="nav-link" href="{{ path('blog_search') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans }}</a>
@@ -94,11 +99,10 @@
     {% endblock %}
     
     <div class="container-fluid body-container">
+    {{ include('default/_flash_messages.html.twig') }}
         {% block body %}
         <div class="row">        
             <div id="main" class="col-sm-12">
-                {{ include('default/_flash_messages.html.twig') }}
-
                 {% block main %}{% endblock %}
             </div>  
         </div>
@@ -133,6 +137,16 @@
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
+        <script>
+        $( document ).ready(function() {
+            $('.custom-file-input').on('change', function(event) {
+                var inputFile = event.currentTarget;
+                $(inputFile).parent()
+                    .find('.custom-file-label')
+                    .html(inputFile.files[0].name);
+            });
+        });
+        </script>
     {% endblock %}
     <!-- Page rendered on {{ 'now'|localizeddate('long', 'long', null, 'UTC') }} -->
 </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -37,25 +37,125 @@
         <source>page.next</source>
         <target>Suivant</target>
       </trans-unit>
-      <trans-unit id="Remember_me" resname="remember_me">
-        <source>Remember me</source>
+      <trans-unit id="uTT64Kc" resname="remember_me">
+        <source>remember_me</source>
         <target>Se souvenir de moi</target>
       </trans-unit>
-      <trans-unit id="Help_username" resname="help.identifiant">
-        <source>Username entered at registration</source>
+      <trans-unit id="YkR1G7G" resname="help.identifiant">
+        <source>help.identifiant</source>
         <target>Nom d'utilisateur entré lors de l'inscription</target>
       </trans-unit>
-      <trans-unit id="agree_term" resname="agree_term">
-        <source>Agree Terms</source>
+      <trans-unit id="tF8.CAP" resname="agree_term">
+        <source>agree_term</source>
         <target>Accepter les conditions</target>
       </trans-unit>
-      <trans-unit id="gnu_license" resname="gnu_license">
+      <trans-unit id="tYzKe0O" resname="new_user_name">
+        <source>new_user_name</source>
+        <target>Nom utilisateur, servira a l'authentification :</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="dA4rD8_" resname="gnu_license">
         <source>gnu_license</source>
         <target>License GNU</target>
       </trans-unit>
-      <trans-unit id="Nom utilisateur, servira a l'authentification :" resname="new_user_name">
-        <source>Nom utilisateur, servira a l'authentification :</source>
-        <target>Nom utilisateur, servira a l'authentification :</target>
+      <trans-unit id="CT59X9u" resname="contact">
+        <source>contact</source>
+        <target>contact</target>
+      </trans-unit>
+      <trans-unit id="WKckMkQ" resname="new_message">
+        <source>new_message</source>
+        <target>Nouveau message</target>
+      </trans-unit>
+      <trans-unit id="eQdSCfK" resname="send">
+        <source>send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="user_message" resname="user.message">
+        <source>user.message</source>
+        <target>Message Utilisateur</target>
+      </trans-unit>
+      <trans-unit id="messages" resname="label.messages">
+        <source>label.messages</source>
+        <target>Messages</target>
+      </trans-unit>
+      <trans-unit id="action_sign_up" resname="action.sign_up">
+        <source>action.sign_up</source>
+        <target>S'enregistrer</target>
+      </trans-unit>
+      <trans-unit id="label_id" resname="label.id">
+        <source>label.id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="label.edit.message" resname="label.editusermsg">
+        <source>label.editusermsg</source>
+        <target>Edition du message</target>
+      </trans-unit>
+      <trans-unit id="action.edit.message" resname="action.editusermsg">
+        <source>action.editusermsg</source>
+        <target>Editer le message</target>
+      </trans-unit>
+      <trans-unit id="label.posted.message" resname="label.postedusermsg">
+        <source>label.postedusermsg</source>
+        <target>Messages que vous avez postés</target>
+      </trans-unit>
+      <trans-unit id="back_to_list" resname="action.backToList">
+        <source>action.backToList</source>
+        <target>Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="new.user.message" resname="action.newusermsg">
+        <source>action.newusermsg</source>
+        <target>Nouveau message utilisateur</target>
+      </trans-unit>
+      <trans-unit id="update" resname="action.update">
+        <source>action.update</source>
+        <target>Mettre à jour</target>
+      </trans-unit>
+      <trans-unit id="updates" resname="action.updates">
+        <source>action.updates</source>
+        <target>Mises à jours</target>
+      </trans-unit>
+      <trans-unit id="action.delete" resname="action.delete">
+        <source>action.delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="msg.oknew" resname="msg.oknew">
+        <source>msg.oknew</source>
+        <target>Votre message a bien été enregistré !</target>
+      </trans-unit>
+      <trans-unit id="msg.okedit" resname="msg.okedit">
+        <source>msg.okedit</source>
+        <target>Votre message a bien été modifié !</target>
+      </trans-unit>
+      <trans-unit id="msg.okdelete" resname="msg.okdelete">
+        <source>msg.okdelete</source>
+        <target>Votre message a bien été supprimé !</target>
+      </trans-unit>
+      <trans-unit id="comment.oknew" resname="comment.oknew">
+        <source>comment.oknew</source>
+        <target>Votre commentaire a bien été créer !</target>
+      </trans-unit>
+      <trans-unit id="comment.okedit" resname="comment.okedit">
+        <source>comment.okedit</source>
+        <target>Votre commentaire a bien été edité !</target>
+      </trans-unit>
+      <trans-unit id="comment.okdelete" resname="comment.okdelete">
+        <source>comment.okdelete</source>
+        <target>Votre commentaire a bien été supprimé !</target>
+      </trans-unit>
+      <trans-unit id="post.oknew" resname="post.oknew">
+        <source>post.oknew</source>
+        <target>Votre article a bien été crée !</target>
+      </trans-unit>
+      <trans-unit id="post.okedit" resname="post.okedit">
+        <source>post.okedit</source>
+        <target>Votre article a bien été edité !</target>
+      </trans-unit>
+      <trans-unit id="post.okdelete" resname="post.okdelete">
+        <source>post.okdelete</source>
+        <target>Votre article a bien été supprimé !</target>
       </trans-unit>
     </body>
   </file>

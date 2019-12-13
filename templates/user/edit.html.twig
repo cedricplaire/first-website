@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'blog/layout.html.twig' %}
 
 {% block body_id 'user_edit' %}
 
@@ -22,6 +22,4 @@
     </div>
 
     {{ parent() }}
-
-    {{ show_source_code(_self) }}
 {% endblock %}

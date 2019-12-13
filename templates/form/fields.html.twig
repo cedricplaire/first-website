@@ -5,7 +5,19 @@
    in DateTimePickerType.
 
    See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html#creating-a-template-for-the-field
-#}
+#} 
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{% block file_widget %}
+    {% apply spaceless %}
+
+    {{parent()}}
+    {% if image_url is not null %}
+        <img class="img-thumbnail" src="{{ asset(image_url) }}"/>
+    {% endif %}
+
+    {% endapply %}
+{% endblock %}
 
 {% block date_time_picker_widget %}
     <div class="input-group date" data-toggle="datetimepicker">

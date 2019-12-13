@@ -93,9 +93,38 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user")
+     * @var UserMessage[]|ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", 
+     *     mappedBy="user",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     * )
      */
-    private $userMessages;   
+    private $userMessages;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $birthday;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $useGravatar;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatarPerso;
+
+    private $webPath;
+
+    public function getWebPath()
+    {
+        $webPath = 'uploads/avatars/' . $this->getAvatarPerso();
+        return $webPath;
+    }
 
     public function __construct()
     {
@@ -150,7 +179,8 @@ class User implements UserInterface, \Serializable
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
+            $var = "ROLE_USER";
+            $roles[] = $var;
         }
 
         return array_unique($roles);
@@ -310,6 +340,42 @@ class User implements UserInterface, \Serializable
                 $userMessage->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(?\DateTimeInterface $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getUseGravatar(): ?bool
+    {
+        return $this->useGravatar;
+    }
+
+    public function setUseGravatar(bool $useGravatar): self
+    {
+        $this->useGravatar = $useGravatar;
+
+        return $this;
+    }
+
+    public function getAvatarPerso(): ?string
+    {
+        return $this->avatarPerso;
+    }
+
+    public function setAvatarPerso(?string $avatarPerso): self
+    {
+        $this->avatarPerso = $avatarPerso;
 
         return $this;
     }

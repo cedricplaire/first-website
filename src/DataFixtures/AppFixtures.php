@@ -11,11 +11,12 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Comment;
-use App\Entity\Post;
 use App\Entity\Tag;
+use App\Entity\Post;
 use App\Entity\User;
 use App\Utils\Slugger;
+use App\Entity\Comment;
+use App\Entity\UserAvatar;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -34,17 +35,19 @@ class AppFixtures extends Fixture
         $this->loadUsers($manager);
         $this->loadTags($manager);
         $this->loadPosts($manager);
+        $this->loadAvatars($manager);
     }
 
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles, $img]) {
+        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
             $user = new User();
             $user->setFullName($fullname);
             $user->setUsername($username);
             $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
             $user->setEmail($email);
             $user->setRoles($roles);
+            $user->setUseGravatar(false);
 
             $manager->persist($user);
             $this->addReference($username, $user);
@@ -93,6 +96,22 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
+    private function loadAvatars(ObjectManager $manager): void
+    {
+        foreach ($this->getAvatarData() as $i => $name) {
+            $userAvatar = new UserAvatar();
+            $userAvatar->setName($name);
+            $userAvatar->setPath('Uploads/Avatars');
+            
+            $userAvatar->addUser($this->getReference(['cedric_admin', 'beb_admin'][0 === $i ? 0 : random_int(0, 1)]));
+
+            $manager->persist($userAvatar);
+            $this->addReference('avatar-'.$name, $userAvatar);
+        }
+
+        $manager->flush();
+    }
+
     private function getUserData(): array
     {
         return [
@@ -115,6 +134,26 @@ class AppFixtures extends Fixture
             'voluptate',
             'dolore',
             'pariatur',
+        ];
+    }
+
+    private function getAvatarData(): array
+    {
+        return [
+            'black_guitar.png',
+            'contrebasse.png',
+            'fire_guitar.png',
+            'flute.png',
+            'guitar.png',
+            'kcmmidi.png',
+            'lira.png',
+            'mandoline.png',
+            'oboe.png',
+            'trombone.png',
+            'trumpet.png',
+            'violin.png',
+            'wood_guitar.png',
+            'yellow_guitar.png',
         ];
     }
 

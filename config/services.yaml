@@ -9,6 +9,10 @@ parameters:
     app_locales: en|fr|de|es
     app.notifications.email_sender: anonymous@example.com
     upload_dir: '%kernel.project_dir%/public/uploads'
+    voter_edit: 'EDIT'
+    voter_show: 'SHOW'
+    voter_new: 'NEW'
+    voter_delete: 'DELETE'
 
 services:
     # default configuration for services in *this* file

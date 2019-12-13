@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -33,13 +33,117 @@
         <source>help.login</source>
         <target>__help.login</target>
       </trans-unit>
-      <trans-unit id="Remember_me" resname="remember_me">
-        <source>Remember me</source>
+      <trans-unit id="uTT64Kc" resname="remember_me">
+        <source>remember_me</source>
         <target>Remember me</target>
       </trans-unit>
-      <trans-unit id="Help_username" resname="help.identifiant">
-        <source>Username entered at registration</source>
+      <trans-unit id="YkR1G7G" resname="help.identifiant">
+        <source>help.identifiant</source>
         <target>Username entered at registration</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="dA4rD8_" resname="gnu_license">
+        <source>gnu_license</source>
+        <target>GNU License</target>
+      </trans-unit>
+      <trans-unit id="CT59X9u" resname="contact">
+        <source>contact</source>
+        <target>contact</target>
+      </trans-unit>
+      <trans-unit id="WKckMkQ" resname="new_message">
+        <source>new_message</source>
+        <target>New message</target>
+      </trans-unit>
+      <trans-unit id="eQdSCfK" resname="send">
+        <source>send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="user_message" resname="user.message">
+        <source>user.message</source>
+        <target>User message</target>
+      </trans-unit>
+      <trans-unit id="messages" resname="label.messages">
+        <source>label.messages</source>
+        <target>Messages</target>
+      </trans-unit>
+      <trans-unit id="action_sign_up" resname="action.sign_up">
+        <source>action.sign_up</source>
+        <target>Registration</target>
+      </trans-unit>
+      <trans-unit id="label_id" resname="label.id">
+        <source>label.id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="label.edit.message" resname="label.editusermsg">
+        <source>label.editusermsg</source>
+        <target>Edit the message</target>
+      </trans-unit>
+      <trans-unit id="action.edit.message" resname="action.editusermsg">
+        <source>action.editusermsg</source>
+        <target>Message edition</target>
+      </trans-unit>
+      <trans-unit id="label.posted.message" resname="label.postedusermsg">
+        <source>label.postedusermsg</source>
+        <target>Messages you posted</target>
+      </trans-unit>
+      <trans-unit id="back_to_list" resname="action.backToList">
+        <source>action.backToList</source>
+        <target>back to list</target>
+      </trans-unit>
+      <trans-unit id="new.user.message" resname="action.newusermsg">
+        <source>action.newusermsg</source>
+        <target>New user message</target>
+      </trans-unit>
+      <trans-unit id="update" resname="action.update">
+        <source>action.update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="updates" resname="action.updates">
+        <source>action.updates</source>
+        <target>Updates</target>
+      </trans-unit>
+      <trans-unit id="action.delete" resname="action.delete">
+        <source>action.delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="msg.oknew" resname="msg.oknew">
+        <source>msg.oknew</source>
+        <target>Your message has been saved !</target>
+      </trans-unit>
+      <trans-unit id="msg.okedit" resname="msg.okedit">
+        <source>msg.okedit</source>
+        <target>Your message has been edited !</target>
+      </trans-unit>
+      <trans-unit id="msg.okdelete" resname="msg.okdelete">
+        <source>msg.okdelete</source>
+        <target>Your message has been deleted !</target>
+      </trans-unit>
+      <trans-unit id="comment.oknew" resname="comment.oknew">
+        <source>comment.oknew</source>
+        <target>Your comment has been saved !</target>
+      </trans-unit>
+      <trans-unit id="comment.okedit" resname="comment.okedit">
+        <source>comment.okedit</source>
+        <target>Your comment has been edited !</target>
+      </trans-unit>
+      <trans-unit id="comment.okdelete" resname="comment.okdelete">
+        <source>comment.okdelete</source>
+        <target>Your comment has been deleted !</target>
+      </trans-unit>
+      <trans-unit id="post.oknew" resname="post.oknew">
+        <source>post.oknew</source>
+        <target>Your post has been saved !</target>
+      </trans-unit>
+      <trans-unit id="post.okedit" resname="post.okedit">
+        <source>post.okedit</source>
+        <target>Your post has been edited !</target>
+      </trans-unit>
+      <trans-unit id="post.okdelete" resname="post.okdelete">
+        <source>post.okdelete</source>
+        <target>Your post has been deleted !</target>
       </trans-unit>
     </body>
   </file>

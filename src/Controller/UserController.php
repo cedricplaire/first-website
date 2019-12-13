@@ -11,13 +11,14 @@
 
 namespace App\Controller;
 
-use App\Form\Type\ChangePasswordType;
 use App\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\FileUploader;
+use App\Form\Type\ChangePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -33,14 +34,27 @@ class UserController extends AbstractController
     /**
      * @Route("/edit", methods={"GET", "POST"}, name="user_edit")
      */
-    public function edit(Request $request): Response
+    public function edit(Request $request, FileUploader $fileUploader): Response
     {
         $user = $this->getUser();
+        $hashGravatar = md5(strtolower(trim( $user->getEmail())));
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form['avatarPerso']->getData() != null)
+            {
+                /**
+                 * @var UploadedFile $imgFile
+                 */
+                $imgFile = $form['avatarPerso']->getData();
+                if ($imgFile) {
+                    $imgFileName = $fileUploader->upload($imgFile, 'avatars');
+                    $user->setavatarPerso($imgFileName);
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'user.updated_successfully');

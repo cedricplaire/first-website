@@ -1,11 +1,22 @@
 <div class="section about">
-    <div class="well well-lg">
-        <p>
-            {{ 'help.app_description'|trans|raw }}
-        </p>
-        <p>
-            {{ 'help.more_information'|trans|raw }}
-        </p>
+    <div class="col">
+        <a class="nav-link" href="{{ path('user_message_index') }}">
+            <i class="fa fa-comment-dots"></i> {{ 'label.messages'|trans }}
+        </a>
+        <a class="nav-link active" href="{{ path('user_message_new') }}">
+            <i class="fa fa-comment-medical"></i> {{ 'new_message'|trans }}
+        </a>
+    </div>
+    <div class="col">
+        <span> Il vous faut être enregistré et connecté pour utiliser le systeme de message.</span>
+        <a class="btn btn-outline-primary" href="{{ path('security_login') }}">
+            <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
+        </a>
+        <br>
+        <span> Dans le cas ou vous n'auriez pas de compte, c'est içi pour s'enregistrer.</span>
+        <a class="btn btn-outline-primary" href="{{ path('security_register') }}">
+            <i class="fa fa-user-plus"></i> {{ 'action.sign_up'|trans }}
+        </a>
     </div>
 </div>
 

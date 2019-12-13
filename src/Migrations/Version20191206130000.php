@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191205195034 extends AbstractMigration
+final class Version20191206130000 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,7 @@ final class Version20191205195034 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user_message ADD user_id INT NOT NULL, ADD sujet VARCHAR(128) NOT NULL, ADD content LONGTEXT NOT NULL, ADD created_at DATETIME NOT NULL');
-        $this->addSql('ALTER TABLE user_message ADD CONSTRAINT FK_EEB02E75A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('CREATE INDEX IDX_EEB02E75A76ED395 ON user_message (user_id)');
+        $this->addSql('ALTER TABLE user ADD birthday DATETIME DEFAULT NULL, ADD avatar VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +30,6 @@ final class Version20191205195034 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user_message DROP FOREIGN KEY FK_EEB02E75A76ED395');
-        $this->addSql('DROP INDEX IDX_EEB02E75A76ED395 ON user_message');
-        $this->addSql('ALTER TABLE user_message DROP user_id, DROP sujet, DROP content, DROP created_at');
+        $this->addSql('ALTER TABLE user DROP birthday, DROP avatar');
     }
 }

@@ -15,6 +15,10 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Events\CommentCreatedEvent;
 use App\Form\CommentType;
+use App\Service\Mailer;
+use App\Entity\UserMessage;
+use App\Form\Type\UserMessageType;
+use App\Repository\UserMessageRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -80,7 +84,7 @@ class BlogController extends AbstractController
             $em->flush();
 
             $eventDispatcher->dispatch(new CommentCreatedEvent($comment));
-
+            $this->addFlash('success', $translator->trans('comment.oknew'));
             return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
         }
 
@@ -129,5 +133,29 @@ class BlogController extends AbstractController
         }
 
         return $this->json($results);
+    }
+
+    /**
+     * @route("/contact", name="blog_contact")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function contact(Request $request): Response
+    {
+        $msg = new UserMessage();
+        $msg->setUser($this->getUser());
+        $form = $this->createForm(UserMessageType::class, $msg);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($msg);
+            $em->flush();
+
+            return $this->redirectToRoute('blog_index');
+        }
+        
+        return $this->render('default/contact.html.twig', [
+            'contactForm' => $form->createView(),
+        ]);
     }
 }

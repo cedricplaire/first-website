@@ -1,0 +1,27 @@
+{% extends 'user_message/layout.html.twig' %}
+
+{% block title %}UserMessage{% endblock %}
+{% block body_id 'user_message_show' %}
+
+{% block main %}
+    <h1 class="text-secondary"><u>{{ 'user.message'|trans}} : {{ user_message.id }}</u></h1>
+    <br>
+    <article class="user-message">
+        <h3>{{ user_message.sujet }}</h3>
+        <span class="post-metadata">
+            <span class="metadata"><i class="fa fa-calendar"></i> {{ user_message.createdAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+            <span class="metadata"><i class="fa fa-user"></i> {{ user_message.user.fullName }}</span>
+        </span>
+        <div class="well">{{ user_message.content }}</div>
+    </article>
+    <hr>
+    <div class="form-inline">
+        <a class="btn btn-outline-primary mr-3" href="{{ path('user_message_index') }}">
+            <i class="fa fa-arrow-circle-left"></i>{{'action.backToList'|trans}}
+        </a>
+        <a class="btn btn-outline-warning" href="{{ path('user_message_edit', {'id': user_message.id}) }}">
+            <i class="fa fa-pen-fancy"></i>{{'action.edit'|trans}}
+        </a>
+        {{ include('user_message/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

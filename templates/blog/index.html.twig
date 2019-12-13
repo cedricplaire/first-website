@@ -1,4 +1,4 @@
-{% extends 'Blog/layout.html.twig' %}
+{% extends 'blog/layout.html.twig' %}
 
 {% block body_id 'blog_index' %}
 
@@ -51,11 +51,4 @@
         </div>
     {% endif %}
     </div>
-{% endblock %}
-
-{% block sidebar %}
-    {{ parent() }}
-
-    {{ show_source_code(_self) }}
-    {{ include('blog/_rss.html.twig') }}
 {% endblock %}

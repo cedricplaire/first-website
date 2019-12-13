@@ -9,11 +9,13 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use App\Form\EventListener\AvatarFieldListener;
 
 class RegistrationFormType extends AbstractType
 {
@@ -53,6 +55,11 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Saisissez votre EMail :'
             ])
+            ->add('useGravatar', CheckboxType::class, [
+                'required' => false
+            ])
+ 
+            ->addEventSubscriber(new AvatarFieldListener())
         ;
     }
 
