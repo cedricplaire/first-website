@@ -30,8 +30,9 @@ class AvatarFieldListener implements EventSubscriberInterface
         if (false === $user->getUseGravatar()) {
             $form->add('avatarPerso', FileType::class, [
                 'data_class' => null,
-                'label' => 'Selectionnez un fichier',
-                'help' => 'le fichier peut se trouver sur votre périphérique',
+                'mapped' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Votre fichier avatar'],
                 'image_property' => 'webPath'
             ]);   
         }
@@ -39,9 +40,9 @@ class AvatarFieldListener implements EventSubscriberInterface
         {
             $form->add('avatarPerso', UrlType::class, [
                 'data_class' => null,
-                'label' => 'Votre Gravatar ',
-                'help' => 'pour changer, selectionnez ne pas utiliser Gravatar',
-                'value' => '',
+                'mapped' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Votre fichier avatar'],
                 'image_property' => 'webPath'
             ]);
         }

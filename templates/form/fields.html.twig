@@ -5,18 +5,18 @@
    in DateTimePickerType.
 
    See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html#creating-a-template-for-the-field
-#}
-{% extends 'form/layout.html.twig' %}
+#} 
+{% extends 'bootstrap_4_layout.html.twig' %}
 
 {% block file_widget %}
-    {% spaceless %}
+    {% apply spaceless %}
 
-    {{ block('form_widget') }}
+    {{parent()}}
     {% if image_url is not null %}
-        <img class="img-fluid img-thumbnail" src="{{ asset(image_url) }}"/>
+        <img class="img-thumbnail" src="{{ asset(image_url) }}"/>
     {% endif %}
 
-    {% endspaceless %}
+    {% endapply %}
 {% endblock %}
 
 {% block date_time_picker_widget %}
