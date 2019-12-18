@@ -2,10 +2,8 @@
 
 namespace App\Form\Extension;
 
-use App\Form\UserAvatarType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\OptionsResolver\OptionsResolver;

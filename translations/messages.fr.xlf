@@ -157,6 +157,26 @@
         <source>post.okdelete</source>
         <target>Votre article a bien été supprimé !</target>
       </trans-unit>
+      <trans-unit id="label.usegravatar" resname="label.usegravatar">
+        <source>label.usegravatar</source>
+        <target>Utiliser le service Gravatar</target>
+      </trans-unit>
+      <trans-unit id="label.gravatarurl" resname="label.gravatarurl">
+        <source>label.gravatarurl</source>
+        <target>Adresse du Service Gravatar</target>
+      </trans-unit>
+      <trans-unit id="label.generatedurl" resname="label.generatedurl">
+        <source>label.generatedurl</source>
+        <target>Adresse générée automatiquement</target>
+      </trans-unit>
+      <trans-unit id="label.youravatar" resname="label.youravatar">
+        <source>label.youravatar</source>
+        <target>Votre Avatar</target>
+      </trans-unit>
+      <trans-unit id="label.youravatarfile" resname="label.youravatarfile">
+        <source>label.youravatarfile</source>
+        <target>Votre fichier avatar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

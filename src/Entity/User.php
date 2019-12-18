@@ -118,18 +118,32 @@ class User implements UserInterface, \Serializable
      */
     private $avatarPerso;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $gravatarUrl;
+
     private $webPath;
 
     public function getWebPath()
     {
-        $webPath = 'uploads/avatars/' . $this->getAvatarPerso();
-        return $webPath;
+        if (true == $this->useGravatar)
+        {
+            $webPath = $this->getGravatarUrl();
+            return $webPath;
+        }
+        else {
+            $webPath = 'uploads/avatars/' . $this->getAvatarPerso();
+            return $webPath;
+        }
     }
 
     public function __construct()
     {
         $this->isActive = true;
         $this->userMessages = new ArrayCollection();
+        $this->gravatarUrl = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim( $this->getEmail())));
+        $this->avatarPerso = 'default-avatar.png';
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -376,6 +390,18 @@ class User implements UserInterface, \Serializable
     public function setAvatarPerso(?string $avatarPerso): self
     {
         $this->avatarPerso = $avatarPerso;
+
+        return $this;
+    }
+
+    public function getGravatarUrl(): ?string
+    {
+        return $this->gravatarUrl;
+    }
+
+    public function setGravatarUrl(?string $gravatarUrl): self
+    {
+        $this->gravatarUrl = $gravatarUrl;
 
         return $this;
     }

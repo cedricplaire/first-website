@@ -37,8 +37,7 @@ class UserController extends AbstractController
     public function edit(Request $request, FileUploader $fileUploader): Response
     {
         $user = $this->getUser();
-        $hashGravatar = md5(strtolower(trim( $user->getEmail())));
-
+        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

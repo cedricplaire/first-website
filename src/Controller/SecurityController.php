@@ -30,7 +30,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('blog_index');
         }
         
-        $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('admin_index'));
+        $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('blog_index'));
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -24,7 +24,7 @@ security:
 
             logout:
                 path: security_logout
-                target: homepage
+                target: blog_index
 
             remember_me:
                 secret:   '%kernel.secret%'

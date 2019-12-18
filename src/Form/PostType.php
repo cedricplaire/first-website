@@ -12,14 +12,15 @@
 namespace App\Form;
 
 use App\Entity\Post;
-use App\Form\Type\DateTimePickerType;
+use App\Form\Type\AvatarType;
 use App\Form\Type\TagsInputType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints\File;
+use App\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Defines the form used to create and manipulate blog posts.

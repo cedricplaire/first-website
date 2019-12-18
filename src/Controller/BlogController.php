@@ -17,7 +17,7 @@ use App\Events\CommentCreatedEvent;
 use App\Form\CommentType;
 use App\Service\Mailer;
 use App\Entity\UserMessage;
-use App\Form\Type\UserMessageType;
+use App\Form\UserMessageType;
 use App\Repository\UserMessageRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
@@ -71,6 +71,7 @@ class BlogController extends AbstractController
      */
     public function commentNew(Request $request, Post $post, EventDispatcherInterface $eventDispatcher): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $comment = new Comment();
         $comment->setAuthor($this->getUser());
         $post->addComment($comment);
@@ -141,6 +142,7 @@ class BlogController extends AbstractController
      */
     public function contact(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $msg = new UserMessage();
         $msg->setUser($this->getUser());
         $form = $this->createForm(UserMessageType::class, $msg);
