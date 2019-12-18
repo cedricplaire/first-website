@@ -136,8 +136,10 @@
     {% endblock %}
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
         <script type="text/javascript">
         $( document ).ready(function() {
+            bsCustomFileInput.init();
             var groupA = document.getElementById('user_gravatarUrl').parentNode;
             var groupB = document.getElementById('user_avatarPerso').parentNode;
             $('#user_useGravatar').on('change.bootstrapSwitch', function(e) {
