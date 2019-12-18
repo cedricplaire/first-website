@@ -17,12 +17,11 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/modal.js';*/
 import 'jquery'
 import './highlight.js';
 import './doclinks.js';
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+import 'bs-custom-file-input/dist/bs-custom-file-input.js';
+//global.bsCustomFileInput = bsCustomFileInput;
 
 const $ = require('jquery');
-
+global.$ = global.jQuery = $;
 //require('bootstrap/dist/js/bootstrap-bundle');
 require('bootstrap');
 

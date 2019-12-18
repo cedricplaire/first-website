@@ -145,6 +145,26 @@
         <source>post.okdelete</source>
         <target>Your post has been deleted !</target>
       </trans-unit>
+      <trans-unit id="label.usegravatar" resname="label.usegravatar">
+        <source>label.usegravatar</source>
+        <target>Use Gravatar Service</target>
+      </trans-unit>
+      <trans-unit id="label.gravatarurl" resname="label.gravatarurl">
+        <source>label.gravatarurl</source>
+        <target>Gravatar Service URL</target>
+      </trans-unit>
+      <trans-unit id="label.generatedurl" resname="label.generatedurl">
+        <source>label.generatedurl</source>
+        <target>Auto generated URL</target>
+      </trans-unit>
+      <trans-unit id="label.youravatar" resname="label.youravatar">
+        <source>label.youravatar</source>
+        <target>Your Avatar</target>
+      </trans-unit>
+      <trans-unit id="label.youravatarfile" resname="label.youravatarfile">
+        <source>label.youravatarfile</source>
+        <target>Your avatar file.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

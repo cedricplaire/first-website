@@ -11,9 +11,9 @@
 {% block file_widget %}
     {% apply spaceless %}
 
-    {{parent()}}
-    {% if image_url is not null %}
-        <img class="img-thumbnail" src="{{ asset(image_url) }}"/>
+    {{ parent() }}
+    {% if image_url is defined and image_url is not null %}
+        <img class="img-thumbnail avatar-preview" src="{{ asset(image_url) }}"/>
     {% endif %}
 
     {% endapply %}

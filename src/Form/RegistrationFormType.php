@@ -56,7 +56,8 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Saisissez votre EMail :'
             ])
             ->add('useGravatar', CheckboxType::class, [
-                'required' => false
+                'required' => false,
+                'attr' => ['class' => 'cbusegrav'],
             ])
  
             ->addEventSubscriber(new AvatarFieldListener())

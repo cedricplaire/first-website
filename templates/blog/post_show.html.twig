@@ -1,4 +1,4 @@
-{% extends 'blog/layout.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block body_id 'blog_post_show' %}
 
@@ -67,6 +67,4 @@
     {% endif %}
 
     {{ parent() }}
-
-    {{ include('blog/_rss.html.twig') }}
 {% endblock %}

@@ -101,6 +101,10 @@ p.usermsg-content {
   margin-bottom: .5rem;
 }
 
+img.avatar-preview {
+  max-width: 250px;
+}
+
 /* Page elements
    ------------------------------------------------------------------------- */
 body {
@@ -117,6 +121,32 @@ header ul.nav li {
   margin-bottom: 0
 }
 
+header .dropdown-item {
+  color: #adb5bd;
+}
+
+header .dropdown-item:hover {
+  color: #dee2e6;
+  background-color: transparent;
+}
+header .dropdown-item:active {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+header .locales .dropdown-item {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+header .locales .dropdown-item:hover {
+  color: #dee2e6;
+  background-color: transparent;
+}
+header .locales .dropdown-item:active {
+  color: #ffffff;
+  background-color: transparent;
+}
+
 header a.navbar-brand img {
   margin-top:  -10px;
 }
@@ -124,10 +154,10 @@ header a.navbar-brand img {
 header .locales {
   min-width: 190px;
 }
-header .locales a {
+/*header .locales a {
   color: #212529;
   padding: 3px 15px;
-}
+}*/
 header .locales a small {
   border-radius: 4px;
   border: 2px solid #999999;
@@ -148,7 +178,7 @@ header .locales .active {
 
 header .locales .active small,
 header .locales a:hover small {
-  border: 2px solid #007bff;
+  border: 1px solid #007bff;
   color: #007bff;
   font-weight: bold;
 }
