@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ImageTypeExtension extends AbstractTypeExtension
@@ -18,7 +18,7 @@ class ImageTypeExtension extends AbstractTypeExtension
     public static function getExtendedTypes(): iterable
     {
         // return FormType::class to modify (nearly) every field in the system
-        return [FileType::class, UrlType::class];
+        return [TextType::class, FileType::class];
     }
 
     public function configureOptions(OptionsResolver $resolver)

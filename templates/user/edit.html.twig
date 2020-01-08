@@ -3,23 +3,79 @@
 {% block body_id 'user_edit' %}
 
 {% block main %}
-    <h1>{{ 'title.edit_user'|trans }}</h1>
+	<h1>{{ 'title.edit_user'|trans }}</h1>
+	<div class="container">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<img id="image-preview"></img>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
+	<button type="submit" class="btn btn-primary">
+		<i class="fa fa-save" aria-hidden="true"></i>
+		{{ 'action.save'|trans }}
+	</button>
+	{{ form_end(form) }}
+</div>{% endblock %}{% block sidebar %}
+<div class="section">
+	<a href="{{ path('user_change_password') }}" class="btn btn-lg btn-block btn-danger">
+		<i class="fa fa-lock" aria-hidden="true"></i>
+		{{ 'action.change_password'|trans }}
+	</a>
+</div>
 
-        <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
-        </button>
-    {{ form_end(form) }}
-{% endblock %}
+{{ parent() }}{% endblock %}{% block javascripts %}
+{{ parent() }}
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+bsCustomFileInput.init();
+/*var groupA = document.getElementById('user_gravatarUrl').parentNode;
+        var groupB = document.getElementById('user_avatarPerso').parentNode;*/
+/*$('#user_useGravatar').on('change.bootstrapSwitch', function(e) {
+            if (e.target.checked == true) {
+                source = document.getElementById('user_gravatarUrl').html;
+                document.getElementById('avatar-utilisateur').attr('src', source);
+                //groupA.classList.remove('d-none');
+                //groupB.classList.add('d-none');
+            }
+            else {
+                source = document.getElementById('user_avatarPerso').html;
+                document.getElementById('avatar-utilisateur').attr('src', source);
+                //groupA.classList.add('d-none');
+                //groupB.classList.remove('d-none');
+            }
+        });
+        $("#user_useGravatar").trigger("change.bootstrapSwitch");*/
 
-{% block sidebar %}
-    <div class="section">
-        <a href="{{ path('user_change_password') }}" class="btn btn-lg btn-block btn-danger">
-            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.change_password'|trans }}
-        </a>
-    </div>
+$('.custom-file-input').on('change', function (event) {
+var inputFile = event.currentTarget;
+$(inputFile).parent().find('.custom-file-label')
+// .placeholder(inputFile.files[0].name).html(inputFile.files[0].name);
 
-    {{ parent() }}
-{% endblock %}
+var imgPath = inputFile.files[0].value;
+var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+var image_holder = $("#image-preview");
+image_holder.empty();
+if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+if (typeof(FileReader) != "undefined") {
+// loop for each file selected for uploaded.
+// for (var i = 0; i < countFiles; i++)
+// {
+var reader = new FileReader();
+reader.onload = function (e) {
+$("<img />", {
+"src": e.target.result,
+"class": "thumb-image"
+}).appendTo(image_holder);
+}
+image_holder.show();
+reader.readAsDataURL(inputFile.files[0].value);
+// }
+} else {
+alert("This browser does not support FileReader.");
+}
+} else {
+alert("Pls select only images");
+}
+});
+});
+</script>{% endblock %}

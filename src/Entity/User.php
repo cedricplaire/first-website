@@ -33,8 +33,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=128, nullable=true)
      */
     private $fullName;
 
@@ -125,25 +124,42 @@ class User implements UserInterface, \Serializable
 
     private $webPath;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="user", orphanRemoval=true)
+     */
+    private $likes;
+
     public function getWebPath()
     {
-        if (true == $this->useGravatar)
-        {
+        if ($this->useGravatar) {
             $webPath = $this->getGravatarUrl();
             return $webPath;
-        }
-        else {
-            $webPath = 'uploads/avatars/' . $this->getAvatarPerso();
+        } else {
+            $webPath = $this->getAvatarPerso();
             return $webPath;
         }
+    }
+
+    /**
+     * crée l'adresse du service gravatar
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function createGravatarUrl()
+    {
+        $this->gravatarUrl = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->getEmail())));
     }
 
     public function __construct()
     {
         $this->isActive = true;
         $this->userMessages = new ArrayCollection();
-        $this->gravatarUrl = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim( $this->getEmail())));
-        $this->avatarPerso = 'default-avatar.png';
+
+        //$this->avatarPerso = 'default-avatar.png';
+        $this->likes = new ArrayCollection();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -402,6 +418,37 @@ class User implements UserInterface, \Serializable
     public function setGravatarUrl(?string $gravatarUrl): self
     {
         $this->gravatarUrl = $gravatarUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PostLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
 
         return $this;
     }
