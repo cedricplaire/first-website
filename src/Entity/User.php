@@ -127,6 +127,16 @@ class User implements UserInterface, \Serializable
      */
     private $likes;
 
+    /**
+     * @ORM\Column(type="string", length=128)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $genre;
+
     public function getWebPath()
     {
         if ($this->useGravatar) {
@@ -447,6 +457,30 @@ class User implements UserInterface, \Serializable
                 $like->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getGenre(): ?bool
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?bool $genre): self
+    {
+        $this->genre = $genre;
 
         return $this;
     }

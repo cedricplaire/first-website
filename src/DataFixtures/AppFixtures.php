@@ -54,6 +54,9 @@ class AppFixtures extends Fixture
         $auser->createGravatarUrl();
         $auser->setBirthday($date);
         $auser->setAge((int) $age);
+        $auser->setState('Nouvelle Aquitaine');
+        $auser->setCountry('France');
+        $auser->setGenre(true);
         $auser->setCity('Saintes');
         $auser->setRoles(['ROLE_ADMIN']);
 
@@ -76,12 +79,14 @@ class AppFixtures extends Fixture
             $fakeUser->setEmail($faker->email);
             $fakeUser->setPassword($this->passwordEncoder->encodePassword($fakeUser, 'password'));
             $fakeUser->setUsername($faker->userName);
+            $fakeUser->setGenre($genre == 'male' ? true : false);
             $fakeUser->setFullName($first . ' ' . $last);
             $fakeUser->setBirthday($faker->dateTimeThisCentury);
             $fakeUser->setUseGravatar(false);
             $fakeUser->setAge(mt_rand(18, 65));
             $fakeUser->setCity($faker->city);
-            //$fakeUser->setState($faker->state);
+            $fakeUser->setState($faker->city);
+            $fakeUser->setCountry($faker->country);
             $fakeUser->setRoles(['ROLE_USER']);
             $fakeUser->setAvatarPerso($picture);
             $fakeUser->createGravatarUrl();
@@ -138,7 +143,8 @@ class AppFixtures extends Fixture
             /* commentaire des articles */
             for ($l = 0; $l < 5; $l++) {
                 $comment = new Comment();
-                $comment->setAuthor($user);
+                $commentUser = $users[mt_rand(0, count($users) - 1)];
+                $comment->setAuthor($commentUser);
                 $comment->setContent($faker->sentences(3, true));
                 $comment->setPost($post);
                 $comment->setPublishedAt($faker->dateTimeThisYear);
