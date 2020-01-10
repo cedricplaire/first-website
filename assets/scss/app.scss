@@ -378,6 +378,10 @@ body#blog_index .post-tags .label-default i {
   color: #a3b2b2;
 }
 
+body#blog_index .card {
+  max-height: 650px;
+}
+
 /* Page: 'Blog post show'
    ------------------------------------------------------------------------- */
 body#blog_post_show #main h3 {

@@ -3,51 +3,64 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
-	<div class="card-deck mb-3">
-		{% for post in paginator.results %}
+	{% for post in paginator.results %}
+		{% if loop.index is even %}
+			<div class="card-deck">
+			{% endif %}
+			<div class="card">
+				<img src="{{ asset('uploads/article-image/' ~ post.image) }}" class="card-img-top" alt="Image de l'article">
 
-			<div class="card w-50">
-				<img src="{{ post.image }}" class="card-img-top" alt="Image de l'article">
-
-				<div class="card-body d-flex flex-column">
-					<h5 class="card-title">
-						<a href="{{ path('blog_post', {slug: post.slug}) }}">
-							{{ post.title }}
-						</a>
-					</h5>
+				<div class="card-body">
+					<h5 class="card-title">{{ post.title }}</h5>
 					<p class="card-text">{{ post.summary }}</p>
-					<div class="mt-auto text-center">
-						<a class="btn btn-primary" href="{{ path('blog_post', {slug: post.slug}) }}">
-							Lire l'article
-						</a>
-					</div>
 				</div>
 
 				<div class="card-footer">
-					<span class="text-muted">
+					<span class="metadata">
 						<i class="fa fa-calendar"></i>
 						{{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}
-					</span>
-					<span class="float-right">
-						<a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-sm btn-outline-primary js-likes">
-							{% if app.user and post.isLikedByUser(app.user) %}
-								<i class="fas fa-heart"></i>
-							{% else %}
-								<i class="far fa-heart"></i>
-							{% endif %}
-							<span class="js-like">{{ post.likes | length}}</span>
-							<span class="js-label">J'aime</span>
-						</a>
 					</span>
 				</div>
 			</div>
 			{% if loop.index is even %}
 			</div>
-			<div class="card-deck mb-3">
-			{% endif %}
-			{% if loop.last %}
-			</div>
 		{% endif %}
+
+		{#<article class="post">
+													<h2>
+														<a href="{{ path('blog_post', {slug: post.slug}) }}">
+															{{ post.title }}
+														</a>
+													</h2>
+										
+													<p class="post-metadata">
+														<span class="metadata">
+															<i class="fa fa-calendar"></i>
+															{{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+														<span class="metadata">
+															<i class="fa fa-user"></i>
+															{{ post.author.fullName }}</span>
+													</p>
+										
+													<p>{{ post.summary }}</p>
+										
+													<div class="row">
+														<div class="col-md-6">
+															{{ include('blog/_post_tags.html.twig') }}
+														</div>
+														<div class="col-md-6 text-right">
+															<a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-sm btn-outline-primary js-likes">
+																{% if app.user and post.isLikedByUser(app.user) %}
+																	<i class="fas fa-heart"></i>
+																{% else %}
+																	<i class="far fa-heart"></i>
+																{% endif %}
+																<span class="js-like">{{ post.likes | length}}</span>
+																<span class="js-label">J'aime</span>
+															</a>
+														</div>
+													</div>
+												</article>#}
 
 	{% else %}
 		<div class="well">{{ 'post.no_posts_found'|trans }}</div>

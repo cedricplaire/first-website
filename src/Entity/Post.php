@@ -3,9 +3,7 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-use App\Service\FileUploader;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -290,5 +288,14 @@ class Post
         }
 
         return $this;
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) return true;
+        }
+
+        return false;
     }
 }

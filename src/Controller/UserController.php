@@ -17,6 +17,7 @@ use App\Form\Type\ChangePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -42,6 +43,7 @@ class UserController extends AbstractController
         $oldAvatar = $user->getAvatarPerso();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /**
              * @var UploadedFile $imgFile
              */
@@ -95,7 +97,5 @@ class UserController extends AbstractController
                 'message' => 'Vous devez être connecté !'
             ], 403);
         }
-
-        
     }
 }
