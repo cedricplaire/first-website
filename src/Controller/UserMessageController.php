@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserMessageController extends AbstractController
 {
     /**
-     * @Route("/", name="user_message_index", methods={"GET"})
+     * @Route("/messages", name="user_message_index", methods={"GET"})
      */
     public function index(UserMessageRepository $userMessageRepository): Response
     {
@@ -30,7 +30,7 @@ class UserMessageController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_message_new", methods={"GET","POST"})
+     * @Route("/messages/new", name="user_message_new", methods={"GET","POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function new(Request $request): Response
@@ -56,17 +56,17 @@ class UserMessageController extends AbstractController
     }
 
     /**
-     * @Route("/{id<\d+>}", name="user_message_show", methods={"GET"})
+     * @Route("/messages/{id<\d+>}/show", name="user_message_show", methods={"GET"})
      */
     public function show(UserMessage $userMessage, UserMessageRepository $repo): Response
     {
         return $this->render('user_message/show.html.twig', [
             'user_message' => $userMessage,
-        ]);   
+        ]);
     }
 
     /**
-     * @Route("/{id<\d+>}/edit", name="user_message_edit", methods={"GET","POST"})
+     * @Route("/messages/{id<\d+>}/edit", name="user_message_edit", methods={"GET","POST"})
      * @IsGranted("edit", subject="userMessage", message="UserMessage can only be edited by their authors.")
      */
     public function edit(Request $request, UserMessage $userMessage): Response
@@ -88,12 +88,12 @@ class UserMessageController extends AbstractController
     }
 
     /**
-     * @Route("/{id<\d+>}/delete", name="user_message_delete", methods={"DELETE"})
+     * @Route("/messages/{id<\d+>}/delete", name="user_message_delete", methods={"DELETE"})
      * @IsGranted("delete", subject="userMessage")
      */
     public function delete(Request $request, UserMessage $userMessage): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$userMessage->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $userMessage->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($userMessage);
             $entityManager->flush();
@@ -101,5 +101,30 @@ class UserMessageController extends AbstractController
 
         $this->addFlash('success', 'msg.okdelete');
         return $this->redirectToRoute('user_message_index');
+    }
+
+    /**
+     * @route("/contact", name="blog_contact")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function contact(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $msg = new UserMessage();
+        $msg->setUser($this->getUser());
+        $form = $this->createForm(UserMessageType::class, $msg);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($msg);
+            $em->flush();
+
+            return $this->redirectToRoute('blog_index');
+        }
+
+        return $this->render('default/contact.html.twig', [
+            'contactForm' => $form->createView(),
+        ]);
     }
 }

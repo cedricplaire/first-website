@@ -4,49 +4,49 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'fr'
+    locale: "fr"
     # This parameter defines the codes of the locales (languages) enabled in the application
     app_locales: en|fr|de|es
-    app.notifications.email_sender: anonymous@example.com
-    upload_dir: '%kernel.project_dir%/public/uploads'
-    voter_edit: 'EDIT'
-    voter_show: 'SHOW'
-    voter_new: 'NEW'
-    voter_delete: 'DELETE'
+    app.notifications.email_sender: cedricplaire30@gmail.com
+    upload_dir: "%kernel.project_dir%/public/uploads"
+    voter_edit: "EDIT"
+    voter_show: "SHOW"
+    voter_new: "NEW"
+    voter_delete: "DELETE"
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        bind:               # defines the scalar arguments once and apply them to any service defined/created in this file
-            $locales: '%app_locales%'
-            $defaultLocale: '%locale%'
-            $emailSender: '%app.notifications.email_sender%'
+        bind: # defines the scalar arguments once and apply them to any service defined/created in this file
+            $locales: "%app_locales%"
+            $defaultLocale: "%locale%"
+            $emailSender: "%app.notifications.email_sender%"
 
     Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: "../src/*"
+        exclude: "../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}"
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+        resource: "../src/Controller"
+        tags: ["controller.service_arguments"]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\EventSubscriber\CommentNotificationSubscriber:
-        $sender: '%app.notifications.email_sender%'
+        $sender: "%app.notifications.email_sender%"
 
     # service for upload files
     App\Service\FileUploader:
         arguments:
-            $uploadDirectory: '%upload_dir%'
+            $uploadDirectory: "%upload_dir%"
 
     App\Service\MailerSvc:
-        arguments: 
+        arguments:

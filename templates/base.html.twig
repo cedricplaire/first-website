@@ -1,173 +1,184 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{% block title %}Cédric-Blog Application{% endblock %}</title>
-    <link rel="alternate" type="application/rss+xml" title="{{ 'rss.title'|trans }}" href="{{ path('blog_rss') }}">
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>
+			{% block title %}Cédric-Blog Application
+			{% endblock %}
+		</title>
+		<link rel="alternate" type="application/rss+xml" title="{{ 'rss.title'|trans }}" href="{{ path('blog_rss') }}">
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-</head>
-<body id="{% block body_id %}{% endblock %}">
-    {% block header %}
-        <header class="container-fluid">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-                <a class="navbar-brand" href="{{ path('homepage') }}">
-                    <img src="{{ asset('build/images-site/brand.png') }}" aria-details="Logo">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#BlogMainMenu" aria-controls="BlogMainMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+	</head>
+	<body id="{% block body_id %}{% endblock %}">
+		{% block header %}
+			<header class="container-fluid">
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+					<a class="navbar-brand" href="{{ path('homepage') }}">
+						<img src="{{ asset('build/images-site/brand.png') }}" aria-details="Logo">
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#BlogMainMenu" aria-controls="BlogMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-                <div class="collapse navbar-collapse" id="BlogMainMenu">
-                    <ul class="navbar-nav">
-                        {% block header_navigation_links %}
-                            <li class="nav-item mr-auto">
-                                <a class="nav-link" href="{{ path('blog_index') }}">
-                                    <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
-                                </a>
-                            </li>
+					<div class="collapse navbar-collapse" id="BlogMainMenu">
+						<ul class="navbar-nav">
+							{% block header_navigation_links %}
+								<li class="nav-item mr-auto">
+									<a class="nav-link" href="{{ path('blog_index') }}">
+										<i class="fa fa-home" aria-hidden="true"></i>
+										{{ 'menu.homepage'|trans }}
+									</a>
+								</li>
 
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item mr-auto">
-                                    <a class="nav-link" href="{{ path('admin_post_index') }}">
-                                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'menu.admin'|trans }}
-                                    </a>
-                                </li>
-                            {% endif %}
-                        {% endblock %}
-                        <li class="nav-item mr-auto">
-                            <a class="nav-link" href="{{ path('blog_contact') }}">
-                                <i class="fa fa-envelope" aria-hidden="true"></i> {{ 'Contact'|trans }}
-                            </a>
-                        </li>
+								{% if is_granted('ROLE_ADMIN') %}
+									<li class="nav-item mr-auto">
+										<a class="nav-link" href="{{ path('admin_post_index') }}">
+											<i class="fa fa-lock" aria-hidden="true"></i>
+											{{ 'menu.admin'|trans }}
+										</a>
+									</li>
+								{% endif %}
+							{% endblock %}
+							<li class="nav-item mr-auto">
+								<a class="nav-link" href="{{ path('blog_contact') }}">
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+									{{ 'Contact'|trans }}
+								</a>
+							</li>
+							<li class="nav-intem mr-auto">
+								<a class="nav-link" href="{{ path('blog_search') }}">
+									<i class="fa fa-search"></i>
+									{{ 'menu.search'|trans }}</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav flex-row ml-md-auto d-md-flex">
+							{% if app.user %}
+								<li class="dropdown d-flex justify-content-end">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
+										<i class="fa fa-user" aria-hidden="true"></i>
+										{{ app.user.fullname }}</a>
+									<div class="dropdown-menu bg-dark user" role="menu" aria-labelledby="user">
+										<a class="dropdown-item" href="{{ path('user_edit') }}">
+											<i class="fa fa-user-edit"></i>
+											{{ 'menu.user'|trans }}
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{{ path('security_logout') }}">
+											<i class="fa fa-sign-out"></i>
+											{{ 'menu.logout'|trans }}
+										</a>
+									</div>
+								</li>
+							{% else %}
+								<li class="dropdown d-flex justify-content-end">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
+										<i class="fa fa-user" aria-hidden="true"></i>
+										{{ 'action.sign_in'|trans }}
+									</a>
+									<div class="dropdown-menu bg-dark user" role="menu" aria-labelledby="user">
+										<a class="dropdown-item" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}">
+											<i class="fa fa-sign-in"></i>
+											{{ 'action.sign_in'|trans }}
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{{ path('security_register', {'redirect_to': app.request.pathInfo}) }}">
+											<i class="fa fa-user-plus"></i>
+											{{ 'register'|trans }}
+										</a>
 
-                        <li class="nav-intem mr-auto">
-                            <a class="nav-link" href="{{ path('blog_search') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans }}</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-                        {% if app.user %}
-                        <li class="dropdown d-flex justify-content-end">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
-                                <i class="fa fa-user" aria-hidden="true"></i>{{ app.user.fullname }}</a>
-                            <div class="dropdown-menu bg-dark user" role="menu" aria-labelledby="user">
-                                <a class="dropdown-item" href="{{ path('user_edit') }}"> 
-                                    <i class="fa fa-user-edit"></i> {{ 'menu.user'|trans }}
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('security_logout') }}">
-                                    <i class="fa fa-sign-out"></i> {{ 'menu.logout'|trans }}
-                                </a>
-                            </div>
-                        </li>
-                        {% else %}
-                        <li class="dropdown d-flex justify-content-end">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user">
-                                <i class="fa fa-user" aria-hidden="true"></i> {{ 'action.sign_in'|trans }} </a>
-                            <div class="dropdown-menu bg-dark user" role="menu" aria-labelledby="user">
-                                <a class="dropdown-item" href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}"> 
-                                    <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('security_register', {'redirect_to': app.request.pathInfo}) }}"> 
-                                    <i class="fa fa-user-plus"></i> {{ 'register'|trans }}
-                                </a>
-                                
-                            </div>
-                        </li>
-                        {% endif %}
-                        <li class="dropdown d-flex justify-content-end">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="locales">
-                                <i class="fa fa-globe" aria-hidden="true"></i>{{ 'menu.choose_language'|trans }}</a>
-                            <div class="dropdown-menu bg-dark locales" role="menu" aria-labelledby="locales">
-                                {% for locale in locales() %}
-                                    {# <li class="nav-item" {% if app.request.locale == locale.code %} aria-checked="true" class="active" {% else %} aria-checked="false" {% endif %}> #}
-                                    <a {% if app.request.locale == locale.code %} aria-checked="true" class="dropdown-item active" {% else %} aria-checked="false" class="dropdown-item"{% endif %}
-                                       href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small></a>
-                                    {#</li>#}
-                                {% endfor %}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-    {% endblock %}
-    
-    <div class="container-fluid body-container">
-        {{ include('default/_flash_messages.html.twig') }}
-        {% block body %}
-        <div class="row">        
-            <div id="main" class="col-sm-12">
-                {% block main %}{% endblock %}
-            </div>  
-        </div>
-        {% endblock %}
-    </div> 
+									</div>
+								</li>
+							{% endif %}
+							<li class="dropdown d-flex justify-content-end">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="locales">
+									<i class="fa fa-globe" aria-hidden="true"></i>
+									{{ 'menu.choose_language'|trans }}</a>
+								<div class="dropdown-menu bg-dark locales" role="menu" aria-labelledby="locales">
+									{% for locale in locales() %}
+										{# <li class="nav-item" {% if app.request.locale == locale.code %} aria-checked="true" class="active" {% else %} aria-checked="false" {% endif %}> #}
+										<a {% if app.request.locale == locale.code %} aria-checked="true" class="dropdown-item active" {% else %} aria-checked="false" class="dropdown-item" {% endif %} href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }}
+											<small>{{ locale.code[0:2] }}</small>
+										</a>
+										{#</li>#}
+									{% endfor %}
+								</div>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+		{% endblock %}
 
-    {% block footer %}
-        <footer>
-            <div class="container-fluid">
-                <div class="row">
-                    <div id="footer-copyright" class="col-md-6">
-                        <p>&copy; {{ 'now'|date('Y') }} SoMusicShare - Blog par Plaire Cédric</p>
-                        <p>{{ 'gnu_license'|trans }}</p>
-                    </div>
-                    <div id="footer-resources" class="col-md-6">
-                        <p>
-                            <a href="https://twitter.com/TheBebshow" title="Plaire-Cédric Twitter">
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                            </a>
-                            <a href="https://www.facebook.com/cedric.plaire.7" title="Plaire-Cédric Facebook">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                            </a>
-                            <a href="https://somusicshare.com/blog/" title="SoMusicShare Blog">
-                                <i class="fa fa-rss" aria-hidden="true"></i>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    {% endblock %}
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-        <script type="text/javascript">
-        $( document ).ready(function() {
-            bsCustomFileInput.init();
-            var groupA = document.getElementById('user_gravatarUrl').parentNode;
-            var groupB = document.getElementById('user_avatarPerso').parentNode;
-            $('#user_useGravatar').on('change.bootstrapSwitch', function(e) {
-                if (e.target.checked == true) {
-                    groupA.classList.remove('d-none');
-                    groupA.addAttribute('required', true);
-                    groupB.classList.add('d-none');
-                    groupA.removeAttribute('required', true);
-                }
-                else {
-                    groupA.classList.add('d-none');
-                    groupA.removeAttribute('required', true);
-                    groupB.classList.remove('d-none');
-                    groupB.addAttribute('required', true);
-                }
-            });
-            $("#user_useGravatar").trigger("change.bootstrapSwitch");
-            
-            $('.custom-file-input').on('change', function(event) {
-                var inputFile = event.currentTarget;
-                $(inputFile).parent()
-                    .find('.custom-file-label')
-                    //.placeholder(inputFile.files[0].name)
-                    .html(inputFile.files[0].name);
-            });
-        });
-        </script>
-    {% endblock %}
-    <!-- Page rendered on {{ 'now'|localizeddate('long', 'long', null, 'UTC') }} -->
-</body>
+		<div class="container-fluid body-container">
+			{{ include('default/_flash_messages.html.twig') }}
+			{% block body %}
+				<div class="row">
+					<div id="main" class="col-sm-12">
+						{% block main %}{% endblock %}
+					</div>
+				</div>
+			{% endblock %}
+		</div>
+
+		{% block footer %}
+			<footer>
+				<div class="container-fluid">
+					<div class="row">
+						<div id="footer-copyright" class="col-md-6">
+							<p>&copy;
+								{{ 'now'|date('Y') }}
+								SoMusicShare - Blog par Plaire Cédric</p>
+							<p>{{ 'gnu_license'|trans }}</p>
+						</div>
+						<div id="footer-resources" class="col-md-6">
+							<p>
+								<a href="https://twitter.com/TheBebshow" title="Plaire-Cédric Twitter">
+									<i class="fa fa-twitter" aria-hidden="true"></i>
+								</a>
+								<a href="https://www.facebook.com/cedric.plaire.7" title="Plaire-Cédric Facebook">
+									<i class="fa fa-facebook" aria-hidden="true"></i>
+								</a>
+								<a href="https://somusicshare.com/blog/" title="SoMusicShare Blog">
+									<i class="fa fa-rss" aria-hidden="true"></i>
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</footer>
+		{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+			<script>
+				function onClickBtnLike(event) {
+event.preventDefault();
+
+const url = this.href;
+const spanCount = this.querySelector('span.js-like');
+const icone = this.querySelector('i');
+
+axios.post(url).then(function (response) {
+spanCount.textContent = response.data.likes;
+if (icone.classList.contains('fas')) {
+icone.classList.replace('fas', 'far');
+} else {
+icone.classList.replace('far', 'fas');
+}
+})
+}
+
+document.querySelectorAll('a.js-likes').forEach(function (link) {
+link.addEventListener('click', onClickBtnLike);
+})
+			</script>
+		{% endblock %}
+		<!-- Page rendered on {{ 'now'|localizeddate('long', 'long', null, 'UTC') }} -->
+	</body>
 </html>

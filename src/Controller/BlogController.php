@@ -11,24 +11,25 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Post;
-use App\Events\CommentCreatedEvent;
+use App\Entity\Comment;
+use App\Entity\PostLike;
 use App\Form\CommentType;
-use App\Service\Mailer;
-use App\Entity\UserMessage;
-use App\Form\UserMessageType;
-use App\Repository\UserMessageRepository;
-use App\Repository\PostRepository;
 use App\Repository\TagRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Repository\PostRepository;
+use App\Events\CommentCreatedEvent;
+use App\Repository\PostLikeRepository;
+use DateTime;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -51,7 +52,7 @@ class BlogController extends AbstractController
         }
         $latestPosts = $posts->findLatest($page, $tag);
 
-        return $this->render('blog/index.'.$_format.'.twig', [
+        return $this->render('blog/index.' . $_format . '.twig', [
             'paginator' => $latestPosts,
         ]);
     }
@@ -85,7 +86,7 @@ class BlogController extends AbstractController
             $em->flush();
 
             $eventDispatcher->dispatch(new CommentCreatedEvent($comment));
-            $this->addFlash('success', $translator->trans('comment.oknew'));
+            $this->addFlash('success', 'comment.oknew');
             return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
         }
 
@@ -137,27 +138,53 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @route("/contact", name="blog_contact")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * permet de liker ou unliker un article
+     * 
+     * @Route("/post/{id}/like", methods={"POST"}, name="post_like")
+     *
+     * @param Post $post
+     * @param ObjectManager $manager
+     * @param PostLikeRepository $likeRepo
+     * @return Response
      */
-    public function contact(Request $request): Response
+    public function like(Post $post, PostLikeRepository $likeRepo): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $msg = new UserMessage();
-        $msg->setUser($this->getUser());
-        $form = $this->createForm(UserMessageType::class, $msg);
-        $form->handleRequest($request);
+        $manager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($msg);
-            $em->flush();
+        if (!$user) return $this->json([
+            'code' => 403,
+            'message' => 'unauthorized'
+        ], 403);
 
-            return $this->redirectToRoute('blog_index');
+        if ($post->isLikedByUser($user)) {
+            $like = $likeRepo->findOneBy([
+                'post' => $post,
+                'user' => $user
+            ]);
+
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'J\'aime bien supprimé',
+                'likes' => $likeRepo->count(['post' => $post])
+            ], 200);
         }
-        
-        return $this->render('default/contact.html.twig', [
-            'contactForm' => $form->createView(),
-        ]);
+
+        $like = new PostLike();
+        $like->setPost($post)
+            ->setUser($user)
+            ->setCreatedAt(new DateTime('now'));
+
+        $manager->persist($like);
+        $manager->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'J\'aime bien ajouté',
+            'likes' => $likeRepo->count(['post' => $post])
+        ], 200);
     }
 }

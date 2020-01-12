@@ -11,10 +11,29 @@
 {% block file_widget %}
     {% apply spaceless %}
 
-    {{ parent() }}
+    <div class="col-md-8 col-sm-12">
+        {{ parent() }}
+    </div>
+    <div class="col-md-4 col-sm-12">
     {% if image_url is defined and image_url is not null %}
-        <img class="img-thumbnail avatar-preview" src="{{ asset(image_url) }}"/>
+        <img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
     {% endif %}
+    </div>
+
+    {% endapply %}
+{% endblock %}
+
+{% block url_widget %}
+    {% apply spaceless %}
+
+    <div class="col-md-8">
+        {{ parent() }}
+    </div>
+    <div class="col-md-4">
+    {% if image_url is defined and image_url is not null %}
+        <img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
+    {% endif %}
+    </div>
 
     {% endapply %}
 {% endblock %}

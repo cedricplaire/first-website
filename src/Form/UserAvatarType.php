@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\UserAvatar;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,19 +13,21 @@ class UserAvatarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, [
+            ->add('avatarPerso', FileType::class, [
                 'label' => 'Avatar :',
-                'placeholder' => 'Choisissez une image sur votre périphérique',
+                'attr' => [
+                    'placeholder' => 'Choisissez une image sur votre périphérique',
+                    'id' => 'select-avatar'
+                ],
                 'help' => 'La taille maximale de l\'image est 512 x 512',
                 'image_property' => 'webPath'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserAvatar::class,
+            'data_class' => User::class,
         ]);
     }
 }

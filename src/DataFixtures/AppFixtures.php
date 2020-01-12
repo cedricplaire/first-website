@@ -11,14 +11,15 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
+use Faker\Factory;
 use App\Entity\Tag;
 use App\Entity\Post;
 use App\Entity\User;
-use App\Utils\Slugger;
 use App\Entity\Comment;
-use App\Entity\UserAvatar;
+use App\Entity\PostLike;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -33,60 +34,132 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);
-        $this->loadTags($manager);
-        $this->loadPosts($manager);
     }
 
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
-            $user = new User();
-            $user->setFullName($fullname);
-            $user->setUsername($username);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-            $user->setEmail($email);
-            $user->setRoles($roles);
-            $user->setUseGravatar(false);
+        $faker = Factory::create('fr_FR');
+        $auser = new User();
+        $date = new DateTime('NOW');
+        $birthday = new DateTime('05-08-1973');
+        $age = $date->diff($birthday)->format('Y');
+        $password = $this->passwordEncoder->encodePassword($auser, 'BebShow5873');
+        $picture = 'https://randomuser.me/api/portraits/men/55.jpg';
+        $auser->setEmail('againmusician@gmail.com');
+        $auser->setPassword($password);
+        $auser->setUsername('Bebshow');
+        $auser->setFullName('Plaire Cédric');
+        $auser->setUseGravatar(false);
+        $auser->setAvatarPerso($picture);
+        $auser->createGravatarUrl();
+        $auser->setBirthday($date);
+        $auser->setAge((int) $age);
+        $auser->setState('Nouvelle Aquitaine');
+        $auser->setCountry('France');
+        $auser->setGenre(true);
+        $auser->setCity('Saintes');
+        $auser->setRoles(['ROLE_ADMIN']);
 
-            $manager->persist($user);
-            $this->addReference($username, $user);
+        $manager->persist($auser);
+
+        $users = [];
+        $users[] = $auser;
+        $genres = ['male', 'female'];
+
+        for ($i = 0; $i < 10; $i++) {
+            $fakeUser = new User();
+            $genre = $faker->randomElement($genres);
+            $picture = 'https://randomuser.me/api/portraits/';
+            $pictureId = $faker->numberBetween(1, 99) . '.jpg';
+
+            $picture .= ($genre == 'male' ? 'men/' : 'women/') . $pictureId;
+
+            $first = $faker->firstName($genre);
+            $last = $faker->lastName;
+            $fakeUser->setEmail($faker->email);
+            $fakeUser->setPassword($this->passwordEncoder->encodePassword($fakeUser, 'password'));
+            $fakeUser->setUsername($faker->userName);
+            $fakeUser->setGenre($genre == 'male' ? true : false);
+            $fakeUser->setFullName($first . ' ' . $last);
+            $fakeUser->setBirthday($faker->dateTimeThisCentury);
+            $fakeUser->setUseGravatar(false);
+            $fakeUser->setAge(mt_rand(18, 65));
+            $fakeUser->setCity($faker->city);
+            $fakeUser->setState($faker->city);
+            $fakeUser->setCountry($faker->country);
+            $fakeUser->setRoles(['ROLE_USER']);
+            $fakeUser->setAvatarPerso($picture);
+            $fakeUser->createGravatarUrl();
+
+            $manager->persist($fakeUser);
+            $users[] = $fakeUser;
         }
 
-        $manager->flush();
-    }
-
-    private function loadTags(ObjectManager $manager): void
-    {
-        foreach ($this->getTagData() as $index => $name) {
+        /* Tag pour les articles */
+        foreach ($this->getTagsData() as $j => $myTag) {
             $tag = new Tag();
-            $tag->setName($name);
+            $tag->setName($myTag);
 
             $manager->persist($tag);
-            $this->addReference('tag-'.$name, $tag);
+            $this->addReference('tag-' . $myTag, $tag);
         }
+        /*for ($j = 0; $j < $this->getTagsData(); $j++) {
+            $tag = new Tag();
+            $tag->setName($faker->randomElement($this->getTagsData()));
 
-        $manager->flush();
-    }
+            $manager->persist($tag);
+            $this->addReference('tag-' . $j, $tag);
+        };*/
 
-    private function loadPosts(ObjectManager $manager): void
-    {
-        foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
+        /* articles factices du site */
+        for ($k = 0; $k < 30; $k++) {
             $post = new Post();
-            $post->setTitle($title);
-            $post->setSlug($slug);
-            $post->setSummary($summary);
-            $post->setContent($content);
-            $post->setPublishedAt($publishedAt);
-            $post->setAuthor($author);
-            $post->addTag(...$tags);
 
-            foreach (range(1, 5) as $i) {
+            $title      = $faker->sentence();
+            $color1 = $faker->hexColor;
+            $color2 = $faker->hexColor;
+            $c1 = substr($color1, 1);
+            $c2 = substr($color2, 1);
+            $postImg = "https://via.placeholder.com/800x300/" . $c1 . "/" . $c2 . "?text=" . $faker->city . "-" . $faker->country;
+            //$coverImage = $faker->imageUrl(800, 300);
+            $introduction = $faker->paragraph(2);
+            $content    = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
+
+            $user = $users[mt_rand(0, count($users) - 1)];
+
+            $post->setTitle($title)
+                ->setSummary($introduction)
+                ->setContent($content)
+                ->setAuthor($user)
+                ->setPublishedAt($faker->dateTimeThisYear)
+                ->setImage($postImg);
+
+            $post->initializeSlug();
+
+            for ($t = 0; $t < (mt_rand(1, 4)); $t++) {
+                $post->addTag(...$this->getRandomTags());
+            }
+
+            /* commentaire des articles */
+            for ($l = 0; $l < 5; $l++) {
                 $comment = new Comment();
-                $comment->setAuthor($this->getReference('you_user'));
-                $comment->setContent($this->getRandomText(random_int(255, 512)));
-                $comment->setPublishedAt(new \DateTime('now + '.$i.'seconds'));
+                $commentUser = $users[mt_rand(0, count($users) - 1)];
+                $comment->setAuthor($commentUser);
+                $comment->setContent($faker->sentences(3, true));
+                $comment->setPost($post);
+                $comment->setPublishedAt($faker->dateTimeThisYear);
 
-                $post->addComment($comment);
+                $manager->persist($comment);
+            }
+
+            /* like pour les articles */
+            for ($j = 0; $j < mt_rand(0, 10); $j++) {
+                $like = new PostLike();
+                $like->setCreatedAt($faker->dateTimeThisMonth);
+                $like->setPost($post)
+                    ->setUser($faker->randomElement($users));
+
+                $manager->persist($like);
             }
 
             $manager->persist($post);
@@ -95,145 +168,175 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function getUserData(): array
+    public function getTagsData()
     {
         return [
-            // $userData = [$fullname, $username, $password, $email, $roles];
-            ['Cédric Plaire', 'cedric_admin', 'BebShow5873', 'cedric_admin@localhost.com', ['ROLE_SUPER_ADMIN']],
-            ['Beb Plaire', 'beb_admin', 'BebAdmin5873', 'beb_admin@localhost.com', ['ROLE_ADMIN']],
-            ['Youssef Kannibou', 'you_user', 'LeYouKan17', 'youkan@gmail.com', ['ROLE_USER']],
+            "internet",
+            "multimédia",
+            "JavaScript",
+            "Google",
+            "blog",
+            "navigateur",
+            "HTML",
+            "logiciel",
+            "www",
+            "cookie",
+            "e-commerce",
+            "formulaire",
+            "WorldWideWeb",
+            "annuaire",
+            "PHP",
+            "Firefox",
+            "référencement",
+            "internaute",
+            "ordinateur",
+            "safari",
+            "webmaster",
+            "wiki",
+            "CSS",
+            "framework",
+            "toile",
+            "URL",
+            "Facebook",
+            "publicité",
+            "moteur-de-recherche",
+            "ergonomie",
+            "messagerie",
+            "standard",
+            "proxy",
+            "webmestre",
+            "contenu",
+            "naviguer",
+            "portail",
+            "serveur",
+            "site-web",
+            "Yahoo",
+            "Apache",
+            "hébergeur",
+            "page",
+            "page-web",
+            "sémantique",
+            "application",
+            "communication",
+            "forum",
+            "hypertexte",
+            "média",
+            "utilisateur-accessible",
+            "blogueur",
+            "développeur",
+            "interactif",
+            "technologie",
+            "webmail",
+            "actualité",
+            "client",
+            "diffusion",
+            "marketing",
+            "Mozilla-plateforme",
+            "web-sémantique",
+            "fonctionnalité",
+            "hyperlien",
+            "indexation",
+            "Internet-Explorer",
+            "intranet",
+            "langage",
+            "minitel",
+            "outil",
+            "Tim-Berners-Lee",
+            "Adobe",
+            "asp",
+            "chrome",
+            "consultation",
+            "http",
+            "marque-page",
+            "Mosaic",
+            "Netscape",
+            "plugin",
+            "usenet",
+            "XML",
+            "hacker",
+            "HTML5",
+            "MySQL",
+            "site",
+            "widget",
+            "Alexa",
+            "applicatif",
+            "collaboratif",
+            "disponible",
+            "document",
+            "envoi",
+            "information-Java",
+            "lien-participatif",
+            "api-digital",
+            "intégrateur",
+            "métadonnée",
+            "mobile",
+            "navigateur-web",
+            "recommandation",
+            "réseaux-sociaux",
+            "Tor",
+            "WordPress",
+            "Android",
+            "applet",
+            "authentification",
+            "courriel",
+            "fournisseur",
+            "owl-rdf",
+            "RSS-server",
+            "serveur-web",
+            "téléchargement",
+            "Twitter-uniface",
+            "vidéo",
+            "courrier-électronique",
+            "design",
+            "Gmail",
+            "IIS",
+            "SVG",
+            "visioconférence",
+            "XHTML",
+            "accessibilité",
+            "AOL-développement",
+            "informathèque",
+            "Mozilla-Firefox-Pagerank",
+            "réseau",
+            "servlet",
+            "WebKit",
+            "websérie",
+            "Berners-Lee",
+            "bing",
+            "cyber-réputation",
+            "défacement",
+            "déploiement-dynamique",
+            "électronique",
+            "Google-Chrome",
+            "infolettre",
+            "interactivité",
+            "interface",
+            "médias-sociaux",
+            "navigation",
+            "NTIC",
+            "permalien",
+            "pop-up",
+            "présentation",
+            "rediriger",
+            "réseau-mondial",
+            "toile-mondiale",
+            "voie-de-communication",
+            "W³",
+            "wan",
+            "web-profond",
+            "web-surfacique",
+            "YouTube"
         ];
-    }
-
-    private function getTagData(): array
-    {
-        return [
-            'lorem',
-            'ipsum',
-            'consectetur',
-            'adipiscing',
-            'incididunt',
-            'labore',
-            'voluptate',
-            'dolore',
-            'pariatur',
-        ];
-    }
-
-    private function getPostData()
-    {
-        $posts = [];
-        foreach ($this->getPhrases() as $i => $title) {
-            // $postData = [$title, $slug, $summary, $content, $publishedAt, $author, $tags, $comments];
-            $posts[] = [
-                $title,
-                Slugger::slugify($title),
-                $this->getRandomText(),
-                $this->getPostContent(),
-                new \DateTime('now - '.$i.'days'),
-                // Ensure that the first post is written by Jane Doe to simplify tests
-                $this->getReference(['cedric_admin', 'beb_admin'][0 === $i ? 0 : random_int(0, 1)]),
-                $this->getRandomTags(),
-            ];
-        }
-
-        return $posts;
-    }
-
-    private function getPhrases(): array
-    {
-        return [
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit',
-            'Pellentesque vitae velit ex',
-            'Mauris dapibus risus quis suscipit vulputate',
-            'Eros diam egestas libero eu vulputate risus',
-            'In hac habitasse platea dictumst',
-            'Morbi tempus commodo mattis',
-            'Ut suscipit posuere justo at vulputate',
-            'Ut eleifend mauris et risus ultrices egestas',
-            'Aliquam sodales odio id eleifend tristique',
-            'Urna nisl sollicitudin id varius orci quam id turpis',
-            'Nulla porta lobortis ligula vel egestas',
-            'Curabitur aliquam euismod dolor non ornare',
-            'Sed varius a risus eget aliquam',
-            'Nunc viverra elit ac laoreet suscipit',
-            'Pellentesque et sapien pulvinar consectetur',
-            'Ubi est barbatus nix',
-            'Abnobas sunt hilotaes de placidus vita',
-            'Ubi est audax amicitia',
-            'Eposs sunt solems de superbus fortis',
-            'Vae humani generis',
-            'Diatrias tolerare tanquam noster caesium',
-            'Teres talis saepe tractare de camerarius flavum sensorem',
-            'Silva de secundus galatae demitto quadra',
-            'Sunt accentores vitare salvus flavum parses',
-            'Potus sensim ad ferox abnoba',
-            'Sunt seculaes transferre talis camerarius fluctuies',
-            'Era brevis ratione est',
-            'Sunt torquises imitari velox mirabilis medicinaes',
-            'Mineralis persuadere omnes finises desiderium',
-            'Bassus fatalis classiss virtualiter transferre de flavum',
-        ];
-    }
-
-    private function getRandomText(int $maxLength = 255): string
-    {
-        $phrases = $this->getPhrases();
-        shuffle($phrases);
-
-        while (mb_strlen($text = implode('. ', $phrases).'.') > $maxLength) {
-            array_pop($phrases);
-        }
-
-        return $text;
-    }
-
-    private function getPostContent(): string
-    {
-        return <<<'MARKDOWN'
-Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et **dolore magna aliqua**: Duis aute irure dolor in
-reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-deserunt mollit anim id est laborum.
-
-  * Ut enim ad minim veniam
-  * Quis nostrud exercitation *ullamco laboris*
-  * Nisi ut aliquip ex ea commodo consequat
-
-Praesent id fermentum lorem. Ut est lorem, fringilla at accumsan nec, euismod at
-nunc. Aenean mattis sollicitudin mattis. Nullam pulvinar vestibulum bibendum.
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-himenaeos. Fusce nulla purus, gravida ac interdum ut, blandit eget ex. Duis a
-luctus dolor.
-
-Integer auctor massa maximus nulla scelerisque accumsan. *Aliquam ac malesuada*
-ex. Pellentesque tortor magna, vulputate eu vulputate ut, venenatis ac lectus.
-Praesent ut lacinia sem. Mauris a lectus eget felis mollis feugiat. Quisque
-efficitur, mi ut semper pulvinar, urna urna blandit massa, eget tincidunt augue
-nulla vitae est.
-
-Ut posuere aliquet tincidunt. Aliquam erat volutpat. **Class aptent taciti**
-sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi
-arcu orci, gravida eget aliquam eu, suscipit et ante. Morbi vulputate metus vel
-ipsum finibus, ut dapibus massa feugiat. Vestibulum vel lobortis libero. Sed
-tincidunt tellus et viverra scelerisque. Pellentesque tincidunt cursus felis.
-Sed in egestas erat.
-
-Aliquam pulvinar interdum massa, vel ullamcorper ante consectetur eu. Vestibulum
-lacinia ac enim vel placerat. Integer pulvinar magna nec dui malesuada, nec
-congue nisl dictum. Donec mollis nisl tortor, at congue erat consequat a. Nam
-tempus elit porta, blandit elit vel, viverra lorem. Sed sit amet tellus
-tincidunt, faucibus nisl in, aliquet libero.
-MARKDOWN;
     }
 
     private function getRandomTags(): array
     {
-        $tagNames = $this->getTagData();
+        $tagNames = $this->getTagsData();
         shuffle($tagNames);
-        $selectedTags = \array_slice($tagNames, 0, random_int(2, 4));
+        $selectedTags = \array_slice($tagNames, 0, random_int(1, 2));
 
-        return array_map(function ($tagName) { return $this->getReference('tag-'.$tagName); }, $selectedTags);
+        return array_map(function ($tagName) {
+            return $this->getReference('tag-' . $tagName);
+        }, $selectedTags);
     }
 }

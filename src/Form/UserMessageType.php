@@ -14,13 +14,13 @@ class UserMessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('sujet', TextType::class, [
-            'help' => 'Entrez le sujet du message (présentation, aide, demande ..)',
-        ])
-        ->add('content', TextareaType::class, [
-            'help' => 'Texte de votre message (détaillez le plus possible)',
-        ])
-        ;
+            ->add('sujet', TextType::class, [
+                'help' => 'Entrez le sujet du message (présentation, aide, demande ..)',
+            ])
+            ->add('content', TextareaType::class, [
+                'label' => 'Contenu',
+                'help' => 'Texte de votre message (détaillez le plus possible)',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
