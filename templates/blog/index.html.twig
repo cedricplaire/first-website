@@ -3,12 +3,13 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
-	<div class="titre-index-public mb-2">
+	<div class="titre-index-public p-2 mb-2">
 		<p class="mb-0 font-weight-bold">Listes des articles publics :</p>
 		<span class="text-muted">- Il y a
 			{{ paginator.pageSize | length}}
 			pages
 		</span>
+
 	</div>
 	<div class="card-deck mb-3">
 		{% for post in paginator.results %}
@@ -21,6 +22,11 @@
 							{{ post.title }}
 						</a>
 					</h5>
+					<span class="text-muted">
+						{{ 'Modifié le :' | trans }}
+						{{ post.modifiedAt | localizeddate('long', 'short', null, 'UTC') }}
+					</span>
+
 					<p class="card-text">{{ post.summary }}</p>
 					<div class="mt-auto text-center">
 						<a class="btn btn-primary" href="{{ path('blog_post', {slug: post.slug}) }}">
@@ -32,7 +38,7 @@
 				<div class="card-footer">
 					<span class="text-muted">
 						<i class="fa fa-calendar"></i>
-						{{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}
+						{{ post.publishedAt|localizeddate('long', 'short', null, 'UTC') }}
 					</span>
 					<span class="float-right">
 						<a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-sm btn-outline-primary js-likes">

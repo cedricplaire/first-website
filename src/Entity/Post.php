@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -108,6 +109,16 @@ class Post
      */
     private $likes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pictureLarge;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modifiedAt;
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
@@ -130,6 +141,18 @@ class Post
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->title);
         }
+    }
+
+    /**
+     * indique la date de modification
+     *
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function updateDate()
+    {
+        $this->setModifiedAt(new DateTime());
     }
 
 
@@ -297,5 +320,29 @@ class Post
         }
 
         return false;
+    }
+
+    public function getPictureLarge(): ?string
+    {
+        return $this->pictureLarge;
+    }
+
+    public function setPictureLarge(string $pictureLarge): self
+    {
+        $this->pictureLarge = $pictureLarge;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
+
+        return $this;
     }
 }
