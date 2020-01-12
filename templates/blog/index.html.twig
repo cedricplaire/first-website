@@ -3,9 +3,15 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
+	<div class="titre-index-public mb-2">
+		<p class="mb-0 font-weight-bold">Listes des articles publics :</p>
+		<span class="text-muted">- Il y a
+			{{ paginator.pageSize | length}}
+			pages
+		</span>
+	</div>
 	<div class="card-deck mb-3">
 		{% for post in paginator.results %}
-
 			<div class="card w-50">
 				<img src="{{ post.image }}" class="card-img-top" alt="Image de l'article">
 
@@ -18,7 +24,7 @@
 					<p class="card-text">{{ post.summary }}</p>
 					<div class="mt-auto text-center">
 						<a class="btn btn-primary" href="{{ path('blog_post', {slug: post.slug}) }}">
-							Lire l'article
+							{{ 'Lire l\'article'|trans }}
 						</a>
 					</div>
 				</div>
@@ -51,57 +57,54 @@
 
 	{% else %}
 		<div class="well">{{ 'post.no_posts_found'|trans }}</div>
-	{% endfor %}
-
-
-	<div class="container">
-		{% if paginator.hasToPaginate %}
-			<div class="navigation text-center">
-				<ul class="pagination justify-content-center">
-					{% if paginator.hasPreviousPage %}
-						<li class="page-item prev">
-							<a class="page-link" href="{{ path('blog_index_paginated', {page: paginator.previousPage}) }}" rel="previous">
-								<i class="fa fw fa-long-arrow-left"></i>
-								{{ 'page.previous'|trans }}
-							</a>
-						</li>
-					{% else %}
-						<li class="page-item prev disabled">
-							<span class="page-link">
-								<i class="fa fw fa-arrow-left"></i>
-								{{ 'page.previous'|trans }}</span>
-						</li>
-					{% endif %}
-
-					{% for i in 1..paginator.lastPage %}
-						{% if i == paginator.currentPage %}
-							<li class="page-item active">
-								<span class="page-link">{{ i }}
-									<span class="sr-only">(current)</span>
-								</span>
-							</li>
-						{% else %}
-							<li class="page-item">
-								<a class="page-link" href="{{ path('blog_index_paginated', {page: i}) }}">{{ i }}</a>
-							</li>
-						{% endif %}
 					{% endfor %}
+					<div class="container">
+						{% if paginator.hasToPaginate %}
+							<div class="navigation text-center">
+								<ul class="pagination justify-content-center">
+									{% if paginator.hasPreviousPage %}
+										<li class="page-item prev">
+											<a class="page-link" href="{{ path('blog_index_paginated', {page: paginator.previousPage}) }}" rel="previous">
+												<i class="fa fw fa-long-arrow-left"></i>
+												{{ 'page.previous'|trans }}
+											</a>
+										</li>
+									{% else %}
+										<li class="page-item prev disabled">
+											<span class="page-link">
+												<i class="fa fw fa-arrow-left"></i>
+												{{ 'page.previous'|trans }}</span>
+										</li>
+									{% endif %}
+									{% for i in 1..paginator.lastPage %}
+										{% if i == paginator.currentPage %}
+											<li class="page-item active">
+												<span class="page-link">{{ i }}
+													<span class="sr-only">(current)</span>
+												</span>
+											</li>
+										{% else %}
+											<li class="page-item">
+												<a class="page-link" href="{{ path('blog_index_paginated', {page: i}) }}">{{ i }}</a>
+											</li>
+										{% endif %}
+									{% endfor %}
 
-					{% if paginator.hasNextPage %}
-						<li class="page-item next">
-							<a class="page-link" href="{{ path('blog_index_paginated', {page: paginator.nextPage}) }}" rel="next">{{ 'page.next'|trans }}
-								<i class="fa fw fa-arrow-right"></i>
-							</a>
-						</li>
-					{% else %}
-						<li class="page-item next disabled">
-							<span class="page-link">{{ 'page.next'|trans }}
-								<i class="fa fw fa-arrow-right"></i>
-							</span>
-						</li>
-					{% endif %}
-				</ul>
-			</div>
-		{% endif %}
-	</div>
-{% endblock %}
+									{% if paginator.hasNextPage %}
+										<li class="page-item next">
+											<a class="page-link" href="{{ path('blog_index_paginated', {page: paginator.nextPage}) }}" rel="next">{{ 'page.next'|trans }}
+												<i class="fa fw fa-arrow-right"></i>
+											</a>
+										</li>
+									{% else %}
+										<li class="page-item next disabled">
+											<span class="page-link">{{ 'page.next'|trans }}
+												<i class="fa fw fa-arrow-right"></i>
+											</span>
+										</li>
+									{% endif %}
+								</ul>
+							</div>
+						{% endif %}
+					</div>
+				{% endblock %}

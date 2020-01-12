@@ -50,7 +50,6 @@
 									{{ 'Contact'|trans }}
 								</a>
 							</li>
-
 							<li class="nav-intem mr-auto">
 								<a class="nav-link" href="{{ path('blog_search') }}">
 									<i class="fa fa-search"></i>
@@ -158,15 +157,14 @@
 			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 			<script>
-				// const axios = require('axios');
-function onClickBtnLike(event) {
+				function onClickBtnLike(event) {
 event.preventDefault();
 
 const url = this.href;
 const spanCount = this.querySelector('span.js-like');
 const icone = this.querySelector('i');
 
-axios.get(url).then(function (response) {
+axios.post(url).then(function (response) {
 spanCount.textContent = response.data.likes;
 if (icone.classList.contains('fas')) {
 icone.classList.replace('fas', 'far');

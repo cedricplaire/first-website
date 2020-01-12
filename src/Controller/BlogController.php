@@ -140,7 +140,7 @@ class BlogController extends AbstractController
     /**
      * permet de liker ou unliker un article
      * 
-     * @Route("/post/{id}/like", name="post_like")
+     * @Route("/post/{id}/like", methods={"POST"}, name="post_like")
      *
      * @param Post $post
      * @param ObjectManager $manager

@@ -382,6 +382,11 @@ body#blog_index .card {
   max-height: 650px;
 }
 
+body#blog_index .titre-index-public {
+  background-color: #b4bcc2;
+  margin-bottom: 4px;
+}
+
 /* Page: 'Blog post show'
    ------------------------------------------------------------------------- */
 body#blog_post_show #main h3 {

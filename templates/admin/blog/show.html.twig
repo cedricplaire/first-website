@@ -7,7 +7,7 @@
 		<h1>{{ post.title }}</h1>
 
 		<div class="row">
-			<div class="col-md-6 ml-3">
+			<div class="col-md-8">
 				<p class="post-metadata">
 					<span class="metadata">
 						<i class="fa fa-calendar"></i>
@@ -18,7 +18,7 @@
 				</p>
 
 			</div>
-			<div class="col-md-6 mr-3 text-right">
+			<div class="col-md-4 text-center">
 				<a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-sm btn-outline-primary js-likes">
 					{% if app.user and post.isLikedByUser(app.user) %}
 						<i class="fas fa-heart"></i>
@@ -50,7 +50,7 @@
 
 {% block sidebar %}
 	<div class="section">
-		<a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-lg btn-block btn-success">
+		<a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-success">
 			<i class="fa fa-edit" aria-hidden="true"></i>
 			{{ 'action.edit_contents'|trans }}
 		</a>
