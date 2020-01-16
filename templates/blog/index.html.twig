@@ -3,10 +3,16 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
+	<div class="titre-index-public shadow-sm rounded p-2 mb-4">
+		<p class="mb-0 font-weight-bold">Listes des articles publics :</p>
+		<span class="text-muted">- Il y a
+			{{ paginator.pageSize | length}}
+			pages
+		</span>
+	</div>
 	<div class="card-deck mb-3">
 		{% for post in paginator.results %}
-
-			<div class="card w-50">
+			<div class="card w-50 shadow">
 				<img src="{{ post.image }}" class="card-img-top" alt="Image de l'article">
 
 				<div class="card-body d-flex flex-column">

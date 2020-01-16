@@ -75,16 +75,6 @@ class User implements UserInterface, \Serializable
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    private $state;
-
-    /**
-     * @ORM\Column(type="string", length=128, nullable=true)
-     */
-    private $city;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
@@ -106,6 +96,16 @@ class User implements UserInterface, \Serializable
     private $birthday;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $genre;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\PostalAdress", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $address;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $useGravatar;
@@ -120,22 +120,12 @@ class User implements UserInterface, \Serializable
      */
     private $gravatarUrl;
 
-    private $webPath;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="user", orphanRemoval=true)
      */
     private $likes;
 
-    /**
-     * @ORM\Column(type="string", length=128)
-     */
-    private $country;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $genre;
+    private $webPath;
 
     public function getWebPath()
     {
@@ -298,30 +288,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(?string $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getAge(): ?int
     {
         return $this->age;
@@ -461,18 +427,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
     public function getGenre(): ?bool
     {
         return $this->genre;
@@ -481,6 +435,18 @@ class User implements UserInterface, \Serializable
     public function setGenre(?bool $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getAddress(): ?PostalAdress
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?PostalAdress $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

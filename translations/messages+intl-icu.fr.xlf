@@ -215,7 +215,7 @@
       </trans-unit>
       <trans-unit id="D2N6_cP" resname="label.email">
         <source>label.email</source>
-        <target>Mail</target>
+        <target>Courriel</target>
       </trans-unit>
       <trans-unit id="9pvowqn" resname="label.password">
         <source>label.password</source>

@@ -5,53 +5,119 @@
    in DateTimePickerType.
 
    See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html#creating-a-template-for-the-field
-#} 
+#}
 {% extends 'bootstrap_4_layout.html.twig' %}
 
+{% block postal_address_row %}
+	{{ form_row(form.children.street) }}
+	{{ form_row(form.children.building) }}
+	<div class="row">
+		{{ form_row(form.children.state) }}
+		{{ form_row(form.children.city) }}
+	</div>
+	<div class="row">
+		{{ form_row(form.children.zipCode) }}
+		{{ form_row(form.children.country) }}
+	</div>
+	{#
+						{% for child in form.children %}
+							{% if not child.rendered %}
+								<div class="form-group">
+									{{ form_row(child) }}
+								</div>
+							{% endif %}
+						{% endfor %}
+						#}
+{% endblock %}
+
+{% block _user_address_city_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_state_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_zipCode_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_country_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
 {% block file_widget %}
-    {% apply spaceless %}
-
-    <div class="col-md-8 col-sm-12">
-        {{ parent() }}
-    </div>
-    <div class="col-md-4 col-sm-12">
-    {% if image_url is defined and image_url is not null %}
-        <img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
-    {% endif %}
-    </div>
-
-    {% endapply %}
+	{% apply spaceless %}
+	<div class="row align-items-center">
+		<div class="col">
+			{{ parent() }}
+		</div>
+		<div class="col">
+			{% if image_url is defined and image_url is not null %}
+				<img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
+			{% endif %}
+		</div>
+	</div>
+	{% endapply %}
 {% endblock %}
 
 {% block url_widget %}
-    {% apply spaceless %}
+	{% apply spaceless %}
 
-    <div class="col-md-8">
-        {{ parent() }}
-    </div>
-    <div class="col-md-4">
-    {% if image_url is defined and image_url is not null %}
-        <img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
-    {% endif %}
-    </div>
+	<div class="col-md-8">
+		{{ parent() }}
+	</div>
+	<div class="col-md-4">
+		{% if image_url is defined and image_url is not null %}
+			<img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
+		{% endif %}
+	</div>
 
-    {% endapply %}
+	{% endapply %}
 {% endblock %}
 
 {% block date_time_picker_widget %}
-    <div class="input-group date" data-toggle="datetimepicker">
-        {{ block('datetime_widget') }}
-        <span class="input-group-addon">
-            <span class="fa fa-calendar" aria-hidden="true"></span>
-        </span>
-    </div>
+	<div class="input-group date" data-toggle="datetimepicker">
+		{{ block('datetime_widget') }}
+		<span class="input-group-addon">
+			<span class="fa fa-calendar" aria-hidden="true"></span>
+		</span>
+	</div>
 {% endblock %}
 
 {% block tags_input_widget %}
-    <div class="input-group">
-        {{ form_widget(form, {'attr': {'data-toggle': 'tagsinput', 'data-tags': tags|json_encode}}) }}
-        <span class="input-group-addon">
-            <span class="fa fa-tags" aria-hidden="true"></span>
-        </span>
-    </div>
+	<div class="input-group">
+		{{ form_widget(form, {'attr': {'data-toggle': 'tagsinput', 'data-tags': tags|json_encode}}) }}
+		<span class="input-group-addon">
+			<span class="fa fa-tags" aria-hidden="true"></span>
+		</span>
+	</div>
 {% endblock %}

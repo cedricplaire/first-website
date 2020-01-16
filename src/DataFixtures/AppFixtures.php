@@ -18,6 +18,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\PostLike;
+use App\Entity\PostalAdress;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -54,13 +55,22 @@ class AppFixtures extends Fixture
         $auser->createGravatarUrl();
         $auser->setBirthday($date);
         $auser->setAge((int) $age);
-        $auser->setState('Nouvelle Aquitaine');
-        $auser->setCountry('France');
         $auser->setGenre(true);
-        $auser->setCity('Saintes');
         $auser->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($auser);
+        $postAdresse = new PostalAdress();
+        $postAdresse->setState('Nouvelle Aquitaine')
+            ->setStreet('23 rue des vendanges')
+            ->setCountry('France')
+            ->setCity('Saintes')
+            ->setCountry('France')
+            ->setState('Nouvelle Aquitaine')
+            ->setZipCode(17100)
+            ->setBuilding('C')
+            ->setUser($auser);
+        $manager->persist($postAdresse);
+        $auser->setAddress($postAdresse);
 
         $users = [];
         $users[] = $auser;
@@ -84,18 +94,27 @@ class AppFixtures extends Fixture
             $fakeUser->setBirthday($faker->dateTimeThisCentury);
             $fakeUser->setUseGravatar(false);
             $fakeUser->setAge(mt_rand(18, 65));
-            $fakeUser->setCity($faker->city);
-            $fakeUser->setState($faker->city);
-            $fakeUser->setCountry($faker->country);
             $fakeUser->setRoles(['ROLE_USER']);
             $fakeUser->setAvatarPerso($picture);
             $fakeUser->createGravatarUrl();
 
             $manager->persist($fakeUser);
+
+            /* adresse entity to not surcharge User entity */
+            $adresse = new PostalAdress();
+            $adresse->setCountry($faker->country)
+                ->setState($faker->randomElement($this->getStateData()))
+                ->setUser($fakeUser)
+                ->setZipCode((int) $faker->postcode)
+                ->setStreet($faker->streetAddress)
+                ->setBuilding($faker->buildingNumber)
+                ->setCity($faker->city);
+            $manager->persist($adresse);
+            $fakeUser->setAddress($adresse);
             $users[] = $fakeUser;
         }
 
-        /* Tag pour les articles */
+        /* Tag for Post, with link for later call */
         foreach ($this->getTagsData() as $j => $myTag) {
             $tag = new Tag();
             $tag->setName($myTag);
@@ -111,19 +130,18 @@ class AppFixtures extends Fixture
             $this->addReference('tag-' . $j, $tag);
         };*/
 
-        /* articles factices du site */
+        /* dummy Post for web-site */
         for ($k = 0; $k < 30; $k++) {
             $post = new Post();
-
-            $title      = $faker->sentence();
+            $title = $faker->sentence();
             $color1 = $faker->hexColor;
             $color2 = $faker->hexColor;
             $c1 = substr($color1, 1);
             $c2 = substr($color2, 1);
-            $postImg = "https://via.placeholder.com/800x300/" . $c1 . "/" . $c2 . "?text=" . $faker->city . "-" . $faker->country;
-            //$coverImage = $faker->imageUrl(800, 300);
+            $postImg = "https://via.placeholder.com/400x200/" . $c1 . "/" . $c2 . "?text=" . $faker->city . "-" . $faker->country;
+            //$largeImage = "https://via.placeholder.com/1000x400/" . $c1 . "/" . $c2 . "?text=" . $faker->city . "-" . $faker->country;;
             $introduction = $faker->paragraph(2);
-            $content    = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
+            $content = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
 
             $user = $users[mt_rand(0, count($users) - 1)];
 
@@ -167,6 +185,115 @@ class AppFixtures extends Fixture
 
         $manager->flush();
     }
+
+    # departement_nom
+    public function getStateData()
+    {
+        return [
+            'Ain',
+            'Aisne',
+            'Allier',
+            'Hautes-Alpes',
+            'Alpes-de-Haute-Provence',
+            'Alpes-Maritimes',
+            'Ardèche',
+            'Ardennes',
+            'Ariège',
+            'Aube',
+            'Aude',
+            'Aveyron',
+            'Bouches-du-Rhône',
+            'Calvados',
+            'Cantal',
+            'Charente',
+            'Charente-Maritime',
+            'Cher',
+            'Corrèze',
+            'Corse-du-sud',
+            'Haute-corse',
+            'Côte-d\'or',
+            'Côtes-d\'armor',
+            'Creuse',
+            'Dordogne',
+            'Doubs',
+            'Drôme',
+            'Eure',
+            'Eure-et-Loir',
+            'Finistère',
+            'Gard',
+            'Haute-Garonne',
+            'Gers',
+            'Gironde',
+            'Hérault',
+            'Ile-et-Vilaine',
+            'Indre',
+            'Indre-et-Loire',
+            'Isère',
+            'Jura',
+            'Landes',
+            'Loir-et-Cher',
+            'Loire',
+            'Haute-Loire',
+            'Loire-Atlantique',
+            'Loiret',
+            'Lot',
+            'Lot-et-Garonne',
+            'Lozère',
+            'Maine-et-Loire',
+            'Manche',
+            'Marne',
+            'Haute-Marne',
+            'Mayenne',
+            'Meurthe-et-Moselle',
+            'Meuse',
+            'Morbihan',
+            'Moselle',
+            'Nièvre',
+            'Nord',
+            'Oise',
+            'Orne',
+            'Pas-de-Calais',
+            'Puy-de-Dôme',
+            'Pyrénées-Atlantiques',
+            'Hautes-Pyrénées',
+            'Pyrénées-Orientales',
+            'Bas-Rhin',
+            'Haut-Rhin',
+            'Rhône',
+            'Haute-Saône',
+            'Saône-et-Loire',
+            'Sarthe',
+            'Savoie',
+            'Haute-Savoie',
+            'Paris',
+            'Seine-Maritime',
+            'Seine-et-Marne',
+            'Yvelines',
+            'Deux-Sèvres',
+            'Somme',
+            'Tarn',
+            'Tarn-et-Garonne',
+            'Var',
+            'Vaucluse',
+            'Vendée',
+            'Vienne',
+            'Haute-Vienne',
+            'Vosges',
+            'Yonne',
+            'Territoire de Belfort',
+            'Essonne',
+            'Hauts-de-Seine',
+            'Seine-Saint-Denis',
+            'Val-de-Marne',
+            'Val-d\'oise',
+            'Mayotte',
+            'Guadeloupe',
+            'Guyane',
+            'Martinique',
+            'Réunion',
+        ];
+    }
+
 
     public function getTagsData()
     {
@@ -339,4 +466,11 @@ class AppFixtures extends Fixture
             return $this->getReference('tag-' . $tagName);
         }, $selectedTags);
     }
+
+    /*private function getRandomState(): string
+    {
+        $stateNames = $this->getStateData();
+        shuffle($StateNames);
+        return mt_rand($this->getStateData());
+    }*/
 }

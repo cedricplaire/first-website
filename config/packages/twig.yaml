@@ -3,6 +3,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    
     paths: 
         '%kernel.project_dir%/assets/images-site': images
         '%kernel.project_dir%/assets/css': css

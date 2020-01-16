@@ -6,7 +6,8 @@
 	<h1>{{ 'title.edit_user'|trans }}</h1>
 	<div class="container">
 		{{ form_start(form) }}
-		{{ form_widget(form) }}
+		{{ form_row(form) }}
+
 		<img id="image-preview"></img>
 
 	<button type="submit" class="btn btn-primary">
@@ -21,10 +22,8 @@
 		{{ 'action.change_password'|trans }}
 	</a>
 </div>
-
 {{ parent() }}{% endblock %}{% block javascripts %}
-{{ parent() }}
-<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+{{ parent() }}<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
 bsCustomFileInput.init();
