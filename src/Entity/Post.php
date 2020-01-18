@@ -264,11 +264,7 @@ class Post
 
     public function getImage(): ?string
     {
-        if (substr($this->image, 0, 3) == 'http') {
-            return $this->image;
-        } else {
-            return $this->getWebPath();
-        }
+        return $this->image;
     }
 
     public function setImage(?string $image): self
