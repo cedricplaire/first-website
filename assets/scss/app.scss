@@ -60,7 +60,7 @@ i {
   background-size: cover;
   background-position: center;
   height: 300px;
-  margin-top: -22px;
+  margin-top: -2px;
 }
 
 .jt-text {
@@ -187,15 +187,20 @@ header .locales a:hover small {
   flex: 1;
   /* needed to prevent pages with a very small height and browsers not supporting flex */
   min-height: 600px;
-  margin-top: -10px;
+  margin-top: -30px;
 }
 
 .body-container #main h1, .body-container #main h2 {
   margin-top: 0
 }
 
+#sidebar {
+  box-shadow: -5px 0px 5px 0px rgba(220, 220, 220, 0.6)
+}
+
 #sidebar .section {
   margin-bottom: 2em
+  
 }
 
 #sidebar p {

@@ -133,7 +133,7 @@ class User implements UserInterface, \Serializable
             $webPath = $this->getGravatarUrl();
             return $webPath;
         } else {
-            $webPath = $this->getAvatarPerso();
+            $webPath = '/uploads/avatars/' . $this->getAvatarPerso();
             return $webPath;
         }
     }

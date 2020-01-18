@@ -27,6 +27,12 @@ class City
      */
     private $state;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\State", inversedBy="villes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class City
     public function setState(?State $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getRegion(): ?State
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?State $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }

@@ -8,63 +8,71 @@
 #}
 {% extends 'bootstrap_4_layout.html.twig' %}
 
-{# bloc pour l'affichage du sous formulaire "Address" a l'édition de l'utilisateur #}
-{% block _user_row %}
+{% block postal_address_row %}
+	{{ form_row(form.street) }}
+	{{ form_row(form.building) }}
+
 	<div class="row">
-		<div class="col-lg-6 col-md-6 col-sm-12">
-			{{ form_row(form.username) }}
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-12">
-			{{ form_row(form.email) }}
-		</div>
+		{{ form_row(form.city, {'attr': {'class': 'col-8'}}) }}
+		{{ form_row(form.zipCode, {'attr': {'class': 'col-4'}}) }}
 	</div>
 	<div class="row">
-		<div class="col-lg-4 col-md-4 col-sm-12">
-			{{ form_row(form.fullName) }}
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			{{ form_row(form.firstname) }}
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			{{ form_row(form.lastname) }}
-		</div>
+		{{ form_row(form.state, {'attr': {'class': 'col-6'}}) }}
+		{{ form_row(form.country, {'attr': {'class': 'col-6'}}) }}
 	</div>
-	<div class="row">
-		<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-			{{ form_row(form.birthday) }}
-		</div>
-		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			{{ form_row(form.age) }}
-		</div>
+{% endblock %}
+{#
+{% block _user_address_city_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
 	</div>
-	{{ form_row(form.address.street) }}
-	{{ form_row(form.address.building) }}
-	<div class="row">
-		<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-			{{ form_row(form.address.city) }}
-		</div>
-		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			{{ form_row(form.address.zipCode) }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-			{{ form_row(form.address.state) }}
-		</div>
-		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			{{ form_row(form.address.country) }}
-		</div>
-	</div>
-	{{ form_rest(form) }}
+	{% endapply %}
 {% endblock %}
 
+{% block _user_address_state_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_zipCode_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_country_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+#}
 {% block file_widget %}
 	{% apply spaceless %}
 	<div class="row align-items-center">
-		<div class="col-8">
+		<div class="col">
 			{{ parent() }}
 		</div>
-		<div class="col-4">
+		<div class="col">
 			{% if image_url is defined and image_url is not null %}
 				<img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
 			{% endif %}
@@ -76,10 +84,10 @@
 {% block url_widget %}
 	{% apply spaceless %}
 
-	<div class="col-md-8 col-sm-8 col-xs-12">
+	<div class="col-8">
 		{{ parent() }}
 	</div>
-	<div class="col-md-4 col-md-4 col-xs-12">
+	<div class="col-4">
 		{% if image_url is defined and image_url is not null %}
 			<img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
 		{% endif %}

@@ -138,7 +138,7 @@ class BlogController extends AbstractController
 
             $this->addFlash('success', 'post.updated_successfully');
 
-            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
+            return $this->redirectToRoute('admin_post_show', ['id' => $post->getId()]);
         }
 
         return $this->render('admin/blog/edit.html.twig', [

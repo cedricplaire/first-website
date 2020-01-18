@@ -108,6 +108,21 @@ class Post
      */
     private $likes;
 
+    private $webPath;
+
+    /**
+     * function qui renvoie le chemin de l'image. (sers dans les formulaire, passée en tant que variable)
+     * 
+     * @var String|null
+     */
+    public function getWebPath()
+    {
+        if ($this->getImage() != null) {
+            $webPath = '/uploads/article-image/' . $this->getImage();
+            return $webPath;
+        }
+    }
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
@@ -249,7 +264,11 @@ class Post
 
     public function getImage(): ?string
     {
-        return $this->image;
+        if (substr($this->image, 0, 3) == 'http') {
+            return $this->image;
+        } else {
+            return $this->getWebPath();
+        }
     }
 
     public function setImage(?string $image): self

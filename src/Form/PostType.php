@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -47,12 +48,15 @@ class PostType extends AbstractType
                 'label' => 'label.summary',
             ])
             ->add('content', null, [
-                'attr' => ['rows' => 20],
+                'attr' => ['rows' => 10],
                 'help' => 'help.post_content',
                 'label' => 'label.content',
             ])
-            ->add('publishedAt', DateTimePickerType::class, [
+            ->add('publishedAt', TextType::class, [
                 'label' => 'label.published_at',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'help' => 'help.post_publication',
             ])
             ->add('tags', TagsInputType::class, [
@@ -60,12 +64,13 @@ class PostType extends AbstractType
                 'required' => false,
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image (jpg, jpeg, gif, png file)',
+                'label' => 'Image',
                 'mapped' => false,
                 'required' => false,
+                'help' => 'jpg, jpeg, gif, png file ...',
                 'constraints' => [
                     new File([
-                        'maxSize' => '4096k',
+                        'maxSize' => '5000k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/jpg',
@@ -75,9 +80,9 @@ class PostType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image',
                     ])
-                ]
-            ])
-        ;
+                ],
+                'image_property' => 'webPath',
+            ]);
     }
 
     /**
