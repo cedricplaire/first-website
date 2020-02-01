@@ -4,7 +4,7 @@
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>
-			{% block title %}Cédric-Blog Application
+			{% block title %}SoMusicShare WebSite
 			{% endblock %}
 		</title>
 		<link rel="alternate" type="application/rss+xml" title="{{ 'rss.title'|trans }}" href="{{ path('blog_rss') }}">
@@ -119,7 +119,7 @@
 			{{ include('default/_flash_messages.html.twig') }}
 			{% block body %}
 				<div class="row">
-					<div id="main" class="col-sm-12">
+					<div id="main" class="col-12">
 						{% block main %}{% endblock %}
 					</div>
 				</div>
@@ -127,25 +127,29 @@
 		</div>
 
 		{% block footer %}
-			<footer id='block-footer'>
+			<footer id='block-footer static-bottom'>
 				<div class="container-fluid">
 					<div class="row">
-						<div id="footer-copyright" class="col-md-6">
-							<p>&copy;
+						<div id="footer-copyright" class="col-md-4">
+							<p class="text-center text-shadow">&copy;
 								{{ 'now'|date('Y') }}
 								SoMusicShare - Blog par Plaire Cédric</p>
-							<p>{{ 'gnu_license'|trans }}</p>
+							<p class="text-center text-shadow">{{ 'gnu_license'|trans }}</p>
 						</div>
-						<div id="footer-resources" class="col-md-6">
+						<div id="footer-design" class="col-md-4">
+							<p class="text-center txt-logo">SoMusicShare</p>
+							{#<img src=" {{ asset('build/images-site/logo-sms_02.png') }} " alt="logo du site" class="logo-sms">#}
+						</div>
+						<div id="footer-resources" class="col-md-4">
 							<p>
-								<a href="https://twitter.com/TheBebshow" title="Plaire-Cédric Twitter">
+								<a class="text-shadow" href="https://twitter.com/TheBebshow" title="My Twitter channel">
 									<i class="fa fa-twitter" aria-hidden="true"></i>
 								</a>
-								<a href="https://www.facebook.com/cedric.plaire.7" title="Plaire-Cédric Facebook">
+								<a class="text-shadow" href="https://www.facebook.com/cedric.plaire.7" title="My Facebook account">
 									<i class="fa fa-facebook" aria-hidden="true"></i>
 								</a>
-								<a href="https://somusicshare.com/blog/" title="SoMusicShare Blog">
-									<i class="fa fa-rss" aria-hidden="true"></i>
+								<a class="text-shadow" href="https://github.com/cedricplaire/" title="My GitHub Projects">
+									<i class="fa fa-github" aria-hidden="true"></i>
 								</a>
 							</p>
 						</div>

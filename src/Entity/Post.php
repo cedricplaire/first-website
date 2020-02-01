@@ -110,6 +110,8 @@ class Post
 
     private $webPath;
 
+    private $needle;
+
     /**
      * function qui renvoie le chemin de l'image. (sers dans les formulaire, passée en tant que variable)
      * 
@@ -117,10 +119,19 @@ class Post
      */
     public function getWebPath()
     {
-        if ($this->getImage() != null) {
+        /*$needle = 'http';
+        $img = $this->image;
+
+        if (stripos($img, $this->needle) !== false) {
+            return $this->image;
+        } else {*/
+        $this->webPath = '/uploads/article-image/' . $this->getImage();
+        return $this->webPath;
+        //}
+        /*if ($this->getImage() != null) {
             $webPath = '/uploads/article-image/' . $this->getImage();
             return $webPath;
-        }
+        }*/
     }
 
     public function __construct()
@@ -262,9 +273,15 @@ class Post
         return $this->tags;
     }
 
+    /**
+     * return with the webpath that make difference for (server or local) file image
+     *
+     * @return string|null
+     */
     public function getImage(): ?string
     {
         return $this->image;
+        //return $this->getWebPath();
     }
 
     public function setImage(?string $image): self

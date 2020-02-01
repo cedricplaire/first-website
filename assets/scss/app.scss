@@ -52,6 +52,10 @@ i {
     color: inherit
 }
 
+.text-shadow {
+  text-shadow: -1px -1px 0px #000;
+}
+
 /* 
 * jumbotron
 */
@@ -109,6 +113,10 @@ img.avatar-preview {
   color : #7b8a8b;
 }
 
+.txt-logo {
+  text-shadow: -1px -1px 1px rgba(30, 30, 30, 0.75);
+}
+
 /* Page elements
    ------------------------------------------------------------------------- */
 body {
@@ -126,7 +134,7 @@ header ul.nav li {
 }
 
 header .dropdown-item {
-  color: #adb5bd;
+  color: #7b8a8b;
 }
 
 header .dropdown-item:hover {
@@ -139,7 +147,7 @@ header .dropdown-item:active {
 }
 
 header .locales .dropdown-item {
-  color: rgba(255, 255, 255, 0.5);
+  color: #7b8a8b;
 }
 
 header .locales .dropdown-item:hover {
@@ -191,7 +199,7 @@ header .locales a:hover small {
   flex: 1;
   /* needed to prevent pages with a very small height and browsers not supporting flex */
   min-height: 600px;
-  margin-top: -30px;
+  margin-top: -31px;
 }
 
 .body-container #main h1, .body-container #main h2 {
@@ -223,28 +231,49 @@ header .locales a:hover small {
 }
 
 footer {
-  box-shadow: 0px -5px 10px 2px rgba(160, 160, 160, 0.75);
+  box-shadow: 0px -5px 5px 2px rgba(160, 160, 160, 0.75);
   background: rgba(30, 30, 30, 0.75);
   margin-top: 2em;
   padding-top: 2em;
   padding-bottom: 2em;
-  border-top: solid 1px #aaa;
+  border-top: solid 1px #7b8a8b;
 }
 
 footer p {
   color: #7b8a8b;
-  font-size: 13px;
-  margin-bottom: 0.25em
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0.25em;
+}
+
+#footer-design img.logo-sms {
+  max-width: 200px;
+}
+
+#footer-design p {
+  color: #7b8a8b;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+footer #footer-copyright {
+  text-align: center;
+}
+
+footer #footer-copyright p {
+  color: #7b8a8b;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 footer #footer-resources {
-  text-align: right
+  text-align: center;
 }
 
 footer #footer-resources i {
   color: #7b8a8b;
   font-size: 28.5px;
-  margin-left: 0.5em
+  margin-left: 0.5em;
 }
 
 #sourceCodeModal h3 {

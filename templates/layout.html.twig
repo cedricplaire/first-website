@@ -5,7 +5,7 @@
 		<div id="main" class="col-lg-9 col-md-9 col-sm-8 pl-4">
 			{% block main %}{% endblock %}
 		</div>
-		<div id="sidebar" class="col-lg-3 col-md-3 col-sl-4">
+		<div id="sidebar" class="col-lg-3 col-md-3 col-sm-4">
 			{% block sidebar %}
 				{{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {
 					'template': 'blog/about.html.twig',

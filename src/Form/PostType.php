@@ -11,6 +11,7 @@
 
 namespace App\Form;
 
+use DateTime;
 use App\Entity\Post;
 use App\Form\Type\AvatarType;
 use App\Form\Type\TagsInputType;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -52,7 +54,7 @@ class PostType extends AbstractType
                 'help' => 'help.post_content',
                 'label' => 'label.content',
             ])
-            ->add('publishedAt', TextType::class, [
+            ->add('publishedAt', DateTimeType::class, [
                 'label' => 'label.published_at',
                 'attr' => [
                     'class' => 'form-control',

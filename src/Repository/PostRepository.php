@@ -29,8 +29,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.tags', 't')
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
-            ->setParameter('now', new \DateTime())
-        ;
+            ->setParameter('now', new \DateTime());
 
         if (null !== $tag) {
             $qb->andWhere(':tag MEMBER OF p.tags')
@@ -38,6 +37,21 @@ class PostRepository extends ServiceEntityRepository
         }
 
         return (new Paginator($qb))->paginate($page);
+    }
+
+    /**
+     * return the 3 last post ordered by dateModified
+     *
+     * @return array
+     */
+    public function findThreeLatest(): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        return $qb
+            ->orderBy('p.publishedAt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
     }
 
     /**
@@ -55,9 +69,8 @@ class PostRepository extends ServiceEntityRepository
 
         foreach ($searchTerms as $key => $term) {
             $queryBuilder
-                ->orWhere('p.title LIKE :t_'.$key)
-                ->setParameter('t_'.$key, '%'.$term.'%')
-            ;
+                ->orWhere('p.title LIKE :t_' . $key)
+                ->setParameter('t_' . $key, '%' . $term . '%');
         }
 
         return $queryBuilder
