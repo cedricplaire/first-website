@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use phpDocumentor\Reflection\Types\Boolean;
-use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -33,8 +31,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=128, nullable=true)
      */
     private $fullName;
 
@@ -78,16 +75,6 @@ class User implements UserInterface, \Serializable
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    private $state;
-
-    /**
-     * @ORM\Column(type="string", length=128, nullable=true)
-     */
-    private $city;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
@@ -109,6 +96,16 @@ class User implements UserInterface, \Serializable
     private $birthday;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $genre;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\PostalAdress", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $address;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $useGravatar;
@@ -123,27 +120,44 @@ class User implements UserInterface, \Serializable
      */
     private $gravatarUrl;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="user", orphanRemoval=true)
+     */
+    private $likes;
+
     private $webPath;
 
     public function getWebPath()
     {
-        if (true == $this->useGravatar)
-        {
+        if ($this->useGravatar) {
             $webPath = $this->getGravatarUrl();
             return $webPath;
-        }
-        else {
-            $webPath = 'uploads/avatars/' . $this->getAvatarPerso();
+        } else {
+            $webPath = '/uploads/avatars/' . $this->getAvatarPerso();
             return $webPath;
         }
+    }
+
+    /**
+     * crée l'adresse du service gravatar
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function createGravatarUrl()
+    {
+        $this->gravatarUrl = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->getEmail())));
     }
 
     public function __construct()
     {
         $this->isActive = true;
         $this->userMessages = new ArrayCollection();
-        $this->gravatarUrl = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim( $this->getEmail())));
-        $this->avatarPerso = 'default-avatar.png';
+
+        //$this->avatarPerso = 'default-avatar.png';
+        $this->likes = new ArrayCollection();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -274,30 +288,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(?string $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getAge(): ?int
     {
         return $this->age;
@@ -402,6 +392,61 @@ class User implements UserInterface, \Serializable
     public function setGravatarUrl(?string $gravatarUrl): self
     {
         $this->gravatarUrl = $gravatarUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PostLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGenre(): ?bool
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?bool $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getAddress(): ?PostalAdress
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?PostalAdress $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

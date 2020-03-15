@@ -17,6 +17,7 @@ use App\Form\Type\ChangePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -37,21 +38,19 @@ class UserController extends AbstractController
     public function edit(Request $request, FileUploader $fileUploader): Response
     {
         $user = $this->getUser();
-        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $oldAvatar = $user->getAvatarPerso();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form['avatarPerso']->getData() != null)
-            {
-                /**
-                 * @var UploadedFile $imgFile
-                 */
-                $imgFile = $form['avatarPerso']->getData();
-                if ($imgFile) {
-                    $imgFileName = $fileUploader->upload($imgFile, 'avatars');
-                    $user->setavatarPerso($imgFileName);
-                }
+
+            /**
+             * @var UploadedFile $imgFile
+             */
+            $imgFile = $form['avatarPerso']->getData();
+            if ($imgFile) {
+                $imgFileName = $fileUploader->upload($imgFile, 'avatars');
+                $user->setavatarPerso($imgFileName);
             }
 
             $this->getDoctrine()->getManager()->flush();
@@ -88,5 +87,15 @@ class UserController extends AbstractController
         return $this->render('user/change_password.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function updateAvatar(): Response
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json([
+                'message' => 'Vous devez être connecté !'
+            ], 403);
+        }
     }
 }

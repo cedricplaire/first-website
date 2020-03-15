@@ -3,43 +3,58 @@
 {% block body_id 'homepage' %}
 
 {% block body %}
-    {#<div class="page-header">
-        <h1>{{ 'title.homepage'|trans|raw }}</h1>
-    </div>#}
 
-    {#<div class="row">
-        <div class="col-sm-12">#}
-            <div class="jumbotron-fluid jt-fluid">
-                <div class="jt-text">
-                    <h1>Envie de partager sur le thème de la musique ?</h1>
-                    <h2>Inscrivez vous !</h2>
-                    <a href="{{ path('security_register') }}" class="btn btn-lg btn-light">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> S'enregistrer
-                    </a>
-                </div>
-                {#<p>
-                    {{ 'help.browse_app'|trans|raw }}
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('blog_index') }}">
-                        <i class="fa fa-users" aria-hidden="true"></i> {{ 'action.browse_app'|trans }}
-                    </a>
-                </p>#}
-            </div>
-        {#</div>
-        
-        <div class="col-sm-6">
-            <div class="jumbotron">
-                <p>
-                    {{ 'help.browse_admin'|trans|raw }}
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('admin_index') }}">
-                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.browse_admin'|trans }}
-                    </a>
-                </p>
-            </div>
-        </div>
-        
-    </div>#}
+	<div class="row-fluid">
+		<div class="jumbotron-fluid jt-fluid">
+			<div class="jt-text">
+				<h1>Envie de partager sur le thème de la musique ?</h1>
+				<h2>Inscrivez vous !</h2>
+				<a href="{{ path('security_register') }}" class="btn btn-lg btn-light">
+					<i class="fa fa-user-plus" aria-hidden="true"></i>
+					S'enregistrer
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="card-deck mb-2 mt-4">
+			{% for post in posts %}
+				<div class="card shadow">
+					<img src="{{ post.image }}" class="card-img-top" alt="Image de l'article">
+
+					<div class="card-body d-flex flex-column">
+						<h5 class="card-title">
+							<a href="{{ path('blog_post', {slug: post.slug}) }}">
+								{{ post.title }}
+							</a>
+						</h5>
+						<p class="card-text">{{ post.summary }}</p>
+						<div class="mt-auto text-center">
+							<a class="btn btn-primary" href="{{ path('blog_post', {slug: post.slug}) }}">
+								Lire l'article
+							</a>
+						</div>
+					</div>
+
+					<div class="card-footer">
+						<span class="text-muted float-left">
+							<i class="fa fa-calendar"></i>
+							{{ post.publishedAt|localizeddate('long', 'short', null, 'UTC') }}
+						</span>
+						<span class="float-right">
+							<a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-sm btn-outline-primary js-likes">
+								{% if app.user and post.isLikedByUser(app.user) %}
+									<i class="fas fa-heart"></i>
+								{% else %}
+									<i class="far fa-heart"></i>
+								{% endif %}
+								<span class="js-like">{{ post.likes | length}}</span>
+								<span class="js-label">J'aime</span>
+							</a>
+						</span>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

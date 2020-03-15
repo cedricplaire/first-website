@@ -1,0 +1,115 @@
+{#
+   Each field type is rendered by a template fragment, which is determined
+   by the name of your form type class (DateTimePickerType -> date_time_picker)
+   and the suffix "_widget". This can be controlled by overriding getBlockPrefix()
+   in DateTimePickerType.
+
+   See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html#creating-a-template-for-the-field
+#}
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{% block postal_address_row %}
+	{{ form_row(form.street) }}
+	{{ form_row(form.building) }}
+
+	<div class="row">
+		{{ form_row(form.city, {'attr': {'class': 'col-8'}}) }}
+		{{ form_row(form.zipCode, {'attr': {'class': 'col-4'}}) }}
+	</div>
+	<div class="row">
+		{{ form_row(form.state, {'attr': {'class': 'col-6'}}) }}
+		{{ form_row(form.country, {'attr': {'class': 'col-6'}}) }}
+	</div>
+{% endblock %}
+{#
+{% block _user_address_city_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_state_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_zipCode_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block _user_address_country_row %}
+	{% apply spaceless %}
+	<div class="col">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
+	{% endapply %}
+{% endblock %}
+#}
+{% block file_widget %}
+	{% apply spaceless %}
+	<div class="row align-items-center">
+		<div class="col">
+			{{ parent() }}
+		</div>
+		<div class="col">
+			{% if image_url is defined and image_url is not null %}
+				<img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
+			{% endif %}
+		</div>
+	</div>
+	{% endapply %}
+{% endblock %}
+
+{% block url_widget %}
+	{% apply spaceless %}
+
+	<div class="col-8">
+		{{ parent() }}
+	</div>
+	<div class="col-4">
+		{% if image_url is defined and image_url is not null %}
+			<img id="avatar-preview" class="img-thumbnail" src="{{ asset(image_url) }}"/>
+		{% endif %}
+	</div>
+
+	{% endapply %}
+{% endblock %}
+
+{% block date_time_picker_widget %}
+	<div class="input-group date" data-toggle="datetimepicker">
+		{{ block('datetime_widget') }}
+		<span class="input-group-addon">
+			<span class="fa fa-calendar" aria-hidden="true"></span>
+		</span>
+	</div>
+{% endblock %}
+
+{% block tags_input_widget %}
+	<div class="input-group">
+		{{ form_widget(form, {'attr': {'data-toggle': 'tagsinput', 'data-tags': tags|json_encode}}) }}
+		<span class="input-group-addon">
+			<span class="fa fa-tags" aria-hidden="true"></span>
+		</span>
+	</div>
+{% endblock %}

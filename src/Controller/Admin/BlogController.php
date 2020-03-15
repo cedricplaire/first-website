@@ -38,8 +38,8 @@ class BlogController extends AbstractController
     /**
      * Lists all Post entities.
      *
-     * @Route("/", methods={"GET"}, name="admin_index")
-     * @Route("/", methods={"GET"}, name="admin_post_index")
+     * @Route("/admin", methods={"GET"}, name="admin_index")
+     * @Route("/admin", methods={"GET"}, name="admin_post_index")
      */
     public function index(PostRepository $posts): Response
     {
@@ -51,7 +51,7 @@ class BlogController extends AbstractController
     /**
      * Creates a new Post entity.
      *
-     * @Route("/new", methods={"GET", "POST"}, name="admin_post_new")
+     * @Route("/admin/new", methods={"GET", "POST"}, name="admin_post_new")
      */
     public function new(Request $request, FileUploader $fileUploader): Response
     {
@@ -66,7 +66,7 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(Slugger::slugify($post->getTitle()));
-            
+
             /**
              * @var UploadedFile $imgFile
              */
@@ -98,7 +98,7 @@ class BlogController extends AbstractController
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("/{id<\d+>}", methods={"GET"}, name="admin_post_show")
+     * @Route("/admin/{id<\d+>}", methods={"GET"}, name="admin_post_show")
      */
     public function show(Post $post): Response
     {
@@ -114,7 +114,7 @@ class BlogController extends AbstractController
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
+     * @Route("/admin/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
      * @IsGranted("edit", subject="post", message="Posts can only be edited by their authors.")
      */
     public function edit(Request $request, Post $post, FileUploader $fileUploader): Response
@@ -133,12 +133,12 @@ class BlogController extends AbstractController
                 $imgFileName = $fileUploader->upload($imgFile, 'article-image');
                 $post->setImage($imgFileName);
             }
-            
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'post.updated_successfully');
 
-            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
+            return $this->redirectToRoute('admin_post_show', ['id' => $post->getId()]);
         }
 
         return $this->render('admin/blog/edit.html.twig', [
@@ -150,7 +150,7 @@ class BlogController extends AbstractController
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}/delete", methods={"POST"}, name="admin_post_delete")
+     * @Route("/admin/{id}/delete", methods={"POST"}, name="admin_post_delete")
      * @IsGranted("delete", subject="post")
      */
     public function delete(Request $request, Post $post): Response

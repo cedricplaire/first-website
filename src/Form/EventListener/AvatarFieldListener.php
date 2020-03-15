@@ -17,7 +17,7 @@ class AvatarFieldListener implements EventSubscriberInterface
     {
         return [
             FormEvents::PRE_SET_DATA => 'onPreSetData',
-            //FormEvents::POST_SUBMIT => 'onPostSubmit',
+            FormEvents::POST_SUBMIT => 'onPostSubmit',
         ];
     }
 
@@ -25,32 +25,37 @@ class AvatarFieldListener implements EventSubscriberInterface
     {
         $user = $event->getData();
         $form = $event->getForm();
-        $options = [
-            'attr' => ['class' => 'd-none']
-        ];
+        $perso = $user->getAvatarPerso();
+        $url = $user->getGravatarUrl();
+
         // checks whether the user from the initial data has chosen to
         // use gravatar or not.
-        if (false === $user->getUseGravatar()) {
-            $form->add('avatarPerso', FileType::class, [
-                'label' => 'label.youravatar',
-                'data_class' => null,
-                //'required' => false,
-                'attr' => ['placeholder' => 'label.youravatarfile',
-                    'class' => 'avatar-perso'],
-                'image_property' => 'webPath'
-            ]);  
-
-        }
-        else 
-        { 
+        if ($user->getUseGravatar()) {
             $form->add('gravatarUrl', UrlType::class, [
-                'label' => 'label.gravatarurl',
+                'data_class' => null,
+                //'mapped' => false,
                 'required' => false,
-                'help' => 'label.generatedurl',
-                'attr' => ['placeholer' => 'label.generatedurl',
-                    'class' => 'url-gravatar'],
                 'image_property' => 'webPath'
             ]);
+            $form->remove('avatarPerso');
+        }
+    }
+
+    public function onPostSubmit(FormEvent $event)
+    {
+        $user = $event->getData();
+        $form = $event->getForm();
+
+        if ($form['useGravatar'] == false) {
+            $form->add('avatarPerso', FileType::class, [
+                //'label' => 'label.youravatar',
+                'data_class' => null,
+                'required' => false,
+                //'mapped' => false,
+                'attr' => ['id' => 'avatar-perso'],
+                'image_property' => 'webPath',
+            ]);
+            $form->remove('GravatarUrl');
         }
     }
 }

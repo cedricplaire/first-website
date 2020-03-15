@@ -3,23 +3,38 @@
 {% block body_id 'user_edit' %}
 
 {% block main %}
-    <h1>{{ 'title.edit_user'|trans }}</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-
-        <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
-        </button>
-    {{ form_end(form) }}
+	<h1>{{ 'title.edit_user'|trans }}</h1>
+	<div class="container">
+		{{ form_start(form) }}
+		{{ form_row(form) }}
+		<button type="submit" class="btn btn-primary">
+			<i class="fa fa-save" aria-hidden="true"></i>
+			{{ 'action.save'|trans }}
+		</button>
+		{{ form_end(form) }}
+	</div>
 {% endblock %}
 
 {% block sidebar %}
-    <div class="section">
-        <a href="{{ path('user_change_password') }}" class="btn btn-lg btn-block btn-danger">
-            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.change_password'|trans }}
-        </a>
-    </div>
+	<div class="section">
+		<a href="{{ path('user_change_password') }}" class="btn btn-lg btn-block btn-danger">
+			<i class="fa fa-lock" aria-hidden="true"></i>
+			{{ 'action.change_password'|trans }}
+		</a>
+	</div>
+	{{ parent() }}
+{% endblock %}
 
-    {{ parent() }}
+{% block javascripts %}
+	{{ parent() }}<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+$('#sandbox-container .input-group.date').datepicker({language: "fr"});
+bsCustomFileInput.init();
+$('.custom-file-input').on('change', function (event) {
+var inputFile = event.currentTarget;
+$(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+});
+});
+	</script>
 {% endblock %}

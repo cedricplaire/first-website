@@ -177,6 +177,82 @@
         <source>label.youravatarfile</source>
         <target>Votre fichier avatar</target>
       </trans-unit>
+      <trans-unit id="label.username" resname="label.username">
+        <source>label.username</source>
+        <target>Nom d'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="label.userfirstname" resname="label.firstname">
+        <source>label.firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="label.lastname" resname="label.lastname">
+        <source>label.lastname</source>
+        <target>Nom de famille</target>
+      </trans-unit>
+      <trans-unit id="label.fullname" resname="label.fullname">
+        <source>label.fullname</source>
+        <target>Nom complet</target>
+      </trans-unit>
+      <trans-unit id="label.email" resname="label.email">
+        <source>label.email</source>
+        <target>Courriel</target>
+      </trans-unit>
+      <trans-unit id="label.birthday" resname="label.birthday">
+        <source>label.birthday</source>
+        <target>Date de naissance</target>
+      </trans-unit>
+      <trans-unit id="label.age" resname="label.age">
+        <source>label.age</source>
+        <target>Age</target>
+      </trans-unit>
+      <trans-unit id="formlabel.address.street" resname="formlabel-address-street">
+        <source>formlabel-address-street</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="formlabel.address.building" resname="formlabel-address-building">
+        <source>formlabel-address-building</source>
+        <target>Appartement</target>
+      </trans-unit>
+      <trans-unit id="formlabel.address.city" resname="formlabel-address-city">
+        <source>formlabel-address-city</source>
+        <target>Ville</target>
+      </trans-unit>
+      <trans-unit id="formlabel.address.state" resname="formlabel-address-state">
+        <source>formlabel-address-state</source>
+        <target>Région</target>
+      </trans-unit>
+      <trans-unit id="formlabel.address.zip" resname="formlabel-address-zip">
+        <source>formlabel-address-zip</source>
+        <target>Code postal</target>
+      </trans-unit>
+      <trans-unit id="formlabel.address.country" resname="formlabel-address-country">
+        <source>formlabel-address-country</source>
+        <target>Pays</target>
+      </trans-unit>
+      <trans-unit id="formhelp.address.street" resname="formhelp-address-street">
+        <source>formhelp-address-street</source>
+        <target>Nom de rue, boite postal, société, entreprise</target>
+      </trans-unit>
+      <trans-unit id="formhelp.address.building" resname="formhelp-address-building">
+        <source>formhelp-address-building</source>
+        <target>N° batiment, N° appartement, suite, ect.</target>
+      </trans-unit>
+      <trans-unit id="formhelp.address.city" resname="formhelp-address-city">
+        <source>formhelp-address-city</source>
+        <target>La ville ou vous vivez</target>
+      </trans-unit>
+      <trans-unit id="formhelp.address.state" resname="formhelp-address-state">
+        <source>formhelp-address-state</source>
+        <target>Votre région ou département</target>
+      </trans-unit>
+      <trans-unit id="formhelp.address.zip" resname="formhelp-address-zip">
+        <source>formhelp-address-zip</source>
+        <target>Votre code postal</target>
+      </trans-unit>
+      <trans-unit id="formhelp.address.country" resname="formhelp-address-country">
+        <source>formhelp-address-country</source>
+        <target>Le pays ou vous vivez</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

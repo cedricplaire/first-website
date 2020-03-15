@@ -2,14 +2,11 @@
 
 namespace App\Controller;
 
-use App\Service\Mailer;
-use App\Entity\UserMessage;
-use App\Form\Type\UserMessageType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class DefaultController extends AbstractController
@@ -17,8 +14,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(PostRepository $posts): Response
     {
-        return $this->render('default/index.html.twig');
+        $latest = $posts->findThreeLatest();
+        return $this->render('default/index.html.twig', [
+            'posts' => $latest
+        ]);
     }
 }

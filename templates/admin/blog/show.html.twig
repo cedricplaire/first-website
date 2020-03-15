@@ -3,38 +3,62 @@
 {% block body_id 'admin_post_show' %}
 
 {% block main %}
-<div class="post">
-    <h1>{{ post.title }}</h1>
+	<div class="post">
+		<h1>{{ post.title }}</h1>
 
-    <p class="post-metadata">
-        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
-        <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
-    </p>
-    {% if post.image %}
-    <img src="{{ asset('uploads/article-image/' ~ post.image) }}" class="img-fluid" alt="Responsive image">
-    {% endif %}
-    <div class="well">
-        <p class="m-b-0"><strong>{{ 'label.summary'|trans }}</strong>: {{ post.summary }}</p>
-    </div>
+		<div class="row">
+			<div class="col-md-6 ml-3">
+				<p class="post-metadata">
+					<span class="metadata">
+						<i class="fa fa-calendar"></i>
+						{{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+					<span class="metadata">
+						<i class="fa fa-user"></i>
+						{{ post.author.fullName }}</span>
+				</p>
 
-    <div class="well post-content">
-        {{ post.content|md2html }}
-    </div>
+			</div>
+			<div class="col-md-6 mr-3 text-right">
+				<a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-sm btn-outline-primary js-likes">
+					{% if app.user and post.isLikedByUser(app.user) %}
+						<i class="fas fa-heart"></i>
+					{% else %}
+						<i class="far fa-heart"></i>
+					{% endif %}
+					<span class="js-like">{{ post.likes | length}}</span>
+					<span class="js-label">J'aime</span>
+				</a>
+			</div>
+		</div>
 
-    {{ include('blog/_post_tags.html.twig') }}
-</div>
+		{% if post.image %}
+			<img src="{{ post.image }}" class="img-fluid" alt="Responsive image">
+		{% endif %}
+		<div class="well">
+			<p class="m-b-0">
+				<strong>{{ 'label.summary'|trans }}</strong>:
+				{{ post.summary }}</p>
+		</div>
+
+		<div class="well post-content">
+			{{ post.content|md2html }}
+		</div>
+
+		{{ include('blog/_post_tags.html.twig') }}
+	</div>
 {% endblock %}
 
 {% block sidebar %}
-    <div class="section">
-        <a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-lg btn-block btn-success">
-            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit_contents'|trans }}
-        </a>
-    </div>
+	<div class="section">
+		<a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-lg btn-block btn-success">
+			<i class="fa fa-edit" aria-hidden="true"></i>
+			{{ 'action.edit_contents'|trans }}
+		</a>
+	</div>
 
-    <div class="section">
-        {{ include('admin/blog/_delete_form.html.twig', {post: post}, with_context = false) }}
-    </div>
+	<div class="section">
+		{{ include('admin/blog/_delete_form.html.twig', {post: post}, with_context = false) }}
+	</div>
 
-    {{ parent() }}
+	{{ parent() }}
 {% endblock %}

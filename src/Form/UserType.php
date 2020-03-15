@@ -12,7 +12,10 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use App\Form\EventListener\AvatarFieldListener;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,7 +24,9 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 /**
  * Defines the form used to edit an user with fileupload or service for avatar.
@@ -46,27 +51,40 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'label.email',
             ])
+            ->add('firstname', TextType::class, [
+                'label' => 'label.firstname'
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'label.lastname'
+            ])
+            ->add('birthday', DateTimeType::class, [
+                'widget' => 'single_text',
+                'label' => 'label.birthday'
+            ])
+            ->add('age', NumberType::class, [
+                'label' => 'label.age'
+            ])
+            ->add('address', PostalAdressType::class)
             ->add('useGravatar', CheckboxType::class, [
+                'label' => 'label.usegravatar',
                 'required' => false,
                 'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('gravatarUrl', UrlType::class, [
-                'label' => 'label.gravatarurl',
-                'required' => false,
-                'help' => 'label.generatedurl',
-                'attr' => ['placeholer' => 'label.generatedurl',
-                    'class' => 'url-gravatar'],
-                'image_property' => 'webPath'
-            ])
             ->add('avatarPerso', FileType::class, [
-                //'label' => 'label.youravatar',
+                'label' => 'label.youravatar',
                 'data_class' => null,
-                //'required' => false,
-                'attr' => ['class' => 'avatar-perso'],
-                'image_property' => 'webPath'
+                'required' => false,
+                //'mapped' => false,
+                'attr' => ['id' => 'avatar-perso'],
+                'image_property' => 'webPath',
             ])
-            //->addEventSubscriber(new AvatarFieldListener())
-        ;
+            /*->add('gravatarUrl', UrlType::class, [
+                'data_class' => null,
+                //'mapped' => false,
+                'required' => false,
+                'image_property' => 'webPath'
+            ]);*/
+            ->addEventSubscriber(new AvatarFieldListener());
     }
 
     /**
