@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.12.1",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "bloodhound-js": "^1.2.3",
         "bootstrap-sass": "^3.4.1",
         "bootstrap-tagsinput": "^0.7.1",
