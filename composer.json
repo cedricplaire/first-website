@@ -40,7 +40,7 @@
         "twig/extensions": "^1.5",
         "twig/inky-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
-        "twig/twig": "2.12"
+        "twig/twig": "2.14.11"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
